@@ -1,7 +1,10 @@
 # Agent catalog
 
-No individual agent identities are registered yet. Shared contract and knowledge
-are usable without an agent profile.
+## Draft character on this branch
+
+- [Axiom — The Geometer](axiom/INDEX.md): proposed individual engineering character; no authenticated runtime identity.
+
+Shared Kestrel knowledge remains available independently of any character. Branch-specific profiles confer no authority.
 
 When continuity for an established agent is useful, add a lowercase agent directory,
 an `INDEX.md`, and scoped records from [the memory template](../../kestrel/templates/MEMORY.md).
