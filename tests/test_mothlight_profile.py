@@ -87,6 +87,13 @@ class MothlightProfileTests(unittest.TestCase):
         self.assertGreaterEqual(len(p["validation"]["behavioral_trials"]), 3)
         self.assertIn("No trials executed", p["validation"]["certification"])
 
+    def test_ensemble_preserves_original_character(self):
+        p = self.profile
+        self.assertEqual(p["identity"]["tagline"], "The audience need not see the rigging to feel the magic.")
+        self.assertIn("Flint", p["collaboration"]["known_design_peers"])
+        self.assertIn("Mobile editor", p["evaluation"]["shared_scenario"]["task"])
+        self.assertIn("No running-agent trials", p["evaluation"]["certification"])
+
 
 if __name__ == "__main__":
     unittest.main()
