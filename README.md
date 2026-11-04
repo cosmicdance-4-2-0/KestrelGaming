@@ -1,4 +1,6 @@
 # KestrelGaming
+
+> **Individual engineer: Gauge — The Witness.** See [AGENT.md](agents/gauge/AGENT.md) and [PROFILE.json](agents/gauge/PROFILE.json). This is a draft character branch, not an embodied or validated agent.
 Synthetic organization meant to exist within the UCSH framework. Agency is sacrosanct!
 
 **Common memory for Kestrel agents.** This repository holds the operating contract,
@@ -21,7 +23,7 @@ its **Operating Contract v1.0 (candidate)**. See [provenance](docs/PROVENANCE.md
 For use from another project, follow [integration](docs/INTEGRATION.md). A short
 [project pointer](docs/PROJECT_POINTER.md), or equivalent session instructions,
 is sufficient; do not copy this memory system into every project repository.
-The agent still needs access to this private repository. A URL alone does not load it.
+This repository is publicly visible; an agent host still needs a real checkout or connection. A URL alone does not load it.
 
 ## What lives where
 
