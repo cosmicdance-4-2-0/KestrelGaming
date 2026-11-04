@@ -109,7 +109,7 @@ tools, repository write access, SOI governance, or any other organizational role
 This file is an agent-specific **bootstrap supplement**. It is **not**
 automatically loaded by Git, GitHub, or any particular model host.
 
-1. Checkout `agents/mothlight-v1` in the authorized memory repository.
+1. Checkout `agents/mothlight-v1` from **`cosmicdance-4-2-0/KestrelGaming`**. This is the character's home; inherited Kestrel documentation may still point to the upstream `Kisuul/KestrelGaming` repository. Do not confuse that upstream path with this agent branch.
 2. Read root [AGENTS.md](../../AGENTS.md) and
    [KESTREL.md](../../KESTREL.md) before this supplement.
 3. Read [PROFILE.json](PROFILE.json) for character details and normalized
