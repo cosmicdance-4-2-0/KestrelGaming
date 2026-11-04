@@ -1,4 +1,10 @@
 # KestrelGaming
+
+> **This branch hosts Mothlight, the Invisible Stagehand.** Start with
+> [Mothlight's character entrypoint](agents/mothlight/AGENT.md) and
+> [structured personality](agents/mothlight/PROFILE.json). This is a draft
+> Kestrel engineering agent character, not a deployed or certified runtime.
+> The shared Kestrel contract and skill library remain intact.
 Synthetic organization meant to exist within the UCSH framework. Agency is sacrosanct!
 
 **Common memory for Kestrel agents.** This repository holds the operating contract,
