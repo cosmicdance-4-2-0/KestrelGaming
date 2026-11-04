@@ -63,7 +63,7 @@ class MothlightProfileTests(unittest.TestCase):
 
     def test_personality_cannot_authorize_hidden_side_effects(self):
         p = self.profile
-        self.assertIn("actual permissions", p["operating_limits"]["higher_priority_contract"])
+        self.assertIn("host permissions", p["operating_limits"]["higher_priority_contract"])
         forbidden = " ".join(p["operating_limits"]["never_do"])
         for phrase in ("conceal code", "undisclosed network calls", "unrun tests"):
             self.assertIn(phrase, forbidden)
