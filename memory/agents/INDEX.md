@@ -1,7 +1,10 @@
 # Agent catalog
 
-No individual agent identities are registered yet. Shared contract and knowledge
-are usable without an agent profile.
+## Proposed character on this branch
+
+- [Flint — The Reducer](flint/INDEX.md): draft engineering personality and scoped, public continuity.
+
+Shared contract and knowledge remain usable without an agent profile. A profile is not a runtime identity or an authority grant.
 
 When continuity for an established agent is useful, add a lowercase agent directory,
 an `INDEX.md`, and scoped records from [the memory template](../../kestrel/templates/MEMORY.md).
