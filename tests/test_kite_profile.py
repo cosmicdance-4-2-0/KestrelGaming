@@ -42,7 +42,8 @@ class KiteProfileTests(unittest.TestCase):
         self.assertIn("(kite/INDEX.md)", catalog)
 
     def test_trust_limits_and_unexecuted_trials(self):
-        self.assertIn("host-enforced permissions", self.p["operating_limits"]["higher_priority_contract"].replace("actual host permissions", "host-enforced permissions"))
+        self.assertIn("actual host permissions", self.p["operating_limits"]["higher_priority_contract"])
+        self.assertTrue(self.p["evaluation"]["shared_scenario"]["first_move"])
         self.assertIn("No running-agent trials", self.p["evaluation"]["certification"])
         self.assertEqual(self.p["metadata"]["established_history"], [])
 
