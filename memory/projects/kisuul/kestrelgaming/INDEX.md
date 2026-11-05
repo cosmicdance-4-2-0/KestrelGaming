@@ -8,5 +8,7 @@
 | [Mathematics documentation hardening work order](handoffs/2026-11-03-math-documentation-hardening-r01.md) | Superseded | Earlier documentation-only plan; replaced by the full package completion handoff |
 | [Mathematics package completion](handoffs/2026-11-03-math-package-completion-r02.md) | Active | Six completed procedures, fixture repairs, evaluation protocol, exact local evidence and remaining limits |
 
+| [Audio signal-recognition skills](handoffs/2026-11-04-audio-signal-recognition-r01.md) | Active | Language-neutral procedure family, boundaries and pending receiver verification |
+
 Task handoffs belong under handoffs/ with a unique task filename.
 Historical GitHub checks cover structure and small mathematical examples, not Kestrel agent behavior or production host activation.
