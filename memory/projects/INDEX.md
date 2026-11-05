@@ -3,6 +3,7 @@
 | Repository | Context |
 | --- | --- |
 | [Kisuul/KestrelGaming](kisuul/kestrelgaming/INDEX.md) | The shared memory repository itself |
+| [Kisuul/hollowlumen](kisuul/hollowlumen/INDEX.md) | Axiom's source-grounded prototype and architecture audit |
 
 To register a project, create `memory/projects/<owner>/<repo>/INDEX.md` and a
 `PROFILE.md` from [the project template](../../kestrel/templates/PROJECT.md), then
