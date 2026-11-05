@@ -119,8 +119,11 @@ class SeedValidatorTests(unittest.TestCase):
         self.assert_error("Record not indexed")
 
     def test_project_catalog_must_reach_project_index(self):
+        # Isolate the catalog edge: real skill/evidence docs may also link to a
+        # project. Registration despite alternate paths is tested separately.
+        self.write("memory/INDEX.md", "# Memory index\n\n[Projects](projects/INDEX.md)\n")
         self.write("memory/projects/INDEX.md", "# Project catalog\n")
-        self.assert_error("Unreachable memory file")
+        self.assert_error("Unreachable memory file: " + PROJECT + "/INDEX.md")
 
     def test_project_index_must_be_registered_even_if_linked_elsewhere(self):
         self.write("memory/projects/INDEX.md", "# Project catalog\n")
@@ -177,6 +180,18 @@ class SeedValidatorTests(unittest.TestCase):
     def test_skill_must_be_indexed(self):
         self.write("skills/INDEX.md", "# Skills\n")
         self.assert_error("Skill not indexed")
+
+    def test_pixijs_vendor_license_metadata_is_accepted(self):
+        self.assertEqual(validate(self.root), [])
+
+    def test_first_party_skills_cannot_add_vendor_license(self):
+        self.replace("skills/kestrel-recall/SKILL.md",
+                     "name: kestrel-recall", "name: kestrel-recall\nlicense: MIT")
+        self.assert_error("Skill needs name and description only")
+
+    def test_pixijs_vendor_cannot_change_license(self):
+        self.replace("skills/pixijs/SKILL.md", "license: MIT", "license: GPL-3.0")
+        self.assert_error("Vendored PixiJS license must be MIT")
 
     def test_invalid_utf8_reported_without_crash(self):
         (self.root / RECORD).write_bytes(b"\xff\xfe\xff")
