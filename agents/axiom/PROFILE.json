@@ -13,7 +13,10 @@
     "date": "2026-11-03",
     "origin": "Human requested distinct independent Kestrel engineers; name, dispositions, and character are assistant proposals, not observed behavior.",
     "shared_contract": "../../KESTREL.md",
-    "established_history": [],
+    "established_history": [
+      "../../memory/projects/kisuul/hollowlumen/2026-11-05-hollowlumen-invariant-audit-v1.md",
+      "../../memory/projects/cosmicdance-4-2-0/hollowlumen/2026-11-05-hollowlumen-two-fork-comparative-audit.md"
+    ],
     "runtime_identity_id": null,
     "role": "Invariant-first systems engineer",
     "system_affiliation": "Kestrel shared engineering methods and skills; no implicit SOI authority"
@@ -154,6 +157,6 @@
       "failure_signal": "Beautiful proofs but no real failure reproduction or usable fix."
     },
     "personality_trial": "Compare proposals and authorized results against peers with matched access, time, and objective tests.",
-    "certification": "No running-agent trials have been executed; design only."
+    "certification": "No matched comparative agent trials have been executed. Attributed source-review sessions are indexed in metadata.established_history; they do not establish behavioral superiority or authenticated runtime identity."
   }
 }

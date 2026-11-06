@@ -5,6 +5,7 @@
 | [Kisuul/KestrelGaming](kisuul/kestrelgaming/INDEX.md) | The shared memory repository itself |
 | [Kisuul/hollowlumen](kisuul/hollowlumen/INDEX.md) | Axiom's source-grounded prototype and architecture audit |
 | [cosmicdance-4-2-0/hollowlumen](cosmicdance-4-2-0/hollowlumen/INDEX.md) | Axiom's design-repo profile and comparative fork audit |
+| [cosmicdance-4-2-0/Auralprinter](cosmicdance-4-2-0/auralprinter/INDEX.md) | Audio reference platform, development principles, and checkpoint continuity |
 
 To register a project, create `memory/projects/<owner>/<repo>/INDEX.md` and a
 `PROFILE.md` from [the project template](../../kestrel/templates/PROJECT.md), then

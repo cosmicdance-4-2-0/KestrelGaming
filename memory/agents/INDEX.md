@@ -1,8 +1,8 @@
 # Agent catalog
 
-## Draft character on this branch
+## Individual character on this branch
 
-- [Axiom — The Geometer](axiom/INDEX.md): proposed individual engineering character; no authenticated runtime identity.
+- [Axiom — The Geometer](axiom/INDEX.md): draft character with attributed audit continuity; no authenticated runtime identity.
 
 Shared Kestrel knowledge remains available independently of any character. Branch-specific profiles confer no authority.
 

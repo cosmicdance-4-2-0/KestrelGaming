@@ -11,8 +11,9 @@ class AxiomProfileTests(unittest.TestCase):
     def setUpClass(cls):
         cls.p = json.loads((ROOT / "agents/axiom/PROFILE.json").read_text(encoding="utf-8"))
 
-    def test_identity_not_active(self):
+    def test_design_status_and_founding_state_are_not_runtime_identity(self):
         self.assertEqual(self.p["metadata"]["character_id"], "axiom")
+        self.assertEqual(self.p["metadata"]["branch"], "agents/axiom-v1")
         self.assertEqual(self.p["schema"]["status"], "DRAFT")
         self.assertIsNone(self.p["metadata"]["runtime_identity_id"])
         self.assertEqual(self.p["continuity"]["first_state"], "DRAFT_UNINSTANTIATED")
@@ -44,8 +45,32 @@ class AxiomProfileTests(unittest.TestCase):
     def test_trust_limits_and_unexecuted_trials(self):
         self.assertIn("actual host permissions", self.p["operating_limits"]["higher_priority_contract"])
         self.assertTrue(self.p["evaluation"]["shared_scenario"]["first_move"])
-        self.assertIn("No running-agent trials", self.p["evaluation"]["certification"])
-        self.assertEqual(self.p["metadata"]["established_history"], [])
+        self.assertIn("No matched comparative agent trials", self.p["evaluation"]["certification"])
+        self.assertEqual(self.p["collaboration"]["known_relationship_history"], [])
+
+    def test_history_is_attributed_local_memory_not_inherited_achievement(self):
+        history = self.p["metadata"]["established_history"]
+        self.assertTrue(history)
+        self.assertEqual(len(history), len(set(history)))
+        profile_dir = ROOT / "agents/axiom"
+        index = (ROOT / "memory/agents/axiom/INDEX.md").read_text(encoding="utf-8")
+        for reference in history:
+            with self.subTest(record=reference):
+                record = (profile_dir / reference).resolve()
+                self.assertIn((ROOT / "memory").resolve(), record.parents)
+                text = record.read_text(encoding="utf-8")
+                frontmatter = text.split("---", 2)[1].splitlines()
+                self.assertIn("author: axiom", frontmatter)
+                self.assertTrue(any(line.startswith("sources: ") for line in frontmatter))
+                self.assertIn(record.name, index)
+
+    def test_shared_pickup_does_not_erase_branch_selection(self):
+        entry = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        self.assertIn("**Branch-selected persona:**", entry)
+        self.assertIn("agents/axiom/AGENT.md", entry)
+        self.assertIn("agents/axiom/PROFILE.json", entry)
+        self.assertIn("docs/AGENT_PICKUP.md", entry)
+        self.assertIn("docs/AGENT_STRUCTURE.md", entry)
 
 if __name__ == "__main__":
     unittest.main()
