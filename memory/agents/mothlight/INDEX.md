@@ -6,9 +6,12 @@ organizational identity.
 
 - [Character profile](PROFILE.md) — origin, voice, motivations, failure mode,
   personal victory condition, evidence, and revisit criteria.
-- [Visual identity v1.0 — draft](2026-11-06-mothlight-visual-identity-73a9c5d1.md) — detailed face, costume,
+- [Visual identity v1.0 — accepted working design](2026-11-06-mothlight-visual-identity-73a9c5d1.md) — detailed face, costume,
   palette, lantern motif, avatar constraints, and art-direction limits; assistant
-  proposal pending user confirmation.
+  accepted working appearance; update only with attributed revisions.
+- [Character sheet and avatar asset register](2026-11-06-mothlight-art-assets-d2b8af64.md) —
+  verified source hashes, dimensions, provenance, and owner-access Library locators;
+  binary PNGs are not stored on the public Git branch.
 - [Direct-commit authorization](2026-11-05-branch-memory-authorization-6809b211.md) —
   Kisuul's authorization to persist Mothlight memory directly on its home branch.
 - [Owner-restricted continuity](2026-11-05-private-continuity-6809b211.md) —

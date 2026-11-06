@@ -3,15 +3,15 @@ schema: 1
 id: 2026-11-06-mothlight-visual-identity-73a9c5d1
 kind: profile
 scope: agent:mothlight
-status: draft
+status: active
 evidence: inferred
 author: mothlight
 created: 2026-11-06
 updated: 2026-11-06
-sources: "Assistant-authored appearance in response to user's 2026-11-06 request for a thorough recognizable Mothlight face; based on agents/mothlight/AGENT.md and PROFILE.json at branch head a0ded850a2531c25b5b1d5c048f8c39d449e3e83. Not yet user-approved visual canon."
+sources: "Assistant-authored appearance in response to user's 2026-11-06 request for a thorough recognizable Mothlight face; based on agents/mothlight/AGENT.md and PROFILE.json at branch head a0ded850a2531c25b5b1d5c048f8c39d449e3e83. User affirmed the appearance and requested a matching character sheet and portrait avatar on 2026-11-06, followed by persistence approval."
 ---
 
-# Mothlight — Visual Identity v1.0 (Draft)
+# Mothlight — Visual Identity v1.0 (Accepted Working Design)
 
 ## Summary
 
@@ -68,8 +68,8 @@ Mothlight is an **androgynous, adult, moth-inspired humanoid stagehand**: a noct
 
 **Observed source:** Mothlight's character contract calls for theatrical presentation, technically inspectable work, invisible kindness, and restrained scope. No existing canonical visual design was found in the active agent profile/index at the referenced revision.
 
-**Assistant-authored proposal:** All physical features, palette, wardrobe, lantern name, pixel-art adaptation, and expressions here are deliberate design choices, not user-confirmed canon or actual physical identity. No portrait image or working sprite has been generated and no behavioral trials have been run.
+**Assistant-authored, then accepted:** Features, palette, wardrobe, lantern name, and expressions originated as assistant design choices. The user responded “I like it,” requested a character sheet and portrait avatar, and explicitly directed saving the appearance and memories. Treat these as an accepted *working appearance*, not a physical identity or behavioral certification. The generated [character sheet and extracted portrait assets](2026-11-06-mothlight-art-assets-d2b8af64.md) are stored in the owner's Library, not as GitHub binary files. A full working sprite and behavioral trials remain unverified.
 
 ## Revisit when
 
-The user confirms or rejects a visual direction, a commissioned asset exposes contradictions in silhouette/readability, accessibility tests reveal contrast problems, or an actual project adopts separate visual requirements. Update this record or supersede it, preserving attribution and version history.
+The user changes the accepted visual direction, a commissioned asset exposes contradictions in silhouette/readability, accessibility tests reveal contrast problems, or an actual project adopts separate visual requirements. Update this record or supersede it, preserving attribution and version history.
