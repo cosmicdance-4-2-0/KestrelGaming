@@ -8,6 +8,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -45,6 +46,29 @@ class ArchitectsTeamContractTests(unittest.TestCase):
             self.assertIn(name, self.contract)
         self.assertIn("**Dispute rule:**", self.contract)
         self.assertIn("**Likely team failure mode:**", self.contract)
+
+    def test_review_counterexamples_on_real_architects_layout(self):
+        heading = "## Composition — different instincts, not averaged identities"
+        table = "\n".join(line for line in self.contract.splitlines() if line.startswith("|"))
+        cases = {
+            "duplicate section": (self.contract + "\n" + heading + "\n\n" + table.replace("Lead — Axiom", "Lead — Flint"), self.catalog),
+            "commented table": (self.contract.replace(table, "<!--\n" + table + "\n-->"), self.catalog),
+            "indented table": (self.contract.replace(table, "\n".join("    " + line for line in table.splitlines())), self.catalog),
+            "commented catalog": (self.contract, "<!-- [The Architects](architects/TEAM.md) -->"),
+            "image catalog": (self.contract, "![The Architects](architects/TEAM.md)"),
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "agents").mkdir()
+            (root / "agents/ROSTER_V1.json").write_bytes((ROOT / "agents/ROSTER_V1.json").read_bytes())
+            home = root / "teams/architects"
+            home.mkdir(parents=True)
+            (home / "PROFILE.json").write_text(json.dumps(self.profile), encoding="utf-8")
+            for label, (contract, catalog) in cases.items():
+                with self.subTest(case=label):
+                    (home / "TEAM.md").write_text(contract, encoding="utf-8")
+                    (root / "teams/INDEX.md").write_text(catalog, encoding="utf-8")
+                    self.assertTrue(validate_team_contracts(root), label)
 
     def test_composite_mode_is_truthful_and_limited(self):
         p = self.profile

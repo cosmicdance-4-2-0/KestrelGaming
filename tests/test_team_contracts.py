@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 import sys
 import tempfile
@@ -47,11 +48,9 @@ def valid_profile():
 
 def valid_prose():
     return ("# Test Team\n\n**Team ID:** `test-team`  \n**Display name:** Test Team\n\n"
-            "| Lead | `agents/axiom-v1` | challenge |\n"
-            "| Counterweight | `agents/flint-v1` | falsifier |\n\n"
             + "\n\n".join("## " + heading + "\n\nA concrete, bounded obligation with evidence and scope constraints. "
                            "No member is independently instantiated by this document."
-                           for heading in HEADINGS) + "\n")
+                           for heading in HEADINGS) + "\n").replace("## " + HEADINGS[1] + "\n", "## " + HEADINGS[1] + "\n\n| Role | Individual home | Challenge |\n| --- | --- | --- |\n| Lead | `agents/axiom-v1` | challenge |\n| Counterweight | `agents/flint-v1` | falsifier |\n")
 
 
 class TeamContractValidation(unittest.TestCase):
@@ -69,6 +68,7 @@ class TeamContractValidation(unittest.TestCase):
 
     def install(self, profile=None, prose=None):
         self.home.mkdir(parents=True, exist_ok=True)
+        (self.root / "teams/INDEX.md").write_text("[Test Team](test-team/TEAM.md)\n", encoding="utf-8")
         (self.home / "PROFILE.json").write_text(json.dumps(valid_profile() if profile is None else profile), encoding="utf-8")
         (self.home / "TEAM.md").write_text(valid_prose() if prose is None else prose, encoding="utf-8")
 
@@ -185,6 +185,193 @@ class TeamContractValidation(unittest.TestCase):
         p["purpose"]["mission"] = "REPLACE_THIS"
         self.install(p)
         self.expect("expected completed nonempty text")
+
+    def test_role_parity_and_exact_branch_tokens(self):
+        prose = valid_prose()
+        for changed in (
+            prose.replace("| Lead |", "| Temporary |").replace("| Counterweight |", "| Lead |").replace("| Temporary |", "| Counterweight |"),
+            prose.replace("agents/flint-v1", "agents/flint-v11"),
+            prose.replace("| Counterweight |", "| Contributor |"),
+        ):
+            with self.subTest(changed=changed):
+                self.install(prose=changed)
+                self.expect("composition roles or branches")
+        self.install(prose=prose.replace("| Lead |", "| Lead — Flint |"))
+        self.expect("composition role name/branch mismatch")
+        self.install(prose=prose + "\n```\n| Lead | `agents/axiom-v1` |\n```\n")
+        self.assertEqual(validate_team_contracts(self.root), [])
+
+    def test_three_member_composition_and_extra_row(self):
+        p = valid_profile()
+        member = dict(p["composition"]["members"][0], agent_id="harbor", role="contributor", home_branch="agents/harbor-v1")
+        p["composition"]["members"].append(member)
+        self.roster.write_text(json.dumps({"members": [
+            {"id": ident, "branch": f"agents/{ident}-v1"} for ident in ("axiom", "flint", "harbor")
+        ]}), encoding="utf-8")
+        prose = valid_prose().replace("| Counterweight | `agents/flint-v1` | falsifier |", "| Counterweight | `agents/flint-v1` | falsifier |\n| Contributor | `agents/harbor-v1` | recovery |")
+        self.install(p, prose)
+        self.assertEqual(validate_team_contracts(self.root), [])
+        self.install(p, prose.replace("| Contributor | `agents/harbor-v1`", "| Lead | `agents/harbor-v1`"))
+        self.expect("composition roles or branches")
+        self.install(p, prose.replace("| Contributor | `agents/harbor-v1` | recovery |", ""))
+        self.expect("missing member branch harbor")
+        self.install(p, prose.replace("| Contributor | `agents/harbor-v1` | recovery |", "| Contributor | `agents/harbor-v1` | recovery |\n| Contributor | `agents/harbor-v1` | duplicate |"))
+        self.expect("composition roles or branches")
+
+    def test_catalog_registration_requires_real_operative_link(self):
+        self.install()
+        index = self.root / "teams/INDEX.md"
+        for contents in ("# No registration", "[Wrong](other/TEAM.md)", "```\n[Test](test-team/TEAM.md)\n```", "`[Test](test-team/TEAM.md)`"):
+            index.write_text(contents, encoding="utf-8")
+            self.expect("missing team registration")
+        index.unlink()
+        self.expect("missing team registration")
+
+    def test_duplicate_json_keys_rejected_at_any_depth(self):
+        self.install()
+        path = self.home / "PROFILE.json"
+        path.write_text(path.read_text().replace('"name": "KestrelTeamContract"', '"name": "wrong", "name": "KestrelTeamContract"', 1))
+        self.expect("duplicate JSON key: name")
+        self.install()
+        self.roster.write_text(self.roster.read_text().replace('"members": [', '"members": [], "members": [', 1))
+        self.expect("duplicate JSON key: members")
+
+    def test_fenced_sections_and_fenced_composition_are_not_operative(self):
+        for fence in ("```", "~~~~"):
+            with self.subTest(fence=fence):
+                self.install(prose=valid_prose().replace("## Evaluation", fence + "\n## Evaluation\n" + fence))
+                self.expect("missing section Evaluation")
+                prose = valid_prose().replace("| Lead | `agents/axiom-v1` | challenge |", fence + "\n| Lead | `agents/axiom-v1` | challenge |\n" + fence)
+                self.install(prose=prose)
+                self.expect("missing member branch axiom")
+
+    def test_identity_spacing_and_exact_match(self):
+        prose = valid_prose().replace("**Team ID:** `test-team`", "**Team ID:**   `test-team`").replace("**Display name:** Test Team", "**Display name:**   Test Team   ")
+        self.install(prose=prose)
+        self.assertEqual(validate_team_contracts(self.root), [])
+        self.install(prose=prose.replace("Test Team   ", "Test Team Extra   "))
+        self.expect("identity/profile mismatch")
+        self.install(prose=prose + "\n**Team ID:** `other`\n")
+        self.expect("identity/profile mismatch")
+
+    def test_dangling_teams_symlink_rejected(self):
+        (self.root / "teams").symlink_to(self.root / "missing")
+        self.expect("expected a regular directory")
+
+    def test_duplicate_composition_sections(self):
+        section = valid_prose().split("## " + HEADINGS[1], 1)[1].split("## Working method", 1)[0]
+        for prefix, suffix in (("", ""), ("  ", " ##")):
+            with self.subTest(prefix=prefix):
+                self.install(prose=valid_prose() + "\n" + prefix + "## " + HEADINGS[1] + suffix + section.replace("| Lead |", "| Contributor |"))
+                self.expect("exactly one operative Composition section")
+
+    def test_hidden_table_and_required_heading(self):
+        prose = valid_prose()
+        table = "\n".join(line for line in prose.splitlines() if line.startswith("|"))
+        for hidden in ("<!--\n" + table + "\n-->", "\n".join("    " + line for line in table.splitlines()), "\n".join("\t" + line for line in table.splitlines())):
+            self.install(prose=prose.replace(table, hidden))
+            self.expect("composition table")
+        self.install(prose=prose.replace("## Evaluation", "<!--\n## Evaluation\n-->"))
+        self.expect("missing section Evaluation")
+
+    def test_catalog_hidden_images_and_escaped_links(self):
+        self.install()
+        link = "[Test Team](test-team/TEAM.md)"
+        for text in ("<!-- " + link + " -->", "!" + link, "    " + link, "\t" + link, "\\" + link):
+            with self.subTest(text=text):
+                (self.root / "teams/INDEX.md").write_text(text)
+                self.expect("missing team registration")
+
+    def test_catalog_safe_link_variants(self):
+        self.install()
+        for target in ("test-team/TEAM.md", "./test-team/TEAM.md"):
+            for title in ("", ' "Founding team"', " 'Founding team'"):
+                (self.root / "teams/INDEX.md").write_text(f"[Test Team]({target}{title})")
+                self.assertEqual(validate_team_contracts(self.root), [])
+
+    def test_table_header_separator_and_contiguous_rows(self):
+        prose = valid_prose()
+        for changed in (
+            prose.replace("| Role | Individual home | Challenge |\n| --- | --- | --- |\n", ""),
+            prose.replace("| --- | --- | --- |", "| - | - | - |"),
+            prose.replace("| Counterweight |", "\n| Counterweight |"),
+            prose.replace("| Role |", "### Example\n\n| Role |"),
+            prose.replace("| Lead | `agents/axiom-v1` | challenge |", "| Lead | `agents/axiom-v1` |"),
+            prose.replace("## Working method", "| Lead | `agents/axiom-v1` | alternative |\n\n## Working method"),
+        ):
+            self.install(prose=changed)
+            self.expect("composition table")
+
+    def test_benign_comments_and_fenced_examples(self):
+        prose = valid_prose()
+        example = "\n~~~~\n<!-- unclosed example\n## " + HEADINGS[1] + "\n| Lead | `agents/flint-v1` |\n~~~~\n"
+        self.install(prose=prose + example + "\n<!--\n```\n## Evaluation\n-->\n")
+        self.assertEqual(validate_team_contracts(self.root), [])
+        self.install(prose=prose.replace("## " + HEADINGS[1] + "\n", "## " + HEADINGS[1] + "\n\n<!-- membership follows -->\n"))
+        self.assertEqual(validate_team_contracts(self.root), [])
+        self.install(prose=prose + "\nAn inline example: `<!--` and `-->`.\n")
+        self.assertEqual(validate_team_contracts(self.root), [])
+
+    def test_unclosed_comment_fails_closed(self):
+        self.install(prose=valid_prose() + "\n<!-- unfinished")
+        self.expect("unclosed HTML comment")
+        self.install()
+        (self.root / "teams/INDEX.md").write_text("[Test](test-team/TEAM.md)\n<!-- unfinished")
+        self.expect("unclosed HTML comment")
+
+    def test_populated_two_member_template(self):
+        prose = (ROOT / "kestrel/templates/TEAM_CONTRACT.md").read_text(encoding="utf-8")
+        values = {"REPLACE_TEAM_ID": "test-team", "REPLACE_TEAM_NAME": "Test Team",
+                  "REPLACE_LEAD_ID": "axiom", "REPLACE_COUNTERWEIGHT_ID": "flint"}
+        # The template introduction contains illustrative placeholder notation.
+        prose = prose[prose.index("**Team ID:**"):]
+        prose = re.sub(r"REPLACE_[A-Z_]+", lambda m: values.get(m.group(), "A bounded obligation"), prose)
+        self.install(prose=prose)
+        self.assertEqual(validate_team_contracts(self.root), [])
+
+    def test_linked_home_destination_matches_canonical_locator(self):
+        branch = "agents/axiom-v1"
+        canonical = "https://github.com/cosmicdance-4-2-0/KestrelGaming/tree/" + branch
+        self.install(prose=valid_prose().replace(f"`{branch}`", f"[`{branch}`]({canonical})"))
+        self.assertEqual(validate_team_contracts(self.root), [])
+        for target in (
+            canonical.replace("axiom-v1", "flint-v1"),
+            canonical.replace("cosmicdance-4-2-0", "unrelated-owner"),
+            canonical.replace("KestrelGaming", "another-repo"),
+            "elsewhere", "javascript:alert", canonical + "?redirect=elsewhere",
+        ):
+            with self.subTest(target=target):
+                self.install(prose=valid_prose().replace(f"`{branch}`", f"[`{branch}`]({target})"))
+                self.expect("home link destination/branch mismatch")
+
+    def test_catalog_multiline_inline_code_is_not_navigation(self):
+        self.install()
+        index = self.root / "teams/INDEX.md"
+        link = "[Test Team](test-team/TEAM.md)"
+        for ticks in ("`", "``", "````"):
+            with self.subTest(ticks=ticks):
+                example = f"Example: {ticks}not a link\n{link}\nstill not a link{ticks}"
+                index.write_text(example)
+                self.expect("missing team registration")
+                index.write_text(example + "\n\n" + link)
+                self.assertEqual(validate_team_contracts(self.root), [])
+
+    def test_catalog_raw_html_cannot_supply_navigation(self):
+        self.install()
+        index = self.root / "teams/INDEX.md"
+        link = "[Test Team](test-team/TEAM.md)"
+        for markup in (
+            f'<div data-note="{link}"></div>',
+            f'<div title=">" data-note="{link}"></div>',
+            f'<div\n data-note="{link}"></div>',
+            f'<div>\n{link}\n</div>',
+        ):
+            with self.subTest(markup=markup):
+                index.write_text(markup)
+                self.expect("missing team registration")
+                # HTML examples in code are permitted beside real navigation.
+                index.write_text("Example: `" + markup + "`\n\n" + link)
+                self.assertEqual(validate_team_contracts(self.root), [])
 
     def test_template_is_draft_not_an_instance(self):
         template = ROOT / "kestrel/templates/TEAM_PROFILE.json"

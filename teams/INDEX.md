@@ -4,9 +4,9 @@ This catalog lists **team composition contracts**, not independent agent instanc
 
 ## Founding team
 
-| Team | Purpose | Composition | State |
-| --- | --- | --- | --- |
-| [The Architects](architects/TEAM.md) | Modular systems architecture, explicit invariants, minimum complexity, resilience | Axiom (lead), Flint (counterweight), Harbor (contributor) | Draft; manual composite pickup available; behavioral evaluation pending |
+| Team | Purpose | State |
+| --- | --- | --- |
+| [The Architects](architects/TEAM.md) | Modular systems architecture, explicit invariants, minimum complexity, resilience | Draft; manual composite pickup available; behavioral evaluation pending |
 
 - [The Architects structured profile](architects/PROFILE.json) — machine-readable contract metadata.
 - [Team schema and validation rules](../docs/TEAM_CONTRACTS_V1.md) — contract provenance, trust boundaries, supported execution modes.

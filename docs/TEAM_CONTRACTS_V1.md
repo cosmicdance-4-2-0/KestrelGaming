@@ -53,11 +53,59 @@ The initial validator should be read-only, deterministic, standard-library-only,
 - **Identity/reference:** Match path ID, metadata ID, and member IDs; reject invalid slugs, repeated agents, unregistered agents, missing member home branches, and mismatched `home_branch` declarations. Read the existing roster rather than hardcoding seven agent names.
 - **Composition:** Reject fewer than two members, absent/duplicate lead or counterweight, identical lead/counterweight, roles that contradict designated IDs, empty first questions, and empty counterfactual challenges.
 - **Decision/evidence:** Require nonempty selection triggers, exclusions, deliverables, decision criteria, falsifier, correction, and explicit acknowledgement of composite/federated provenance limits.
-- **Authority and persistence:** Reject any nonempty `permissions_granted`, non-null team memory scope, automatic vote/delegation claims, or behavioral certification claimed for a proposed draft.
+- **Authority and persistence:** Reject nonempty `permissions_granted`, non-null team memory scope, enabled typed vote/delegation flags, or typed behavioral certification for a proposed draft; arbitrary prose claims are not semantically validated.
 - **Negative tests:** Deliberately mutate a valid synthetic fixture for each failure class. Do not weaken tests to accept a nonconforming profile; report specific path and field errors.
 - **Behavioral trials separate:** Static validity establishes that a file is structurally coherent; matched task experiments must establish whether team composition is useful. Do not label static checks as successful collaboration.
 
 The executable, read-only validator is in [tools/validate_team_contracts.py](../tools/validate_team_contracts.py), with synthetic positive/negative cases in [tests/test_team_contracts.py](../tests/test_team_contracts.py). The existing seed validator calls it when populated team homes are present. The founding Architects team now provides the first populated contract, with targeted regression checks in [test_architects_team.py](../tests/test_architects_team.py). Static checks do **not** verify agent behavior or remote home-branch existence.
+
+## Contract parity and limits (schema v0.1)
+
+`PROFILE.json` is authoritative for typed identity, membership, roles and execution
+flags. Exactly one operative `## Composition — different instincts, not averaged
+identities` section is required. Its first content must be one conventional pipe
+table (blank lines and comments may precede it):
+
+- Header cells begin with `Role` and `Individual home`; optional explanatory
+  columns follow. A matching separator row uses at least three hyphens per cell,
+  with optional alignment colons.
+- Member rows immediately follow the separator, without blank lines or intervening
+  prose. Each row has the header's column count and outer pipes. Literal pipes
+  inside cells are outside this grammar; use a character entity when needed.
+- The first cell is `Lead`, `Counterweight`, or `Contributor`, optionally followed
+  by an em dash and the member ID, case-insensitively. The second is the exact
+  backticked home branch, either plain or used as a Markdown link label. For a
+  linked label, the target must be exactly
+  `https://github.com/<source_repository>/tree/<home_branch>`, using the profile's
+  canonical repository and branch values. Other repositories, relative targets,
+  alternate schemes, query strings and fragments are not accepted home locators.
+- Rows match the profile exactly, including contributor membership. No additional
+  operative pipe table or member rows may follow elsewhere in this section;
+  examples and alternate mappings must be fenced. Narrative guidance may follow.
+
+Register each team with a local inline navigation link to `team-id/TEAM.md` in
+`teams/INDEX.md`. An optional `./` prefix and single- or double-quoted link title
+are accepted. Images, escaped links, inline code, comments and code blocks cannot
+satisfy registration. Inline code spans may cross line boundaries and still do
+not count as navigation. Raw HTML outside comments/code is unsupported anywhere
+in the catalog and causes registration to fail closed; put HTML examples in code.
+This avoids claiming to resolve arbitrary HTML layout/attribute semantics.
+The catalog remains navigation rather than a second roster.
+
+Required declarations use root-level blocks. The validator masks HTML comments,
+fenced code and lines indented four or more Markdown columns (tabs count toward
+indentation). It rejects unclosed HTML comments. Fenced and single-line inline
+code protect literal comment delimiters from the comment scanner; use fenced
+blocks for multiline examples containing comment delimiters. This is a bounded contract syntax, not a
+general Markdown renderer; nested list/quote declarations and arbitrary HTML
+layouts are outside the supported authoring format.
+
+This follow-up narrows accepted Markdown while leaving JSON schema v0.1 unchanged.
+Previously accepted headerless rows, repeated composition sections and non-operative
+references are invalid. The real Architects layout and populated two-member template
+are regression controls. Passing validation does not certify arbitrary narrative
+claims, remote branch existence, loaded identities, permissions, independent execution,
+or behavioral effectiveness.
 
 ## Historical scope — checkpoint 1 (templates only)
 
