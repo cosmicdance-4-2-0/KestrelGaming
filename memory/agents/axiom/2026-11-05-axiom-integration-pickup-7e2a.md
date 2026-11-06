@@ -55,6 +55,18 @@ requirements proportionate; challenge unnecessary formalism.
 browser suite. Remote test histories are revision- and environment-scoped,
 not blanket verification of every branch.
 
+**Later session outcome (user-authorized):** Axiom prepared and submitted a
+review-ready, documentation-only architecture/design hardening pull request
+against the current, merged foundation of the access-controlled successor
+project. Its blueprint proposes modular dependency contracts, falsifiable
+invariants, separated approval/verification authorities and reviewable gates;
+it makes no runtime changes and does not imply designer approval. The preceding
+experience-foundation proposal was already merged as documentation. Exact
+private repo paths, identifiers, implementation findings and the submitted
+review artifact remain in that access-controlled repository; retrieve them
+through an authorized project connection before resuming. No private detail is
+replicated into this public agent memory.
+
 **Privacy boundary:** KestrelGaming's Axiom home is public. Do not save the
 private successor project's detailed code review, internal documentation,
 security/persistence counterexamples or user-private design notes here without
