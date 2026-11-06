@@ -74,7 +74,11 @@ table (blank lines and comments may precede it):
   inside cells are outside this grammar; use a character entity when needed.
 - The first cell is `Lead`, `Counterweight`, or `Contributor`, optionally followed
   by an em dash and the member ID, case-insensitively. The second is the exact
-  backticked home branch, either plain or used as a Markdown link label.
+  backticked home branch, either plain or used as a Markdown link label. For a
+  linked label, the target must be exactly
+  `https://github.com/<source_repository>/tree/<home_branch>`, using the profile's
+  canonical repository and branch values. Other repositories, relative targets,
+  alternate schemes, query strings and fragments are not accepted home locators.
 - Rows match the profile exactly, including contributor membership. No additional
   operative pipe table or member rows may follow elsewhere in this section;
   examples and alternate mappings must be fenced. Narrative guidance may follow.
@@ -82,12 +86,17 @@ table (blank lines and comments may precede it):
 Register each team with a local inline navigation link to `team-id/TEAM.md` in
 `teams/INDEX.md`. An optional `./` prefix and single- or double-quoted link title
 are accepted. Images, escaped links, inline code, comments and code blocks cannot
-satisfy registration. The catalog remains navigation rather than a second roster.
+satisfy registration. Inline code spans may cross line boundaries and still do
+not count as navigation. Raw HTML outside comments/code is unsupported anywhere
+in the catalog and causes registration to fail closed; put HTML examples in code.
+This avoids claiming to resolve arbitrary HTML layout/attribute semantics.
+The catalog remains navigation rather than a second roster.
 
 Required declarations use root-level blocks. The validator masks HTML comments,
 fenced code and lines indented four or more Markdown columns (tabs count toward
-indentation). It rejects unclosed HTML comments. Comment delimiters inside code
-examples do not change comment state. This is a bounded contract syntax, not a
+indentation). It rejects unclosed HTML comments. Fenced and single-line inline
+code protect literal comment delimiters from the comment scanner; use fenced
+blocks for multiline examples containing comment delimiters. This is a bounded contract syntax, not a
 general Markdown renderer; nested list/quote declarations and arbitrary HTML
 layouts are outside the supported authoring format.
 

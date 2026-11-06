@@ -103,7 +103,7 @@ def _unique_object(pairs: list[tuple[str, object]]) -> dict:
 
 
 # These helpers recognize the documented root-level contract subset, not all Markdown.
-INLINE_CODE = re.compile(r"(`+)(?!`)(.*?)(?<!`)\1(?!`)")
+INLINE_CODE = re.compile(r"(?<!`)(`+)(?!`)(.*?)(?<!`)\1(?!`)", re.S)
 
 
 def _operative_markdown(text: str) -> str:
@@ -166,7 +166,7 @@ def _table_cells(line: str) -> list[str]:
     return [cell.strip() for cell in line[1:-1].split("|")]
 
 
-def _check_composition(prose: str, members: list[dict], relative: str, errors: list[str]) -> None:
+def _check_composition(prose: str, members: list[dict], repository: str, relative: str, errors: list[str]) -> None:
     sections = list(re.finditer(_heading_pattern(HEADINGS[1]), prose, re.M))
     if len(sections) != 1:
         errors.append(f"{relative}/TEAM.md: expected exactly one operative Composition section")
@@ -192,11 +192,13 @@ def _check_composition(prose: str, members: list[dict], relative: str, errors: l
             continue
         role = re.fullmatch(r"(lead|counterweight|contributor)(?:\s*—\s*([^|]+?))?", cells[0], re.I)
         # Branch text can be plain inline code or a Markdown link's code label.
-        home = re.fullmatch(r"`(agents/[^`]+)`|\[`(agents/[^`]+)`\]\([^\s)]+\)", cells[1])
+        home = re.fullmatch(r"`(agents/[^`]+)`|\[`(agents/[^`]+)`\]\(([^\s)]+)\)", cells[1])
         if not role or not home:
             errors.append(f"{relative}/TEAM.md: invalid composition table row: {line.strip()}")
             continue
         branch = home.group(1) or home.group(2)
+        if home.group(3) is not None and home.group(3) != f"https://github.com/{repository}/tree/{branch}":
+            errors.append(f"{relative}/TEAM.md: home link destination/branch mismatch: {line.strip()}")
         name = role.group(2)
         branch_id = next((m["agent_id"] for m in members if m["home_branch"] == branch), None)
         if name and (branch_id is None or name.strip().casefold() != branch_id.casefold()):
@@ -211,7 +213,12 @@ def _check_composition(prose: str, members: list[dict], relative: str, errors: l
 
 
 def _catalog_has_team(catalog: str, team_id: str) -> bool:
+    # Code spans may cross line boundaries. Keep their contents out of navigation.
     visible = INLINE_CODE.sub("", catalog)
+    # Raw HTML is outside the catalog authoring contract. Fail closed instead of
+    # guessing whether Markdown-looking text in tags/attributes becomes an anchor.
+    if re.search(r"<[/!?A-Za-z]", visible):
+        return False
     target = re.escape(f"{team_id}/TEAM.md")
     # Only local inline navigation links, with an optional conventional quoted title.
     link = r"(?<!!)(?<!\\)\[[^\]\n]+\]\((?:\./)?" + target + r"(?:[ \t]+(?:\"[^\"\n]*\"|'[^'\n]*'))?[ \t]*\)"
@@ -340,9 +347,9 @@ def validate_team_contracts(root: Path) -> list[str]:
         if (len(team_lines) != 1 or len(display_lines) != 1 or
                 not re.search(team_id, operative, re.M) or not re.search(display, operative, re.M)):
             errors.append(f"{relative}/TEAM.md: identity/profile mismatch")
-        _check_composition(operative, comp["members"], relative, errors)
+        _check_composition(operative, comp["members"], meta["source_repository"], relative, errors)
         if not _catalog_has_team(catalog, home.name):
-            errors.append(f"{relative}: missing team registration in teams/INDEX.md")
+            errors.append(f"{relative}: missing team registration in teams/INDEX.md (use a visible local Markdown link; raw HTML is unsupported)")
     return errors
 
 

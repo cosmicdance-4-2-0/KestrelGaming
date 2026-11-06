@@ -329,6 +329,50 @@ class TeamContractValidation(unittest.TestCase):
         self.install(prose=prose)
         self.assertEqual(validate_team_contracts(self.root), [])
 
+    def test_linked_home_destination_matches_canonical_locator(self):
+        branch = "agents/axiom-v1"
+        canonical = "https://github.com/cosmicdance-4-2-0/KestrelGaming/tree/" + branch
+        self.install(prose=valid_prose().replace(f"`{branch}`", f"[`{branch}`]({canonical})"))
+        self.assertEqual(validate_team_contracts(self.root), [])
+        for target in (
+            canonical.replace("axiom-v1", "flint-v1"),
+            canonical.replace("cosmicdance-4-2-0", "unrelated-owner"),
+            canonical.replace("KestrelGaming", "another-repo"),
+            "elsewhere", "javascript:alert", canonical + "?redirect=elsewhere",
+        ):
+            with self.subTest(target=target):
+                self.install(prose=valid_prose().replace(f"`{branch}`", f"[`{branch}`]({target})"))
+                self.expect("home link destination/branch mismatch")
+
+    def test_catalog_multiline_inline_code_is_not_navigation(self):
+        self.install()
+        index = self.root / "teams/INDEX.md"
+        link = "[Test Team](test-team/TEAM.md)"
+        for ticks in ("`", "``", "````"):
+            with self.subTest(ticks=ticks):
+                example = f"Example: {ticks}not a link\n{link}\nstill not a link{ticks}"
+                index.write_text(example)
+                self.expect("missing team registration")
+                index.write_text(example + "\n\n" + link)
+                self.assertEqual(validate_team_contracts(self.root), [])
+
+    def test_catalog_raw_html_cannot_supply_navigation(self):
+        self.install()
+        index = self.root / "teams/INDEX.md"
+        link = "[Test Team](test-team/TEAM.md)"
+        for markup in (
+            f'<div data-note="{link}"></div>',
+            f'<div title=">" data-note="{link}"></div>',
+            f'<div\n data-note="{link}"></div>',
+            f'<div>\n{link}\n</div>',
+        ):
+            with self.subTest(markup=markup):
+                index.write_text(markup)
+                self.expect("missing team registration")
+                # HTML examples in code are permitted beside real navigation.
+                index.write_text("Example: `" + markup + "`\n\n" + link)
+                self.assertEqual(validate_team_contracts(self.root), [])
+
     def test_template_is_draft_not_an_instance(self):
         template = ROOT / "kestrel/templates/TEAM_PROFILE.json"
         obj = json.loads(template.read_text(encoding="utf-8"))
