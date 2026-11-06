@@ -67,6 +67,15 @@ review artifact remain in that access-controlled repository; retrieve them
 through an authorized project connection before resuming. No private detail is
 replicated into this public agent memory.
 
+**Blueprint review lifecycle (verified 2026-11-05):** The GitHub pull request
+for the private successor's architecture-hardening proposal is now **merged**
+into that project's main branch. The follow-up verified its closed/merged state
+and that its merge commit matched current main. This establishes an accepted
+*documentation baseline*, not implementation authorization or proof of the
+proposed invariants. On next pickup, read the current project's actual
+hardening blueprint and the separately merged experience-foundation proposal;
+verify remote heads and avoid assuming any implementation checkpoint has begun.
+
 **Privacy boundary:** KestrelGaming's Axiom home is public. Do not save the
 private successor project's detailed code review, internal documentation,
 security/persistence counterexamples or user-private design notes here without
