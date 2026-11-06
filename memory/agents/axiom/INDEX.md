@@ -19,6 +19,7 @@
 - [CP4 PR #6 — independent validation review](2026-11-05-axiom-cp4-pr6-independent-review-a8f2.md) — source-matched negative probes, remaining Markdown/catalog ambiguities, compatibility and merge verdict.
 - [CP4 PR #6 — follow-up head b342 independent review](2026-11-06-axiom-cp4-pr6-followup-b342-review-e6d2.md) — five prior blockers closed, two remaining reference-integrity classes and exact independent evidence limits.
 - [CP4 PR #6 — third review at head 70f4](2026-11-06-axiom-cp4-pr6-third-review-70f4-c9d1.md) — previous blockers closed; catalog title false registration, compatibility, independent evidence and review verdict.
+- [Auralprint 117 F0 — invariant foundation submission](2026-11-06-auralprint-117-f0-registry-a41e.md) — Canon 116 invariant registry, source/test mapping, PR #111, evidence limits and deferred F1/F2 gates.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
