@@ -15,6 +15,7 @@
 - [Design hardening blueprint session](2026-11-05-axiom-blueprint-only-hardening-cc41.md) — public-safe method and handoff; detailed private artifact remains conversation-scoped.
 - [Studio contract integrity audit — Assignment 02](2026-11-05-axiom-studio-contract-integrity-audit-02.md) — independent pinned review, reproducible validator counterexamples, architectural ownership and minimum correction checkpoint.
 - [Proof obligations at composition boundaries](2026-11-05-axiom-composition-proof-obligations-6c42.md) — transferable invariant/enforcement checklist and formalism-cost correction distilled from Studio audit.
+- [Architects synchronization 01 — Axiom CP4 readiness](2026-11-05-axiom-architects-sync-cp4-a741.md) — own invariant/parity acceptance priorities after architect reconciliation and attributed peer-review reading.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
