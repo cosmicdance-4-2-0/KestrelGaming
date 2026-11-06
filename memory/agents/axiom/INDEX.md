@@ -12,6 +12,7 @@
 - [Standards reconciliation](2026-11-05-axiom-standards-reconciliation.md) — PR #5 merged baseline, preservation checks, and pickup status.
 - [Successor integration pickup](2026-11-05-axiom-integration-pickup-7e2a.md) — cross-team preservation lens and public/private memory boundary.
 - [Design hardening blueprint session](2026-11-05-axiom-blueprint-only-hardening-cc41.md) — public-safe method and handoff; detailed private artifact remains conversation-scoped.
+- [Studio contract integrity audit — Assignment 02](2026-11-05-axiom-studio-contract-integrity-audit-02.md) — independent pinned review, reproducible validator counterexamples, architectural ownership and minimum correction checkpoint.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
