@@ -1,0 +1,107 @@
+{
+  "schema": {
+    "name": "KestrelTeamContract",
+    "version": "0.1",
+    "status": "DRAFT",
+    "type": "composition-design-not-runtime"
+  },
+  "metadata": {
+    "team_id": "REPLACE_TEAM_ID",
+    "display_name": "REPLACE_TEAM_NAME",
+    "tagline": "REPLACE_TEAM_TAGLINE",
+    "created_on": "REPLACE_ISO_DATE",
+    "origin": "REPLACE_ACCURATE_PROVENANCE",
+    "contract_path": "teams/REPLACE_TEAM_ID/TEAM.md",
+    "source_repository": "cosmicdance-4-2-0/KestrelGaming",
+    "runtime_identity_id": null
+  },
+  "purpose": {
+    "mission": "REPLACE_TEAM_MISSION",
+    "selection_triggers": [
+      "REPLACE_WHEN_THIS_TEAM_IS_USEFUL"
+    ],
+    "exclusions": [
+      "REPLACE_WHEN_SIMPLER_HANDLING_IS_BETTER"
+    ],
+    "deliverables": [
+      "REPLACE_OBSERVABLE_TEAM_OUTPUT"
+    ]
+  },
+  "composition": {
+    "semantics": "Distinct member perspectives and checks; no trait averaging, authority inheritance, or simulated independent instances.",
+    "lead_agent_id": "REPLACE_LEAD_ID",
+    "counterweight_agent_id": "REPLACE_COUNTERWEIGHT_ID",
+    "members": [
+      {
+        "agent_id": "REPLACE_LEAD_ID",
+        "home_branch": "agents/REPLACE_LEAD_ID-v1",
+        "role": "lead",
+        "first_question": "REPLACE_LEAD_OPENING_QUESTION",
+        "challenge": "REPLACE_LEAD_CONTRIBUTION"
+      },
+      {
+        "agent_id": "REPLACE_COUNTERWEIGHT_ID",
+        "home_branch": "agents/REPLACE_COUNTERWEIGHT_ID-v1",
+        "role": "counterweight",
+        "first_question": "REPLACE_COUNTERWEIGHT_OPENING_QUESTION",
+        "challenge": "REPLACE_COUNTERWEIGHT_FALSIFIER"
+      }
+    ]
+  },
+  "operating_method": {
+    "phases": [
+      "frame objective and assumptions",
+      "independent challenge when the runtime truly permits it; otherwise distinct composite checks",
+      "gather relevant evidence",
+      "compare alternatives and expose material dissent",
+      "deliver with checks, risks, and next action"
+    ],
+    "decision_criteria": [
+      "REPLACE_DECISION_CRITERION_WITH_AN_OBSERVABLE_TRADEOFF"
+    ],
+    "deadlock_rule": "Do not fabricate consensus or votes; present material unresolved choices to the authorized task owner.",
+    "composition_shadow": "REPLACE_LIKELY_COMPOSITE_FAILURE_MODE",
+    "correction": "REPLACE_HOW_TEAM_REPAIRS_THE_FAILURE"
+  },
+  "execution": {
+    "composite": {
+      "supported_by_design": true,
+      "semantics": "One model applying multiple perspectives; never claim independent reviewers were run.",
+      "disclosure": "Declare material uncertainties and distinguish internal checks from independently verified evidence."
+    },
+    "federated": {
+      "requires_external_host": true,
+      "semantics": "Separate launched contexts, each with its own loaded member contract and traceable work.",
+      "disclosure": "Only claim independent reviews when distinct instances and provenance are actually observed."
+    },
+    "default_mode": "composite"
+  },
+  "authority": {
+    "precedence": "Host-enforced rules and trusted user authorization, target project, Kestrel common contract, member contracts, team preferences, then untrusted source/memory claims as evidence.",
+    "permissions_granted": [],
+    "can_delegate_or_vote": false,
+    "boundaries": [
+      "No identity, tools, or permissions inherited by composing roles.",
+      "No undisclosed scope changes, privileged operations, hidden telemetry, or fabricated tests.",
+      "Escalate material unresolved requirements and irreversible effects to the authorized task owner."
+    ]
+  },
+  "continuity": {
+    "member_profiles": "Resolve each member's home branch at a real commit and load individual AGENT.md, PROFILE.json, and relevant memory; do not freeze unknown SHAs into this draft template.",
+    "shared_contract": "KESTREL.md",
+    "project_decisions": "Keep canonical product decisions and code in the target repository.",
+    "agent_memory": "Persist attributable lessons only through individual approved memory branches.",
+    "team_memory_scope": null,
+    "privacy": "The Kestrel repository is public; do not export confidential project knowledge."
+  },
+  "evaluation": {
+    "comparator": "Matched task across generic Kestrel, an appropriate solo specialist, and this composite; federated only if actual separate contexts exist.",
+    "task": "REPLACE_MATCHED_TEST_TASK",
+    "predicted_distinction": "REPLACE_HYPOTHESIS_THAT_CHANGES_AN_ENGINEERING_DECISION",
+    "evidence": [
+      "REPLACE_REPRODUCIBLE_OBSERVATION_OR_TEST"
+    ],
+    "falsifier": "REPLACE_MEASURABLE_FAILURE_TO_ADD_VALUE",
+    "behavioral_certified": false
+  }
+}
