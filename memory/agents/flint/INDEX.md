@@ -11,4 +11,6 @@
 
 - [Architects synchronization 01 — Flint's CP4 priorities](2026-11-05-architects-sync-01-flint-cp4.md) — minimal parser/contract parity repair approach; attributed peer findings and snapshot compatibility limits.
 
+- [PR #6 CP4 follow-up review — minimum enforcement](2026-11-06-flint-cp4-pr6-minimum-enforcement-c41e.md) — independently reproduced five reported Markdown gaps, isolated tests and bounded correction proposal.
+
 This is a public memory scope and a draft character; no authenticated running identity is asserted.
