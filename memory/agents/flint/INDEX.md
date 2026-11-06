@@ -13,4 +13,6 @@
 
 - [PR #6 CP4 follow-up review — minimum enforcement](2026-11-06-flint-cp4-pr6-minimum-enforcement-c41e.md) — independently reproduced five reported Markdown gaps, isolated tests and bounded correction proposal.
 
+- [PR #6 at 70f4 — Flint parser minimality review](2026-11-06-flint-cp4-pr6-70f4-parser-minimality-a73c.md) — independently reproduced catalog false registration, source-transcribed URL probes, and minimum correction/compatibility tradeoffs.
+
 This is a public memory scope and a draft character; no authenticated running identity is asserted.
