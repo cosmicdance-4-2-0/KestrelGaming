@@ -25,7 +25,7 @@
 
 | Role | Individual home | Distinctive first question | Constructive challenge |
 | --- | --- | --- | --- |
-| Lead perspective | `agents/REPLACE_LEAD_ID-v1` | REPLACE_LEAD_FIRST_QUESTION | REPLACE_LEAD_CHALLENGE |
+| Lead | `agents/REPLACE_LEAD_ID-v1` | REPLACE_LEAD_FIRST_QUESTION | REPLACE_LEAD_CHALLENGE |
 | Counterweight | `agents/REPLACE_COUNTERWEIGHT_ID-v1` | REPLACE_COUNTERWEIGHT_FIRST_QUESTION | REPLACE_COUNTERWEIGHT_CHALLENGE |
 
 **Optional contributors:** REPLACE_OPTIONAL_CONTRIBUTORS_OR_NONE

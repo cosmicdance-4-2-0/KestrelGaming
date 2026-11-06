@@ -53,11 +53,27 @@ The initial validator should be read-only, deterministic, standard-library-only,
 - **Identity/reference:** Match path ID, metadata ID, and member IDs; reject invalid slugs, repeated agents, unregistered agents, missing member home branches, and mismatched `home_branch` declarations. Read the existing roster rather than hardcoding seven agent names.
 - **Composition:** Reject fewer than two members, absent/duplicate lead or counterweight, identical lead/counterweight, roles that contradict designated IDs, empty first questions, and empty counterfactual challenges.
 - **Decision/evidence:** Require nonempty selection triggers, exclusions, deliverables, decision criteria, falsifier, correction, and explicit acknowledgement of composite/federated provenance limits.
-- **Authority and persistence:** Reject any nonempty `permissions_granted`, non-null team memory scope, automatic vote/delegation claims, or behavioral certification claimed for a proposed draft.
+- **Authority and persistence:** Reject nonempty `permissions_granted`, non-null team memory scope, enabled typed vote/delegation flags, or typed behavioral certification for a proposed draft; arbitrary prose claims are not semantically validated.
 - **Negative tests:** Deliberately mutate a valid synthetic fixture for each failure class. Do not weaken tests to accept a nonconforming profile; report specific path and field errors.
 - **Behavioral trials separate:** Static validity establishes that a file is structurally coherent; matched task experiments must establish whether team composition is useful. Do not label static checks as successful collaboration.
 
 The executable, read-only validator is in [tools/validate_team_contracts.py](../tools/validate_team_contracts.py), with synthetic positive/negative cases in [tests/test_team_contracts.py](../tests/test_team_contracts.py). The existing seed validator calls it when populated team homes are present. The founding Architects team now provides the first populated contract, with targeted regression checks in [test_architects_team.py](../tests/test_architects_team.py). Static checks do **not** verify agent behavior or remote home-branch existence.
+
+## Contract parity and limits (schema v0.1)
+
+`PROFILE.json` is authoritative for typed identity, membership, roles and execution
+flags. In the operative Composition section of `TEAM.md`, use one table row per
+member: the first cell is `Lead`, `Counterweight`, or `Contributor` (optionally
+followed by an em dash and the member ID, case-insensitively), and the second contains that member's exact
+backticked home branch. Rows must match the profile exactly. Register each team
+with a relative `team-id/TEAM.md` Markdown link in `teams/INDEX.md`; the catalog
+is navigation and should not repeat membership as an independent authority.
+
+Validation rejects duplicate JSON object keys, ignores fenced code when looking
+for operative sections and declarations, and checks the composition table against
+the profile. It cannot interpret all narrative claims, verify remote branch
+existence, authenticate loaded identities, grant permissions, or certify independent
+execution or behavior. A passing check does not establish those guarantees.
 
 ## Historical scope — checkpoint 1 (templates only)
 

@@ -93,10 +93,67 @@ def _check_shape(value: object, where: str, errors: list[str]) -> None:
         errors.append(f"{where}: expected completed nonempty text")
 
 
+def _unique_object(pairs: list[tuple[str, object]]) -> dict:
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate JSON key: {key}")
+        result[key] = value
+    return result
+
+
+def _operative_markdown(text: str) -> str:
+    """Exclude fenced code, including tilde fences and longer closing fences."""
+    lines = []
+    fence = None
+    for line in text.splitlines():
+        marker = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line)
+        if fence:
+            if marker and marker.group(1)[0] == fence[0] and len(marker.group(1)) >= len(fence) and not marker.group(2).strip():
+                fence = None
+            lines.append("")
+        elif marker and not (marker.group(1)[0] == "`" and "`" in marker.group(2)):
+            fence = marker.group(1)
+            lines.append("")
+        else:
+            lines.append(line)
+    return "\n".join(lines)
+
+
+def _check_composition(prose: str, members: list[dict], relative: str, errors: list[str]) -> None:
+    heading = re.escape(HEADINGS[1])
+    section = re.search(r"^##[ \t]+" + heading + r"[ \t]*$([\s\S]*?)(?=^##[ \t]+|\Z)", prose, re.M)
+    body = section.group(1) if section else ""
+    rows = []
+    for line in body.splitlines():
+        if not line.strip().startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        if len(cells) < 2:
+            continue
+        role = re.match(r"^(lead|counterweight|contributor)(?:\s*—\s*([^|]+?))?$", cells[0], re.I)
+        branches = re.findall(r"`(agents/[^`]+)`", cells[1])
+        if role or branches:
+            if not role or len(branches) != 1:
+                errors.append(f"{relative}/TEAM.md: invalid composition row: {line.strip()}")
+            else:
+                name = role.group(2)
+                branch_id = next((m["agent_id"] for m in members if m["home_branch"] == branches[0]), None)
+                if name and (branch_id is None or name.strip().casefold() != branch_id.casefold()):
+                    errors.append(f"{relative}/TEAM.md: composition role name/branch mismatch: {line.strip()}")
+                rows.append((role.group(1).lower(), branches[0]))
+    expected = [(m["role"], m["home_branch"]) for m in members]
+    for role, branch in expected:
+        if (role, branch) not in rows:
+            errors.append(f"{relative}/TEAM.md: missing member branch {branch.removeprefix('agents/').removesuffix('-v1')} or role {role} mismatch")
+    if sorted(rows) != sorted(expected):
+        errors.append(f"{relative}/TEAM.md: composition roles or branches do not match profile")
+
+
 def _load_roster(root: Path, errors: list[str]) -> dict[str, str]:
     path = root / "agents/ROSTER_V1.json"
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
+        data = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=_unique_object)
         members = data["members"]
         if not isinstance(members, list):
             raise ValueError("members must be an array")
@@ -118,12 +175,20 @@ def validate_team_contracts(root: Path) -> list[str]:
     """Validate populated team homes. Empty/uncreated teams are legitimate."""
     root = root.resolve()
     team_dir = root / "teams"
+    if team_dir.is_symlink():
+        return ["teams: expected a regular directory"]
     if not team_dir.exists():
         return []
-    if team_dir.is_symlink() or not team_dir.is_dir():
+    if not team_dir.is_dir():
         return ["teams: expected a regular directory"]
     errors: list[str] = []
     roster = _load_roster(root, errors)
+    catalog_path = team_dir / "INDEX.md"
+    try:
+        catalog = _operative_markdown(catalog_path.read_text(encoding="utf-8")) if catalog_path.is_file() and not catalog_path.is_symlink() else ""
+    except (OSError, UnicodeError) as exc:
+        errors.append(f"teams/INDEX.md: cannot read catalog ({exc})")
+        catalog = ""
     for home in sorted(team_dir.iterdir()):
         # Catalogs are studio/navigation artifacts, not an individual team home.
         if home.name in {"ROSTER.json", "INDEX.md"} and home.is_file() and not home.is_symlink():
@@ -138,7 +203,7 @@ def validate_team_contracts(root: Path) -> list[str]:
             continue
         try:
             prose = (home / "TEAM.md").read_text(encoding="utf-8")
-            data = json.loads((home / "PROFILE.json").read_text(encoding="utf-8"))
+            data = json.loads((home / "PROFILE.json").read_text(encoding="utf-8"), object_pairs_hook=_unique_object)
         except (OSError, UnicodeError, ValueError) as exc:
             errors.append(f"{relative}: cannot read/parse files ({exc})")
             continue
@@ -190,16 +255,23 @@ def validate_team_contracts(root: Path) -> list[str]:
             errors.append(f"{relative}: execution.default_mode must be composite")
         if data["continuity"]["shared_contract"] != "KESTREL.md":
             errors.append(f"{relative}: continuity.shared_contract must be KESTREL.md")
+        operative = _operative_markdown(prose)
         for heading in HEADINGS:
-            if not re.search(r"^## " + re.escape(heading) + r"\s*$", prose, re.M):
+            if not re.search(r"^##[ \t]+" + re.escape(heading) + r"[ \t]*$", operative, re.M):
                 errors.append(f"{relative}/TEAM.md: missing section {heading}")
-        if "REPLACE_" in prose or len(prose.strip()) < 200:
+        if "REPLACE_" in operative or len(operative.strip()) < 200:
             errors.append(f"{relative}/TEAM.md: incomplete prose contract")
-        if f"**Team ID:** `{home.name}`" not in prose or f"**Display name:** {meta['display_name']}" not in prose:
+        team_id = r"^\*\*Team ID:\*\*[ \t]+`" + re.escape(home.name) + r"`[ \t]*$"
+        display = r"^\*\*Display name:\*\*[ \t]+" + re.escape(meta["display_name"]) + r"[ \t]*$"
+        team_lines = re.findall(r"^\*\*Team ID:\*\*[^\n]*$", operative, re.M)
+        display_lines = re.findall(r"^\*\*Display name:\*\*[^\n]*$", operative, re.M)
+        if (len(team_lines) != 1 or len(display_lines) != 1 or
+                not re.search(team_id, operative, re.M) or not re.search(display, operative, re.M)):
             errors.append(f"{relative}/TEAM.md: identity/profile mismatch")
-        for ident in set(ids):
-            if f"agents/{ident}-v1" not in prose:
-                errors.append(f"{relative}/TEAM.md: missing member branch {ident}")
+        _check_composition(operative, comp["members"], relative, errors)
+        link = r"\[[^\]\n]+\]\(" + re.escape(f"{home.name}/TEAM.md") + r"\)"
+        if not re.search(link, re.sub(r"`+[^`\n]*`+", "", catalog)):
+            errors.append(f"{relative}: missing team registration in teams/INDEX.md")
     return errors
 
 

@@ -17,7 +17,9 @@ sources: "Auralprinter PR #2 merged 2026-11-05T07:19:02Z at 2e3372875415cc21e9c9
 
 **Goal and acceptance criteria:** Establish exact language-neutral scalar interchange through a small Rust/Python experiment, tests, and documented rationale, before source schemas or DSP.
 
-**Task outcome:** PARTIAL for the full A1 milestone; AP-A1-01a COMPLETE and merged.
+**Task outcome:** PARTIAL
+
+The full A1 milestone remains incomplete; AP-A1-01a is COMPLETE and merged.
 
 Pass 1's standalone Rust/Python representation experiment is **merged** in Auralprinter `main`. The encoding decision in ADR-011 remains an independently reviewable proposal, not an adopted production API; A1 as a whole remains incomplete. This checkpoint status was reconciled on 2026-11-05 by ChatGPT.
 

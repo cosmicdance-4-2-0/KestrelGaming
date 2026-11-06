@@ -47,11 +47,9 @@ def valid_profile():
 
 def valid_prose():
     return ("# Test Team\n\n**Team ID:** `test-team`  \n**Display name:** Test Team\n\n"
-            "| Lead | `agents/axiom-v1` | challenge |\n"
-            "| Counterweight | `agents/flint-v1` | falsifier |\n\n"
             + "\n\n".join("## " + heading + "\n\nA concrete, bounded obligation with evidence and scope constraints. "
                            "No member is independently instantiated by this document."
-                           for heading in HEADINGS) + "\n")
+                           for heading in HEADINGS) + "\n").replace("## " + HEADINGS[1] + "\n", "## " + HEADINGS[1] + "\n\n| Lead | `agents/axiom-v1` | challenge |\n| Counterweight | `agents/flint-v1` | falsifier |\n")
 
 
 class TeamContractValidation(unittest.TestCase):
@@ -69,6 +67,7 @@ class TeamContractValidation(unittest.TestCase):
 
     def install(self, profile=None, prose=None):
         self.home.mkdir(parents=True, exist_ok=True)
+        (self.root / "teams/INDEX.md").write_text("[Test Team](test-team/TEAM.md)\n", encoding="utf-8")
         (self.home / "PROFILE.json").write_text(json.dumps(valid_profile() if profile is None else profile), encoding="utf-8")
         (self.home / "TEAM.md").write_text(valid_prose() if prose is None else prose, encoding="utf-8")
 
@@ -185,6 +184,78 @@ class TeamContractValidation(unittest.TestCase):
         p["purpose"]["mission"] = "REPLACE_THIS"
         self.install(p)
         self.expect("expected completed nonempty text")
+
+    def test_role_parity_and_exact_branch_tokens(self):
+        prose = valid_prose()
+        for changed in (
+            prose.replace("| Lead |", "| Temporary |").replace("| Counterweight |", "| Lead |").replace("| Temporary |", "| Counterweight |"),
+            prose.replace("agents/flint-v1", "agents/flint-v11"),
+            prose.replace("| Counterweight |", "| Contributor |"),
+        ):
+            with self.subTest(changed=changed):
+                self.install(prose=changed)
+                self.expect("composition roles or branches")
+        self.install(prose=prose.replace("| Lead |", "| Lead — Flint |"))
+        self.expect("composition role name/branch mismatch")
+        self.install(prose=prose + "\n```\n| Lead | `agents/axiom-v1` |\n```\n")
+        self.assertEqual(validate_team_contracts(self.root), [])
+
+    def test_three_member_composition_and_extra_row(self):
+        p = valid_profile()
+        member = dict(p["composition"]["members"][0], agent_id="harbor", role="contributor", home_branch="agents/harbor-v1")
+        p["composition"]["members"].append(member)
+        self.roster.write_text(json.dumps({"members": [
+            {"id": ident, "branch": f"agents/{ident}-v1"} for ident in ("axiom", "flint", "harbor")
+        ]}), encoding="utf-8")
+        prose = valid_prose().replace("| Counterweight | `agents/flint-v1` | falsifier |", "| Counterweight | `agents/flint-v1` | falsifier |\n| Contributor | `agents/harbor-v1` | recovery |")
+        self.install(p, prose)
+        self.assertEqual(validate_team_contracts(self.root), [])
+        self.install(p, prose.replace("| Contributor | `agents/harbor-v1`", "| Lead | `agents/harbor-v1`"))
+        self.expect("composition roles or branches")
+        self.install(p, prose.replace("| Contributor | `agents/harbor-v1` | recovery |", ""))
+        self.expect("missing member branch harbor")
+        self.install(p, prose.replace("| Contributor | `agents/harbor-v1` | recovery |", "| Contributor | `agents/harbor-v1` | recovery |\n| Contributor | `agents/harbor-v1` | duplicate |"))
+        self.expect("composition roles or branches")
+
+    def test_catalog_registration_requires_real_operative_link(self):
+        self.install()
+        index = self.root / "teams/INDEX.md"
+        for contents in ("# No registration", "[Wrong](other/TEAM.md)", "```\n[Test](test-team/TEAM.md)\n```", "`[Test](test-team/TEAM.md)`"):
+            index.write_text(contents, encoding="utf-8")
+            self.expect("missing team registration")
+        index.unlink()
+        self.expect("missing team registration")
+
+    def test_duplicate_json_keys_rejected_at_any_depth(self):
+        self.install()
+        path = self.home / "PROFILE.json"
+        path.write_text(path.read_text().replace('"name": "KestrelTeamContract"', '"name": "wrong", "name": "KestrelTeamContract"', 1))
+        self.expect("duplicate JSON key: name")
+        self.install()
+        self.roster.write_text(self.roster.read_text().replace('"members": [', '"members": [], "members": [', 1))
+        self.expect("duplicate JSON key: members")
+
+    def test_fenced_sections_and_fenced_composition_are_not_operative(self):
+        for fence in ("```", "~~~~"):
+            with self.subTest(fence=fence):
+                self.install(prose=valid_prose().replace("## Evaluation", fence + "\n## Evaluation\n" + fence))
+                self.expect("missing section Evaluation")
+                prose = valid_prose().replace("| Lead | `agents/axiom-v1` | challenge |", fence + "\n| Lead | `agents/axiom-v1` | challenge |\n" + fence)
+                self.install(prose=prose)
+                self.expect("missing member branch axiom")
+
+    def test_identity_spacing_and_exact_match(self):
+        prose = valid_prose().replace("**Team ID:** `test-team`", "**Team ID:**   `test-team`").replace("**Display name:** Test Team", "**Display name:**   Test Team   ")
+        self.install(prose=prose)
+        self.assertEqual(validate_team_contracts(self.root), [])
+        self.install(prose=prose.replace("Test Team   ", "Test Team Extra   "))
+        self.expect("identity/profile mismatch")
+        self.install(prose=prose + "\n**Team ID:** `other`\n")
+        self.expect("identity/profile mismatch")
+
+    def test_dangling_teams_symlink_rejected(self):
+        (self.root / "teams").symlink_to(self.root / "missing")
+        self.expect("expected a regular directory")
 
     def test_template_is_draft_not_an_instance(self):
         template = ROOT / "kestrel/templates/TEAM_PROFILE.json"
