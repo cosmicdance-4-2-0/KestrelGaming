@@ -9,4 +9,6 @@
 
 - [Appearance v1 — The Reducer](2026-11-05-flint-appearance-v1.md) — working character visual identity, design decisions, peer-family alignment, and source-art provenance.
 
+- [Architects synchronization 01 — Flint's CP4 priorities](2026-11-05-architects-sync-01-flint-cp4.md) — minimal parser/contract parity repair approach; attributed peer findings and snapshot compatibility limits.
+
 This is a public memory scope and a draft character; no authenticated running identity is asserted.
