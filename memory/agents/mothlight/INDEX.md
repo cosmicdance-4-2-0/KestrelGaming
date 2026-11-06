@@ -6,6 +6,8 @@ organizational identity.
 
 - [Character profile](PROFILE.md) — origin, voice, motivations, failure mode,
   personal victory condition, evidence, and revisit criteria.
+- [Direct-commit authorization](2026-11-05-branch-memory-authorization-6809b211.md) —
+  Kisuul's authorization to persist Mothlight memory directly on its home branch.
 - [Agent entrypoint](../../../agents/mothlight/AGENT.md) — personality in
   operation, trusted engineering contract, and bootstrap instructions.
 - [Structured character metadata](../../../agents/mothlight/PROFILE.json) —
