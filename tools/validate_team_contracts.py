@@ -125,6 +125,9 @@ def validate_team_contracts(root: Path) -> list[str]:
     errors: list[str] = []
     roster = _load_roster(root, errors)
     for home in sorted(team_dir.iterdir()):
+        # Catalogs are studio/navigation artifacts, not an individual team home.
+        if home.name in {"ROSTER.json", "INDEX.md"} and home.is_file() and not home.is_symlink():
+            continue
         relative = f"teams/{home.name}"
         if not home.is_dir() or home.is_symlink() or not SLUG.fullmatch(home.name):
             errors.append(f"{relative}: expected a non-symlinked lowercase team directory")

@@ -79,6 +79,12 @@ class TeamContractValidation(unittest.TestCase):
     def test_no_team_homes_yet_is_valid(self):
         self.assertEqual(validate_team_contracts(self.root), [])
 
+    def test_optional_catalog_files_are_not_team_homes(self):
+        (self.root / "teams").mkdir()
+        (self.root / "teams/ROSTER.json").write_text("{}", encoding="utf-8")
+        (self.root / "teams/INDEX.md").write_text("# Team catalog\n", encoding="utf-8")
+        self.assertEqual(validate_team_contracts(self.root), [])
+
     def test_positive_fixture_and_read_only(self):
         self.install()
         before = {p.relative_to(self.root): p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
