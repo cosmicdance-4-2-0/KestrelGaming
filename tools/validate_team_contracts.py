@@ -102,52 +102,120 @@ def _unique_object(pairs: list[tuple[str, object]]) -> dict:
     return result
 
 
+# These helpers recognize the documented root-level contract subset, not all Markdown.
+INLINE_CODE = re.compile(r"(`+)(?!`)(.*?)(?<!`)\1(?!`)")
+
+
 def _operative_markdown(text: str) -> str:
-    """Exclude fenced code, including tilde fences and longer closing fences."""
+    """Mask code and comments without letting delimiters inside code change state."""
     lines = []
     fence = None
+    comment = False
+    token = re.compile(r"<!--|" + INLINE_CODE.pattern)
     for line in text.splitlines():
         marker = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line)
         if fence:
             if marker and marker.group(1)[0] == fence[0] and len(marker.group(1)) >= len(fence) and not marker.group(2).strip():
                 fence = None
             lines.append("")
-        elif marker and not (marker.group(1)[0] == "`" and "`" in marker.group(2)):
-            fence = marker.group(1)
-            lines.append("")
-        else:
-            lines.append(line)
+            continue
+        if not comment:
+            # Four Markdown indentation columns include a leading tab.
+            if line.expandtabs(4).startswith("    "):
+                lines.append("")
+                continue
+            if marker and not (marker.group(1)[0] == "`" and "`" in marker.group(2)):
+                fence = marker.group(1)
+                lines.append("")
+                continue
+        visible = ""
+        pos = 0
+        while pos < len(line):
+            if comment:
+                end = line.find("-->", pos)
+                if end < 0:
+                    break
+                comment = False
+                pos = end + 3
+            else:
+                match = token.search(line, pos)
+                if not match:
+                    visible += line[pos:]
+                    break
+                visible += line[pos:match.start()]
+                if match.group() == "<!--":
+                    comment = True
+                    visible += " "
+                else:
+                    visible += match.group()
+                pos = match.end()
+        lines.append(visible)
+    if comment:
+        raise ValueError("unclosed HTML comment")
     return "\n".join(lines)
 
 
+def _heading_pattern(heading: str) -> str:
+    return r"^ {0,3}##[ \t]+" + re.escape(heading) + r"(?:[ \t]+#+)?[ \t]*$"
+
+
+def _table_cells(line: str) -> list[str]:
+    line = line.strip()
+    if not line.startswith("|") or not line.endswith("|"):
+        return []
+    return [cell.strip() for cell in line[1:-1].split("|")]
+
+
 def _check_composition(prose: str, members: list[dict], relative: str, errors: list[str]) -> None:
-    heading = re.escape(HEADINGS[1])
-    section = re.search(r"^##[ \t]+" + heading + r"[ \t]*$([\s\S]*?)(?=^##[ \t]+|\Z)", prose, re.M)
-    body = section.group(1) if section else ""
+    sections = list(re.finditer(_heading_pattern(HEADINGS[1]), prose, re.M))
+    if len(sections) != 1:
+        errors.append(f"{relative}/TEAM.md: expected exactly one operative Composition section")
+        return
+    body = re.split(r"^ {0,3}#{1,2}[ \t]+", prose[sections[0].end():], maxsplit=1, flags=re.M)[0]
+    lines = body.strip().splitlines()
+    header = _table_cells(lines[0]) if lines else []
+    separator = _table_cells(lines[1]) if len(lines) > 1 else []
+    if (len(header) < 2 or header[:2] != ["Role", "Individual home"] or
+            len(separator) != len(header) or
+            any(not re.fullmatch(r":?-{3,}:?", cell) for cell in separator)):
+        errors.append(f"{relative}/TEAM.md: expected composition table header and separator immediately after heading")
+        return
     rows = []
-    for line in body.splitlines():
-        if not line.strip().startswith("|"):
+    table_ended = False
+    for line in lines[2:]:
+        if not line.lstrip().startswith("|"):
+            table_ended = True
             continue
-        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-        if len(cells) < 2:
+        cells = _table_cells(line)
+        if table_ended or len(cells) != len(header):
+            errors.append(f"{relative}/TEAM.md: composition table must have contiguous rows and matching column counts")
             continue
-        role = re.match(r"^(lead|counterweight|contributor)(?:\s*—\s*([^|]+?))?$", cells[0], re.I)
-        branches = re.findall(r"`(agents/[^`]+)`", cells[1])
-        if role or branches:
-            if not role or len(branches) != 1:
-                errors.append(f"{relative}/TEAM.md: invalid composition row: {line.strip()}")
-            else:
-                name = role.group(2)
-                branch_id = next((m["agent_id"] for m in members if m["home_branch"] == branches[0]), None)
-                if name and (branch_id is None or name.strip().casefold() != branch_id.casefold()):
-                    errors.append(f"{relative}/TEAM.md: composition role name/branch mismatch: {line.strip()}")
-                rows.append((role.group(1).lower(), branches[0]))
+        role = re.fullmatch(r"(lead|counterweight|contributor)(?:\s*—\s*([^|]+?))?", cells[0], re.I)
+        # Branch text can be plain inline code or a Markdown link's code label.
+        home = re.fullmatch(r"`(agents/[^`]+)`|\[`(agents/[^`]+)`\]\([^\s)]+\)", cells[1])
+        if not role or not home:
+            errors.append(f"{relative}/TEAM.md: invalid composition table row: {line.strip()}")
+            continue
+        branch = home.group(1) or home.group(2)
+        name = role.group(2)
+        branch_id = next((m["agent_id"] for m in members if m["home_branch"] == branch), None)
+        if name and (branch_id is None or name.strip().casefold() != branch_id.casefold()):
+            errors.append(f"{relative}/TEAM.md: composition role name/branch mismatch: {line.strip()}")
+        rows.append((role.group(1).lower(), branch))
     expected = [(m["role"], m["home_branch"]) for m in members]
-    for role, branch in expected:
-        if (role, branch) not in rows:
-            errors.append(f"{relative}/TEAM.md: missing member branch {branch.removeprefix('agents/').removesuffix('-v1')} or role {role} mismatch")
+    for member in members:
+        if (member["role"], member["home_branch"]) not in rows:
+            errors.append(f"{relative}/TEAM.md: missing member branch {member['agent_id']} or role {member['role']} mismatch")
     if sorted(rows) != sorted(expected):
         errors.append(f"{relative}/TEAM.md: composition roles or branches do not match profile")
+
+
+def _catalog_has_team(catalog: str, team_id: str) -> bool:
+    visible = INLINE_CODE.sub("", catalog)
+    target = re.escape(f"{team_id}/TEAM.md")
+    # Only local inline navigation links, with an optional conventional quoted title.
+    link = r"(?<!!)(?<!\\)\[[^\]\n]+\]\((?:\./)?" + target + r"(?:[ \t]+(?:\"[^\"\n]*\"|'[^'\n]*'))?[ \t]*\)"
+    return bool(re.search(link, visible))
 
 
 def _load_roster(root: Path, errors: list[str]) -> dict[str, str]:
@@ -186,7 +254,7 @@ def validate_team_contracts(root: Path) -> list[str]:
     catalog_path = team_dir / "INDEX.md"
     try:
         catalog = _operative_markdown(catalog_path.read_text(encoding="utf-8")) if catalog_path.is_file() and not catalog_path.is_symlink() else ""
-    except (OSError, UnicodeError) as exc:
+    except (OSError, UnicodeError, ValueError) as exc:
         errors.append(f"teams/INDEX.md: cannot read catalog ({exc})")
         catalog = ""
     for home in sorted(team_dir.iterdir()):
@@ -255,9 +323,13 @@ def validate_team_contracts(root: Path) -> list[str]:
             errors.append(f"{relative}: execution.default_mode must be composite")
         if data["continuity"]["shared_contract"] != "KESTREL.md":
             errors.append(f"{relative}: continuity.shared_contract must be KESTREL.md")
-        operative = _operative_markdown(prose)
+        try:
+            operative = _operative_markdown(prose)
+        except ValueError as exc:
+            errors.append(f"{relative}/TEAM.md: {exc}")
+            continue
         for heading in HEADINGS:
-            if not re.search(r"^##[ \t]+" + re.escape(heading) + r"[ \t]*$", operative, re.M):
+            if not re.search(_heading_pattern(heading), operative, re.M):
                 errors.append(f"{relative}/TEAM.md: missing section {heading}")
         if "REPLACE_" in operative or len(operative.strip()) < 200:
             errors.append(f"{relative}/TEAM.md: incomplete prose contract")
@@ -269,8 +341,7 @@ def validate_team_contracts(root: Path) -> list[str]:
                 not re.search(team_id, operative, re.M) or not re.search(display, operative, re.M)):
             errors.append(f"{relative}/TEAM.md: identity/profile mismatch")
         _check_composition(operative, comp["members"], relative, errors)
-        link = r"\[[^\]\n]+\]\(" + re.escape(f"{home.name}/TEAM.md") + r"\)"
-        if not re.search(link, re.sub(r"`+[^`\n]*`+", "", catalog)):
+        if not _catalog_has_team(catalog, home.name):
             errors.append(f"{relative}: missing team registration in teams/INDEX.md")
     return errors
 

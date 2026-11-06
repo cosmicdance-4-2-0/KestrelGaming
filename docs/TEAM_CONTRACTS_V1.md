@@ -62,18 +62,41 @@ The executable, read-only validator is in [tools/validate_team_contracts.py](../
 ## Contract parity and limits (schema v0.1)
 
 `PROFILE.json` is authoritative for typed identity, membership, roles and execution
-flags. In the operative Composition section of `TEAM.md`, use one table row per
-member: the first cell is `Lead`, `Counterweight`, or `Contributor` (optionally
-followed by an em dash and the member ID, case-insensitively), and the second contains that member's exact
-backticked home branch. Rows must match the profile exactly. Register each team
-with a relative `team-id/TEAM.md` Markdown link in `teams/INDEX.md`; the catalog
-is navigation and should not repeat membership as an independent authority.
+flags. Exactly one operative `## Composition — different instincts, not averaged
+identities` section is required. Its first content must be one conventional pipe
+table (blank lines and comments may precede it):
 
-Validation rejects duplicate JSON object keys, ignores fenced code when looking
-for operative sections and declarations, and checks the composition table against
-the profile. It cannot interpret all narrative claims, verify remote branch
-existence, authenticate loaded identities, grant permissions, or certify independent
-execution or behavior. A passing check does not establish those guarantees.
+- Header cells begin with `Role` and `Individual home`; optional explanatory
+  columns follow. A matching separator row uses at least three hyphens per cell,
+  with optional alignment colons.
+- Member rows immediately follow the separator, without blank lines or intervening
+  prose. Each row has the header's column count and outer pipes. Literal pipes
+  inside cells are outside this grammar; use a character entity when needed.
+- The first cell is `Lead`, `Counterweight`, or `Contributor`, optionally followed
+  by an em dash and the member ID, case-insensitively. The second is the exact
+  backticked home branch, either plain or used as a Markdown link label.
+- Rows match the profile exactly, including contributor membership. No additional
+  operative pipe table or member rows may follow elsewhere in this section;
+  examples and alternate mappings must be fenced. Narrative guidance may follow.
+
+Register each team with a local inline navigation link to `team-id/TEAM.md` in
+`teams/INDEX.md`. An optional `./` prefix and single- or double-quoted link title
+are accepted. Images, escaped links, inline code, comments and code blocks cannot
+satisfy registration. The catalog remains navigation rather than a second roster.
+
+Required declarations use root-level blocks. The validator masks HTML comments,
+fenced code and lines indented four or more Markdown columns (tabs count toward
+indentation). It rejects unclosed HTML comments. Comment delimiters inside code
+examples do not change comment state. This is a bounded contract syntax, not a
+general Markdown renderer; nested list/quote declarations and arbitrary HTML
+layouts are outside the supported authoring format.
+
+This follow-up narrows accepted Markdown while leaving JSON schema v0.1 unchanged.
+Previously accepted headerless rows, repeated composition sections and non-operative
+references are invalid. The real Architects layout and populated two-member template
+are regression controls. Passing validation does not certify arbitrary narrative
+claims, remote branch existence, loaded identities, permissions, independent execution,
+or behavioral effectiveness.
 
 ## Historical scope — checkpoint 1 (templates only)
 

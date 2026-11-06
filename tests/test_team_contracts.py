@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 import sys
 import tempfile
@@ -49,7 +50,7 @@ def valid_prose():
     return ("# Test Team\n\n**Team ID:** `test-team`  \n**Display name:** Test Team\n\n"
             + "\n\n".join("## " + heading + "\n\nA concrete, bounded obligation with evidence and scope constraints. "
                            "No member is independently instantiated by this document."
-                           for heading in HEADINGS) + "\n").replace("## " + HEADINGS[1] + "\n", "## " + HEADINGS[1] + "\n\n| Lead | `agents/axiom-v1` | challenge |\n| Counterweight | `agents/flint-v1` | falsifier |\n")
+                           for heading in HEADINGS) + "\n").replace("## " + HEADINGS[1] + "\n", "## " + HEADINGS[1] + "\n\n| Role | Individual home | Challenge |\n| --- | --- | --- |\n| Lead | `agents/axiom-v1` | challenge |\n| Counterweight | `agents/flint-v1` | falsifier |\n")
 
 
 class TeamContractValidation(unittest.TestCase):
@@ -256,6 +257,77 @@ class TeamContractValidation(unittest.TestCase):
     def test_dangling_teams_symlink_rejected(self):
         (self.root / "teams").symlink_to(self.root / "missing")
         self.expect("expected a regular directory")
+
+    def test_duplicate_composition_sections(self):
+        section = valid_prose().split("## " + HEADINGS[1], 1)[1].split("## Working method", 1)[0]
+        for prefix, suffix in (("", ""), ("  ", " ##")):
+            with self.subTest(prefix=prefix):
+                self.install(prose=valid_prose() + "\n" + prefix + "## " + HEADINGS[1] + suffix + section.replace("| Lead |", "| Contributor |"))
+                self.expect("exactly one operative Composition section")
+
+    def test_hidden_table_and_required_heading(self):
+        prose = valid_prose()
+        table = "\n".join(line for line in prose.splitlines() if line.startswith("|"))
+        for hidden in ("<!--\n" + table + "\n-->", "\n".join("    " + line for line in table.splitlines()), "\n".join("\t" + line for line in table.splitlines())):
+            self.install(prose=prose.replace(table, hidden))
+            self.expect("composition table")
+        self.install(prose=prose.replace("## Evaluation", "<!--\n## Evaluation\n-->"))
+        self.expect("missing section Evaluation")
+
+    def test_catalog_hidden_images_and_escaped_links(self):
+        self.install()
+        link = "[Test Team](test-team/TEAM.md)"
+        for text in ("<!-- " + link + " -->", "!" + link, "    " + link, "\t" + link, "\\" + link):
+            with self.subTest(text=text):
+                (self.root / "teams/INDEX.md").write_text(text)
+                self.expect("missing team registration")
+
+    def test_catalog_safe_link_variants(self):
+        self.install()
+        for target in ("test-team/TEAM.md", "./test-team/TEAM.md"):
+            for title in ("", ' "Founding team"', " 'Founding team'"):
+                (self.root / "teams/INDEX.md").write_text(f"[Test Team]({target}{title})")
+                self.assertEqual(validate_team_contracts(self.root), [])
+
+    def test_table_header_separator_and_contiguous_rows(self):
+        prose = valid_prose()
+        for changed in (
+            prose.replace("| Role | Individual home | Challenge |\n| --- | --- | --- |\n", ""),
+            prose.replace("| --- | --- | --- |", "| - | - | - |"),
+            prose.replace("| Counterweight |", "\n| Counterweight |"),
+            prose.replace("| Role |", "### Example\n\n| Role |"),
+            prose.replace("| Lead | `agents/axiom-v1` | challenge |", "| Lead | `agents/axiom-v1` |"),
+            prose.replace("## Working method", "| Lead | `agents/axiom-v1` | alternative |\n\n## Working method"),
+        ):
+            self.install(prose=changed)
+            self.expect("composition table")
+
+    def test_benign_comments_and_fenced_examples(self):
+        prose = valid_prose()
+        example = "\n~~~~\n<!-- unclosed example\n## " + HEADINGS[1] + "\n| Lead | `agents/flint-v1` |\n~~~~\n"
+        self.install(prose=prose + example + "\n<!--\n```\n## Evaluation\n-->\n")
+        self.assertEqual(validate_team_contracts(self.root), [])
+        self.install(prose=prose.replace("## " + HEADINGS[1] + "\n", "## " + HEADINGS[1] + "\n\n<!-- membership follows -->\n"))
+        self.assertEqual(validate_team_contracts(self.root), [])
+        self.install(prose=prose + "\nAn inline example: `<!--` and `-->`.\n")
+        self.assertEqual(validate_team_contracts(self.root), [])
+
+    def test_unclosed_comment_fails_closed(self):
+        self.install(prose=valid_prose() + "\n<!-- unfinished")
+        self.expect("unclosed HTML comment")
+        self.install()
+        (self.root / "teams/INDEX.md").write_text("[Test](test-team/TEAM.md)\n<!-- unfinished")
+        self.expect("unclosed HTML comment")
+
+    def test_populated_two_member_template(self):
+        prose = (ROOT / "kestrel/templates/TEAM_CONTRACT.md").read_text(encoding="utf-8")
+        values = {"REPLACE_TEAM_ID": "test-team", "REPLACE_TEAM_NAME": "Test Team",
+                  "REPLACE_LEAD_ID": "axiom", "REPLACE_COUNTERWEIGHT_ID": "flint"}
+        # The template introduction contains illustrative placeholder notation.
+        prose = prose[prose.index("**Team ID:**"):]
+        prose = re.sub(r"REPLACE_[A-Z_]+", lambda m: values.get(m.group(), "A bounded obligation"), prose)
+        self.install(prose=prose)
+        self.assertEqual(validate_team_contracts(self.root), [])
 
     def test_template_is_draft_not_an_instance(self):
         template = ROOT / "kestrel/templates/TEAM_PROFILE.json"
