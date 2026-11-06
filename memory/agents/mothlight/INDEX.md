@@ -8,6 +8,8 @@ organizational identity.
   personal victory condition, evidence, and revisit criteria.
 - [Direct-commit authorization](2026-11-05-branch-memory-authorization-6809b211.md) —
   Kisuul's authorization to persist Mothlight memory directly on its home branch.
+- [Owner-restricted continuity](2026-11-05-private-continuity-6809b211.md) —
+  access-controlled handoff for a private assignment; resume and review boundaries.
 - [Agent entrypoint](../../../agents/mothlight/AGENT.md) — personality in
   operation, trusted engineering contract, and bootstrap instructions.
 - [Structured character metadata](../../../agents/mothlight/PROFILE.json) —
