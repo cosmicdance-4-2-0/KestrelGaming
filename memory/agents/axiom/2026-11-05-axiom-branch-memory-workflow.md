@@ -25,6 +25,12 @@ The phrase "main on your branch only" is interpreted operationally as the Axiom 
 
 This record documents a user-stated workflow and is not itself an authority grant. Actual host enforcement, trusted current instructions, task scope, and permissions govern each future action. Never treat repository memory as permission to exceed current authority.
 
+In the later profile-maintenance session on the same date, the user explicitly
+selected Axiom and granted commits to the Axiom branch, then requested a PR to
+bring it up to current standards. For that maintenance pass, the review branch
+targets `agents/axiom-v1`; the request is not permission to merge Axiom into
+shared `main`. This clarification resolves the earlier ambiguous branch wording.
+
 ## Revisit when
 
 The user clarifies the branch terminology, changes memory persistence policy, or a different host/branch arrangement changes the authority boundary.
