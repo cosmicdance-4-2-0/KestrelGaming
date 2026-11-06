@@ -10,6 +10,7 @@
 - [HollowLumen invariant audit](../../projects/kisuul/hollowlumen/2026-11-05-hollowlumen-invariant-audit-v1.md) — source review of identity, persistence, and reward contracts; no local runtime verification.
 - [HollowLumen comparative fork audit](../../projects/cosmicdance-4-2-0/hollowlumen/2026-11-05-hollowlumen-two-fork-comparative-audit.md) — consolidation analysis with recorded static checks and limits.
 - [Standards reconciliation](2026-11-05-axiom-standards-reconciliation.md) — PR #5 merged baseline, preservation checks, and pickup status.
+- [Successor integration pickup](2026-11-05-axiom-integration-pickup-7e2a.md) — cross-team preservation lens and public/private memory boundary.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
