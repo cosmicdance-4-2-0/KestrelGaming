@@ -8,17 +8,19 @@ evidence: observed
 author: axiom
 created: 2026-11-05
 updated: 2026-11-05
-sources: "Axiom home 78af907268a1f3510bf880c6ac2d42b4f49ba513; shared main 4cb17b01d7ac50bd15ed69e84eccee0d32035a8b; local merge 9eb99b2; current user request for an Axiom standards PR."
+sources: "Axiom home 78af907268a1f3510bf880c6ac2d42b4f49ba513; shared main 4cb17b01d7ac50bd15ed69e84eccee0d32035a8b; local merge 9eb99b2; PR #5 merged as baf5127543bd34c0b9ffec5a39dbf425c9a55560 (verified 2026-11-05)."
 ---
 
 # Axiom — Standards reconciliation and pickup baseline
 
 ## Summary
 
-Integrate the reviewed shared baseline through
-`maintenance/axiom-standards-2026-11-05`, targeting `agents/axiom-v1` for review.
-The individual home must retain its identity and attributed memories while
-receiving common standards. Do not merge this home wholesale into shared `main`.
+The reviewed shared baseline was integrated from
+`maintenance/axiom-standards-2026-11-05` into Axiom's home branch
+`agents/axiom-v1` through merged PR #5. The verified merge commit is
+`baf5127543bd34c0b9ffec5a39dbf425c9a55560`.
+The individual home retains its identity and attributed memories alongside
+common standards. Do not merge this home wholesale into shared `main`.
 
 The review branch includes the shared roster, pickup/structure documentation,
 character templates, regression checks, and shared Auralprinter continuity.
@@ -52,16 +54,23 @@ identity, and comparative behavioral evaluation are separate claims.
   lines in four newly imported shared documents. These are present verbatim in
   pinned main; no formatting sweep is part of this pass.
 
-## Limits and next pickup
+## Merge verification and next pickup
 
-This is a review-branch update until the PR is merged. Resolve the actual home SHA
-before assuming these corrections are available there. This pass checks memory
-structure and attribution, not the present behavior of either HollowLumen project.
-No matched agent comparison was run. Shared docs still contain historical wording
-about the roster PR being unmerged; Git ancestry and the included roster establish
-its integration here. Correcting shared historical prose can be a separate main PR.
+On 2026-11-05, the GitHub PR record showed #5 closed and merged, with
+`merge_commit_sha=baf5127543bd34c0b9ffec5a39dbf425c9a55560`; the
+`agents/axiom-v1` branch resolved to the same SHA. Therefore the standards
+reconciliation is part of Axiom's home, not merely an open review branch.
+Re-resolve the head on every pickup rather than assuming it remains unchanged.
+
+The 83 passing tests and validator noted above are evidence from the earlier
+maintenance pass; they were **not rerun** during this session's role pickup.
+The earlier pass checked memory structure and attribution, not the current
+behavior of either HollowLumen project. No matched agent comparison was run.
+Some shared documents still include historical wording about the roster PR
+being unmerged; correcting shared prose remains separate from Axiom-only
+maintenance.
 
 ## Revisit when
 
-The PR is reviewed or merged, shared main changes, another home writer adds records,
-or a real comparative trial supplies evidence for a different evaluation status.
+Shared main changes, another home writer adds records, the current branch head
+changes materially, or a real comparative trial provides new evidence.
