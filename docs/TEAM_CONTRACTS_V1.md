@@ -85,3 +85,7 @@ The team validator checks local structural invariants, uses the existing roster 
 The human-approved first team consists of **Axiom (lead)**, **Flint (counterweight)**, and **Harbor (contributor)**. Its [contract](../teams/architects/TEAM.md) and [structured profile](../teams/architects/PROFILE.json) follow this schema, and the [studio catalog](../teams/INDEX.md) makes it discoverable. The composition retains the members' separate home branches and does not create merged agent memory.
 
 The team is **structurally ready for manual composite ChatGPT pickup**. It must resolve each member's exact home revision at use time, report incomplete access, and distinguish internal checks from a truly independent federated review. A matched comparison against generic Kestrel and individual Axiom is specified but **not yet executed**.
+
+## Checkpoint 3 independent reviews — architect's disposition
+
+The founding Architects team underwent **three separate first-pass audits**: Flint (necessity and complexity), Axiom (contract invariants) and Harbor (continuity and recovery). The [architect's review reconciliation](STUDIO_ARCHITECTS_REVIEW_RECONCILIATION_2026-11-05.md) records their immutable audit sources, accepted findings, remaining uncertainty, canonical information ownership, and the approved **order** of the next bounded checkpoints. This is a decision record, **not** a claim that validator corrections, fresh-context recovery, or comparative behavior trials are complete.
