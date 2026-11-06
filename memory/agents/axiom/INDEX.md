@@ -17,6 +17,7 @@
 - [Proof obligations at composition boundaries](2026-11-05-axiom-composition-proof-obligations-6c42.md) — transferable invariant/enforcement checklist and formalism-cost correction distilled from Studio audit.
 - [Architects synchronization 01 — Axiom CP4 readiness](2026-11-05-axiom-architects-sync-cp4-a741.md) — own invariant/parity acceptance priorities after architect reconciliation and attributed peer-review reading.
 - [CP4 PR #6 — independent validation review](2026-11-05-axiom-cp4-pr6-independent-review-a8f2.md) — source-matched negative probes, remaining Markdown/catalog ambiguities, compatibility and merge verdict.
+- [CP4 PR #6 — follow-up head b342 independent review](2026-11-06-axiom-cp4-pr6-followup-b342-review-e6d2.md) — five prior blockers closed, two remaining reference-integrity classes and exact independent evidence limits.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
