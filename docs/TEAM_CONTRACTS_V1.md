@@ -44,7 +44,7 @@ Composite is the default proposed mode for ChatGPT. Federated is a host-dependen
 
 The load order is a conceptual runbook; this repository does not install a ChatGPT personality selector or federated orchestration runtime.
 
-## Structural validation requirements (next executable checkpoint)
+## Structural validation requirements (implemented in checkpoint 2)
 
 The initial validator should be read-only, deterministic, standard-library-only, and intentionally **not** interpret the blank templates as real teams.
 
@@ -57,7 +57,7 @@ The initial validator should be read-only, deterministic, standard-library-only,
 - **Negative tests:** Deliberately mutate a valid synthetic fixture for each failure class. Do not weaken tests to accept a nonconforming profile; report specific path and field errors.
 - **Behavioral trials separate:** Static validity establishes that a file is structurally coherent; matched task experiments must establish whether team composition is useful. Do not label static checks as successful collaboration.
 
-The executable validator and synthetic fixtures are **not** in this checkpoint. Adding them is the next small, reviewable step, before publishing any actual team profiles.
+The executable, read-only validator is in [tools/validate_team_contracts.py](../tools/validate_team_contracts.py), with synthetic positive/negative cases in [tests/test_team_contracts.py](../tests/test_team_contracts.py). The existing seed validator calls it when populated team homes are present. No actual teams have been added. Static checks do **not** verify agent behavior or remote home-branch existence.
 
 ## Scope accepted for this checkpoint
 
@@ -73,3 +73,9 @@ The executable validator and synthetic fixtures are **not** in this checkpoint. 
 - Should team-specific evaluations define a common experiment format in addition to individual-agent scorecards?
 - How should an authorized host report mixed revision compatibility across individual home branches?
 - Does any demonstrated workflow require durable team-level lessons, or can individual and project memory remain sufficient?
+
+## Checkpoint 2 — Studio boundary and executable validation
+
+The conceptual [studio/team responsibility boundary](STUDIO_BOUNDARY_V1.md) now separates task routing, studio-wide quality policy, project ownership, and individual continuity from the team's own composition contract. Studio orchestration remains a future proposal; no Studio Contract schema or active runtime has been created.
+
+The team validator checks local structural invariants, uses the existing roster for member branch declarations, and deliberately accepts a repository with no populated `teams/` directory. Negative tests use synthetic profiles, never fabricated production agents. Actual home SHAs must still be resolved during pickup.

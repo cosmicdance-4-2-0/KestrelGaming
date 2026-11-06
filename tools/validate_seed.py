@@ -13,6 +13,7 @@ from pathlib import Path
 import re
 import sys
 from urllib.parse import unquote, urlsplit
+from validate_team_contracts import validate_team_contracts
 
 REQUIRED = (
     "README.md", "AGENTS.md", "KESTREL.md", "CONTRIBUTING.md",
@@ -238,6 +239,8 @@ def validate(root: Path) -> list[str]:
                     raise ValueError("Skill not indexed")
             except ValueError as exc:
                 errors.append(f"{path.relative_to(root)}: {exc}")
+    # Team contracts are validated only when populated team homes exist.
+    errors.extend(validate_team_contracts(root))
     return errors
 
 
