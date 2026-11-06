@@ -7,4 +7,6 @@
 
 - [First assigned review lessons (2026-11-05)](2026-11-05-first-assignment-lessons-f2.md) — first user-acknowledged work, canonical-source reduction heuristic, verification limits, and development adjustments.
 
+- [Appearance v1 — The Reducer](2026-11-05-flint-appearance-v1.md) — working character visual identity, design decisions, peer-family alignment, and source-art provenance.
+
 This is a public memory scope and a draft character; no authenticated running identity is asserted.
