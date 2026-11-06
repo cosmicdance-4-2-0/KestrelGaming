@@ -1,6 +1,6 @@
 # Kestrel Team Contracts — Meta v0.1 (proposal)
 
-**Status:** Design checkpoint; templates and validation requirements only. No team roster, instantiated team, host orchestration, new authority, or behavioral certification is created here.
+**Status:** Working draft: team templates, structural validation, and the founding [Architects](../teams/architects/TEAM.md) composition contract. No authenticated team runtime, autonomous orchestration, new authority, or behavioral certification exists.
 
 **Branch:** `meta/team-contracts-v1` (development; not a long-lived individual home)  
 **Inputs:** [Individual character template](../kestrel/templates/AGENT_CHARACTER.md), [individual profile template](../kestrel/templates/AGENT_PROFILE.json), [agent architecture](AGENT_STRUCTURE.md), [agent pickup](AGENT_PICKUP.md), [ensemble roster](../agents/ROSTER_V1.json).
@@ -9,7 +9,7 @@
 
 A *team* is a named, task-specific **composition policy** over existing individual Kestrel characters. A team is not a character, a merger of personas, a committee with votes, a new permission system, or proof of multiple simultaneous model instances.
 
-Keep the existing `KestrelAgentCharacter` schema `0.1` unchanged. Proposed teams use a separate `KestrelTeamContract` schema `0.1`. Their source documents live under `teams/<team-id>/TEAM.md` and `PROFILE.json` **if and when teams are later authorized**. The two blank templates live under `kestrel/templates/` and are intentionally not deployable profiles.
+Keep the existing `KestrelAgentCharacter` schema `0.1` unchanged. Proposed teams use a separate `KestrelTeamContract` schema `0.1`. An accepted proposed team's source documents live under `teams/<team-id>/TEAM.md` and `PROFILE.json`; the first example is [The Architects](../teams/architects/TEAM.md). The two blank templates live under `kestrel/templates/` and are intentionally not deployable profiles.
 
 One development branch is appropriate for the shared meta design. It is *not* an identity home branch. Do not merge or overwrite individual `agents/<id>-v1` branches to create a team. Shared approved schema changes may later be reviewed for `main` separately.
 
@@ -57,9 +57,9 @@ The initial validator should be read-only, deterministic, standard-library-only,
 - **Negative tests:** Deliberately mutate a valid synthetic fixture for each failure class. Do not weaken tests to accept a nonconforming profile; report specific path and field errors.
 - **Behavioral trials separate:** Static validity establishes that a file is structurally coherent; matched task experiments must establish whether team composition is useful. Do not label static checks as successful collaboration.
 
-The executable, read-only validator is in [tools/validate_team_contracts.py](../tools/validate_team_contracts.py), with synthetic positive/negative cases in [tests/test_team_contracts.py](../tests/test_team_contracts.py). The existing seed validator calls it when populated team homes are present. No actual teams have been added. Static checks do **not** verify agent behavior or remote home-branch existence.
+The executable, read-only validator is in [tools/validate_team_contracts.py](../tools/validate_team_contracts.py), with synthetic positive/negative cases in [tests/test_team_contracts.py](../tests/test_team_contracts.py). The existing seed validator calls it when populated team homes are present. The founding Architects team now provides the first populated contract, with targeted regression checks in [test_architects_team.py](../tests/test_architects_team.py). Static checks do **not** verify agent behavior or remote home-branch existence.
 
-## Scope accepted for this checkpoint
+## Historical scope — checkpoint 1 (templates only)
 
 - Add [team prose template](../kestrel/templates/TEAM_CONTRACT.md).
 - Add [team structured template](../kestrel/templates/TEAM_PROFILE.json).
@@ -79,3 +79,9 @@ The executable, read-only validator is in [tools/validate_team_contracts.py](../
 The conceptual [studio/team responsibility boundary](STUDIO_BOUNDARY_V1.md) now separates task routing, studio-wide quality policy, project ownership, and individual continuity from the team's own composition contract. Studio orchestration remains a future proposal; no Studio Contract schema or active runtime has been created.
 
 The team validator checks local structural invariants, uses the existing roster for member branch declarations, and deliberately accepts a repository with no populated `teams/` directory. Negative tests use synthetic profiles, never fabricated production agents. Actual home SHAs must still be resolved during pickup.
+
+## Checkpoint 3 — Founding team: The Architects
+
+The human-approved first team consists of **Axiom (lead)**, **Flint (counterweight)**, and **Harbor (contributor)**. Its [contract](../teams/architects/TEAM.md) and [structured profile](../teams/architects/PROFILE.json) follow this schema, and the [studio catalog](../teams/INDEX.md) makes it discoverable. The composition retains the members' separate home branches and does not create merged agent memory.
+
+The team is **structurally ready for manual composite ChatGPT pickup**. It must resolve each member's exact home revision at use time, report incomplete access, and distinguish internal checks from a truly independent federated review. A matched comparison against generic Kestrel and individual Axiom is specified but **not yet executed**.

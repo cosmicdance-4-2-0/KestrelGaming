@@ -36,4 +36,4 @@ There is no reason yet to invent team-level memory, employer-style personnel hie
 
 The `KestrelTeamContract` schema v0.1 is deliberately limited to composition, operating method, execution-mode truthfulness, evidence, continuity constraints and permissible outputs. It **does not** select work autonomously, assign repository permissions, maintain a global backlog, supervise releases or own institutional memory. Those are potential studio concerns, and none are implemented here.
 
-For the current meta branch, only [team composition documentation](TEAM_CONTRACTS_V1.md) and the structural tests should change. Existing individual homes, the shared Kestrel operating contract, and all game project repositories remain untouched.
+At checkpoint 2 the studio boundary was defined without creating any teams. Checkpoint 3 adds the first proposed composition, [The Architects](../teams/architects/TEAM.md), under these boundaries. Existing individual homes, the shared Kestrel operating contract, and all game project repositories remain untouched.
