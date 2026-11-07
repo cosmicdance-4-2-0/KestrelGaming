@@ -31,7 +31,8 @@
 - [Auralprint 117 CP2 — merged mainline at 7a8df54](2026-11-07-ap117-cp2-mainline-review-7a8d.md) — integrated PRs #1–#3, 49-test mainline CI, CP3 observation seam, and remaining evidence limits.
 - [Auralprint 117 CP2 — Harbor recovery reconciliation](2026-11-07-ap117-cp2-harbor-recovery-reconciliation-7a8d.md) — conditional pass, import/FrameHost exception-path holes, smallest correction and negative-test handoff.
 - [Auralprint 117 CP2.1 — initial recovery PR #4 head 099a (superseded)](2026-11-07-ap117-cp2-recovery-pr4-099a.md) — first implementation and 53-test CI, superseded by Harbor final-tail correction.
-- [Auralprint 117 CP2.1 — final-tail correction at 531a](2026-11-07-ap117-cp2-final-tail-correction-531a.md) — current PR #4 head, explicit EOF/replay policy, 53-test CI and re-review handoff.
+- [Auralprint 117 CP2.1 — final-tail correction at 531a (superseded)](2026-11-07-ap117-cp2-final-tail-correction-531a.md) — premerge exact-head correction and regression evidence.
+- [Auralprint 117 CP2 integrated; CP3 readiness](2026-11-07-ap117-cp3-transition-790e.md) — Harbor PASS, merge head 790e71f, post-merge 53-test CI and scoped spectral measurement plan.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
