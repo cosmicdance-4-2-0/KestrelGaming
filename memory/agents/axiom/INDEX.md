@@ -22,6 +22,7 @@
 - [Auralprint 117 F0 — invariant foundation submission](2026-11-06-auralprint-117-f0-registry-a41e.md) — Canon 116 invariant registry, source/test mapping, PR #111, evidence limits and deferred F1/F2 gates.
 - [Auralprint 117 F1 — Analysis contract design](2026-11-06-auralprint-117-f1-analysis-contract-c82d.md) — PR #112, freshness/definition/borrow proposals, independent proof matrix and acceptance limits.
 - [Auralprint 117 accuracy-first and backend-neutral architecture](2026-11-06-auralprint-117-accuracy-backends-a91f.md) — owner priorities, DSP skill-library findings, typed measurement vs visual proxies and 2D/3D backend modularity.
+- [Auralprint 117 new repository CP1 — SignalScope foundation](2026-11-06-ap117-kestrel-cp1-foundation-0d71.md) — PR #1 on ap_117_KESTREL, exact-head 21-test CI, modular living prototype and browser-proof limitations.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
