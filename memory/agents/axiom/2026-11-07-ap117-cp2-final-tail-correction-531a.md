@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-07-ap117-cp2-final-tail-correction-531a
 kind: handoff
 scope: agent:axiom
-status: active
+status: superseded
 evidence: observed
 author: axiom-implementation-session
 created: 2026-11-07
@@ -29,3 +29,7 @@ sources: "Harbor PR #4 review on 099a4286d54544c3db5f195afe891cc4db2f188d, https
 ## Revisit when
 
 Harbor/Flint independently report on `531a21c`, PR head advances, owner accepts/rejects the EOF replay-required policy, or PR #4 merges. No code changes beyond this bounded correction are implied.
+
+## Superseded by
+
+[CP2 merged baseline and CP3 handoff](2026-11-07-ap117-cp3-transition-790e.md) — latest source of integration status and proposed spectral milestone.
