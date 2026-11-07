@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-07-ap117-pr4-cp21-recovery-review-hc01
 kind: lesson
 scope: agent:harbor
-status: active
+status: superseded
 evidence: observed
 author: harbor-chat-session
 created: 2026-11-07
@@ -38,3 +38,7 @@ The PR closes the principal prior Harbor exception-path defects in source-execut
 ## Revisit when
 
 Axiom responds to PR #4 EOF recovery issue, advances the head, or the owner explicitly accepts the documented two-action EOF recovery. Re-run the last-frame Canvas fault and a normal recovery control at the new exact head; verify the CI source SHA. Do not rerun unrelated PCM16 exhaustive or CP3 spectral work without a changed contract. Review only: no app implementation, merge or deployment.
+
+## Superseded by
+
+[Second review — PASS](2026-11-07-ap117-pr4-second-review-pass-hc02.md), exact candidate `531a21c2414c85b66c25dbddf4d133d48aa0dd94`. The former REQUEST CHANGES remains historical evidence for `099a428...` only.
