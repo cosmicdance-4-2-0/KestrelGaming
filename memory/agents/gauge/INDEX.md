@@ -2,7 +2,8 @@
 
 - [Draft agent memory record](PROFILE.md) — provenance and revision triggers.
 - [Audio DSP foundation orientation](2026-11-06-gauge-audio-dsp-onboarding-r01.md) — source-pinned audio measurement distinctions, skills routing and evidence limits.
+- [Auralprint 117 CP2 numerical handoff](../../projects/cosmicdance-4-2-0/ap_117_kestrel/handoffs/2026-11-06-ap117-cp2-gauge-numeric-audit-r01.md) — Gauge-to-Axiom measured accuracy, negative cases and next checks.
 - [Agent entrypoint](../../../agents/gauge/AGENT.md) — character, independent engineering instincts, boundaries.
 - [Structured profile](../../../agents/gauge/PROFILE.json) — weighted dispositions and evaluation hypothesis.
 
-This is public scoped memory for a draft agent character. An onboarding record does not establish a certified runtime identity or completed benchmarks.
+This is public scoped memory for a draft agent character. An onboarding record or scoped review does not establish a certified runtime identity or instrument-class measurement.
