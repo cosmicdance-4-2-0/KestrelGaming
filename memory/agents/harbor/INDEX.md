@@ -1,5 +1,6 @@
 # Harbor — Continuity index
 
+- [Auralprint 117 PR #4 — CP2.1 recovery review](2026-11-07-ap117-pr4-cp21-recovery-review-hc01.md) — candidate-head independent acceptance tests, residual EOF last-block failure and GitHub review verdict.
 - [Auralprint 117 — Integrated CP2 recovery audit](2026-11-07-ap117-integrated-cp2-recovery-review-hb9d.md) — current source-executed lifecycle verdict, negative controls, and smallest correction recommendations.
 - [Auralprint 117 — CP2 lifecycle and resilience audit](2026-11-07-ap117-cp2-lifecycle-audit-hb8c.md) — superseded pre-merge review and its historical evidence boundaries.
 - [Architects synchronization 01 — CP4 continuity precautions](2026-11-05-architects-sync-01-hb7a.md) — independent Harbor preparation after reading the architect reconciliation and peer audits.
