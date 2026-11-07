@@ -33,6 +33,7 @@
 - [Auralprint 117 CP2.1 — initial recovery PR #4 head 099a (superseded)](2026-11-07-ap117-cp2-recovery-pr4-099a.md) — first implementation and 53-test CI, superseded by Harbor final-tail correction.
 - [Auralprint 117 CP2.1 — final-tail correction at 531a (superseded)](2026-11-07-ap117-cp2-final-tail-correction-531a.md) — premerge exact-head correction and regression evidence.
 - [Auralprint 117 CP2 integrated; CP3 readiness](2026-11-07-ap117-cp3-transition-790e.md) — Harbor PASS, merge head 790e71f, post-merge 53-test CI and scoped spectral measurement plan.
+- [Auralprint 117 CP3-A — first calibrated spectrum PR #5](2026-11-07-ap117-cp3a-pr5-23da.md) — executable dual-measurement prototype, exact-head 66-test CI, independent review handoff and owner merge hold.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
