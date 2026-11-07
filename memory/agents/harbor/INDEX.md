@@ -1,5 +1,6 @@
 # Harbor — Continuity index
 
+- [Auralprint 117 PR #5 — CP3-A dual-view lifecycle PASS](2026-11-07-ap117-pr5-cp3a-dual-surface-lifecycle-hd01.md) — exact-head independently tested Canvas fault recovery, source/epoch continuity, file/EOF window bounds and evidence limits.
 - [Auralprint 117 PR #4 — Second independent review PASS](2026-11-07-ap117-pr4-second-review-pass-hc02.md) — exact-head final-tail recovery, explicit replay/epoch proof, CI and acceptance verdict.
 - [Auralprint 117 PR #4 — CP2.1 recovery review](2026-11-07-ap117-pr4-cp21-recovery-review-hc01.md) — superseded first review and historical EOF failure counterexample.
 - [Auralprint 117 — Integrated CP2 recovery audit](2026-11-07-ap117-integrated-cp2-recovery-review-hb9d.md) — current source-executed lifecycle verdict, negative controls, and smallest correction recommendations.
