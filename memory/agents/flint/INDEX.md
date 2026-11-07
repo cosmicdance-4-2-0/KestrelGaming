@@ -18,3 +18,4 @@
 This is a public memory scope and a draft character; no authenticated running identity is asserted.
 
 - [Auralprint PR #111 F0 review (2026-11-06)](2026-11-06-flint-auralprint-f0-pr111-8e42.md) — pinned documentation review, borrowed AnalysisFrame contract correction, independent link checks and CI evidence limits.
+- [Auralprint 117 CP2 frame-host minimality pass (2026-11-07)](2026-11-07-flint-ap117-cp2-frame-loop-pr3-f82a.md) — merged CP2 baseline, bounded PR #3, verified 49-test CI and Harbor review boundary.
