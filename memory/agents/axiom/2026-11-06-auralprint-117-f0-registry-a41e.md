@@ -35,3 +35,13 @@ The [registry](https://github.com/cosmicdance-4-2-0/Auralprint1/blob/db9dfaf2886
 4. Auralprint accepted source changes or the target branch diverges. Re-pin the source before assuming any mapping still holds.
 
 **Next useful action:** Request independent architecture/source review of [PR #111](https://github.com/cosmicdance-4-2-0/Auralprint1/pull/111); resolve omissions/contested assertions; then seek explicit F0 acceptance and separately scope F1 Analysis contract design. Do not touch Canon, held PR #109 or application source as part of this F0 note.
+
+## Audit follow-up — 2026-11-06
+
+**Observed correction accepted:** Auralprint commit [`8a23cf37`](https://github.com/cosmicdance-4-2-0/Auralprint1/commit/8a23cf37a0bf7959ad043eb86e8d727a4976c93d) is a direct child of prior F0 head `db9dfaf2` and changes only B06's heading. It removes the mistaken implication that 116 already has an explicit borrowed-AnalysisFrame lifetime boundary. Current B06 accurately separates shipped producer-owned references from **unresolved** freshness, retention, epoch, timestamp and snapshot policy. It is compatible with unmerged F1 PR #112's proposed new contract; no F1 correction is presently required.
+
+**Status and evidence limit:** F0 PR #111 remains open, now at `8a23cf37a0bf7959ad043eb86e8d727a4976c93d`. No formal submitted GitHub review or inline review thread was present when checked. The correction is not overall owner acceptance or Stage 0/1 promotion.
+
+**CI checked on audited exact head:** GitHub Actions run [42323149873](https://github.com/cosmicdance-4-2-0/Auralprint1/actions/runs/42323149873) completed with **Windows success and Ubuntu failure**. Ubuntu `npm test` reported 1,553 passing, 2 failing (nested suite/subtest representations of the same duplicate-save assertion), 1 skipped. The concrete failing subtest was `tests/watch-integration.test.js` duplicate saves launching an additional Python assembler; this is the already documented AUD116-006/R2-003 intermittent Watcher risk, not evidence that the one-line B06 wording change caused a runtime regression. Build, distribution and browser steps on that Ubuntu job were skipped after failure. Do not call CI green, suppress the failing assertion, claim cause solved, or claim F0 accepted.
+
+**Revisit:** exact F0 head, whether owner explicitly accepts the qualified checkpoint despite existing Watcher CI instability, and whether F1 proof can demonstrate an actual freshness boundary without retroactively attributing one to Build 116.
