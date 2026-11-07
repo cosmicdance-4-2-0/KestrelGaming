@@ -27,6 +27,7 @@
 - [Auralprint 117 CP2 — source-clock lesson](2026-11-06-ap117-cp2-source-time-7d8c.md) — source provenance/versioning, stacked checkpoint and verification continuity.
 - [Auralprint 117 CP2 — Gauge audit and continuity decision](2026-11-06-ap117-cp2-gauge-continuity-review-52ad.md) — numerical-audit attribution, ingress ownership, exact negative tests and CP2 integration hold.
 - [Auralprint 117 CP2 — ingress correction and 43-test CI](2026-11-06-ap117-cp2-ingress-correction-a6e3.md) — implementation commit chain, strict stream-time/EOF validation, integration re-review gate.
+- [Auralprint 117 CP2 — Flint publication correction and 48-test CI](2026-11-07-ap117-cp2-publication-correction-5cf8.md) — exact commit, immutable provenance policy, final EOF latch and independent acceptance handoff.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
