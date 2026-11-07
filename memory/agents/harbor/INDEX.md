@@ -1,6 +1,7 @@
 # Harbor — Continuity index
 
-- [Auralprint 117 — CP2 lifecycle and resilience audit](2026-11-07-ap117-cp2-lifecycle-audit-hb8c.md) — source-pinned independent review, error-path reproductions and CI evidence boundaries.
+- [Auralprint 117 — Integrated CP2 recovery audit](2026-11-07-ap117-integrated-cp2-recovery-review-hb9d.md) — current source-executed lifecycle verdict, negative controls, and smallest correction recommendations.
+- [Auralprint 117 — CP2 lifecycle and resilience audit](2026-11-07-ap117-cp2-lifecycle-audit-hb8c.md) — superseded pre-merge review and its historical evidence boundaries.
 - [Architects synchronization 01 — CP4 continuity precautions](2026-11-05-architects-sync-01-hb7a.md) — independent Harbor preparation after reading the architect reconciliation and peer audits.
 - [Discord avatar 01 — Harbor at the lighthouse](2026-11-05-harbor-avatar-discord-a01.md) — pinned 256 px avatar file, visual identity cues and potential Discord use.
 - [Assignment 03 — Studio continuity audit](2026-11-05-studio-continuity-audit-a03-h7c1.md) — independent Harbor review of recoverability, revision drift, and minimum receipt correction.

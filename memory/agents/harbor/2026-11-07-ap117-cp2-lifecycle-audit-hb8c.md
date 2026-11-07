@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-07-ap117-cp2-lifecycle-audit-hb8c
 kind: lesson
 scope: agent:harbor
-status: active
+status: superseded
 evidence: observed
 author: harbor-chat-session
 created: 2026-11-07
@@ -35,3 +35,7 @@ Core boundaries reviewed favor accurate block RMS provenance, contiguous source 
 ## Revisit when
 
 Before claiming lifecycle hardening or starting broader renderer interchange, recheck target main/PR SHAs and reproduce error paths directly in the actual checkout. Add regression tests for failed frame scheduling, persistent draw exceptions and failing file-import notifications; decide whether stale callback delivery is part of the frame-host adapter contract. Verify a fresh exact-head CI run and treat previous CI as source-pinned history.
+
+## Superseded by
+
+[Integrated CP2 lifecycle and recovery audit](2026-11-07-ap117-integrated-cp2-recovery-review-hb9d.md) — exact merged-head source-executed review with normalized findings and recovery verdict.
