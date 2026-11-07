@@ -29,6 +29,7 @@
 - [Auralprint 117 CP2 — ingress correction and 43-test CI](2026-11-06-ap117-cp2-ingress-correction-a6e3.md) — implementation commit chain, strict stream-time/EOF validation, integration re-review gate.
 - [Auralprint 117 CP2 — Flint publication correction and 48-test CI](2026-11-07-ap117-cp2-publication-correction-5cf8.md) — exact commit, immutable provenance policy, final EOF latch and independent acceptance handoff.
 - [Auralprint 117 CP2 — merged mainline at 7a8df54](2026-11-07-ap117-cp2-mainline-review-7a8d.md) — integrated PRs #1–#3, 49-test mainline CI, CP3 observation seam, and remaining evidence limits.
+- [Auralprint 117 CP2 — Harbor recovery reconciliation](2026-11-07-ap117-cp2-harbor-recovery-reconciliation-7a8d.md) — conditional pass, import/FrameHost exception-path holes, smallest correction and negative-test handoff.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
