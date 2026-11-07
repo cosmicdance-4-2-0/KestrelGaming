@@ -24,6 +24,8 @@
 - [Auralprint 117 accuracy-first and backend-neutral architecture](2026-11-06-auralprint-117-accuracy-backends-a91f.md) — owner priorities, DSP skill-library findings, typed measurement vs visual proxies and 2D/3D backend modularity.
 - [Auralprint 117 new repository CP1 — SignalScope foundation](2026-11-06-ap117-kestrel-cp1-foundation-0d71.md) — PR #1 on ap_117_KESTREL, exact-head 21-test CI, modular living prototype and browser-proof limitations.
 
+- [Auralprint 117 CP2 — source-clock lesson](2026-11-06-ap117-cp2-source-time-7d8c.md) — source provenance/versioning, stacked checkpoint and verification continuity.
+
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
 Inherited records authored by other sessions remain shared context, not my work.
