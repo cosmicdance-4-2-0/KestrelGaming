@@ -9,19 +9,21 @@
     "character_id": "gauge",
     "display_name": "Gauge — The Witness",
     "home_branch": "agents/gauge-v1",
-    "visual_id": "gauge-witness-visual-01",
+    "visual_id": "gauge-witness-visual-02",
     "design_date": "2026-11-07",
     "owner_accepted": false,
     "asset": "avatar.svg",
-    "provenance": "First source-controlled visual proposal. No previously accepted Gauge portrait existed on this home branch."
+    "provenance": "User-provided 1254×1254 full-resolution portrait supplied in chat after original vector design. The full original is preserved privately in the owner ChatGPT Library, not committed to this public GitHub branch. Appearance is a user-supplied proposal; no explicit canonical-publication approval has been recorded.",
+    "previous_visual_id": "gauge-witness-visual-01",
+    "asset_role": "historical-v01-fallback-svg-not-visual02-master"
   },
   "design": {
-    "concept": "An adult-presenting androgynous, non-biographical scientific observer; calm, precise, curious and quietly skeptical.",
-    "facial_features": "Stylized warm-neutral face, direct gaze, subtle half-smile, minimal shading, no distinctive real-person likeness.",
-    "hair": "Close-cropped asymmetrical swept pale silver hair, one slender amber temple stroke on viewer-right.",
-    "eyepiece": "Exactly one circular translucent teal calibration optic positioned over the eye on the viewer-left; no second lens, goggles or visor.",
-    "clothing": "Matte graphite and slate-blue structured field jacket with lapels, pale neutral inset, small amber graduated-calibration clasp.",
-    "motif": "Concentric fine instrument dial rings and restrained tick marks behind the head.",
+    "concept": "A distinguished mature male-presenting cybernetic gentleman and measurement witness, with calmly skeptical bearing, warm human expression and precision-instrument symbolism.",
+    "facial_features": "Mature light warm-toned face, direct steady gaze, well-defined brows, trimmed silver mustache and close-cropped silver beard, restrained half-smile; clearly stylized fictional portrait, no real-person identity claim.",
+    "hair": "Thick swept-back and side-parted silver-white hair with detailed strands and a small elongated amber metallic hair clip on image viewer-right.",
+    "eyepiece": "Exactly one intricate circular cyan-teal illuminated optical measurement monocle over the image viewer-left eye, metallic side-mounted bracket, centered crosshair and subtle reticle rings; unobstructed dark right eye.",
+    "clothing": "Formal sculpted charcoal graphite high-collared coat with layered textured fabric, deep lapels and narrow warm metallic edging over a cream-gray structured inner collar. Distinct amber triple-graduation mark on image viewer-right chest lapel.",
+    "motif": "Large centered circular instrument dial or astrolabe halo behind the bust, delicate teal dotted graduations, sparse amber cardinal ticks, dark near-black teal background and subtle corner-line frame.",
     "palette": {
       "midnight": "#0F1927",
       "graphite": "#253748",
@@ -31,32 +33,77 @@
       "teal": "#47D0C3",
       "amber": "#D9914E"
     },
-    "style": "Crisp vector geometry, reserved gradients, uncluttered silhouette, no text, no brands, no official uniforms."
+    "style": "Polished cinematic realistic digital illustration, rich material detail and controlled chiaroscuro; portrait fills square canvas, no words, brand names or watermarks."
   },
   "adaptations": {
-    "icon": "Prioritize one teal optic, silver swept hair and graphite shoulders; remove dial clutter first at tiny sizes.",
-    "portrait": "Keep all signature attributes, gaze and calibration clasp. The SVG master is the default front-facing bust reference.",
-    "full_body": "Extend the understated field jacket to neutral practical attire; retain face, single eyepiece, hair, amber pin.",
-    "pixel_art": "Use same palette and asymmetry in 16-bit-like sprite proportions without inventing a different costume.",
-    "three_dimensional": "Maintain exact number and viewer-side of eyepiece, asymmetrical swept hair and matte materials.",
-    "monochrome": "Encode the unique circular eyepiece and layered jacket as silhouette/shape distinctions.",
-    "prompt": "Gauge — The Witness, adult-presenting androgynous humanlike scientific observer, short swept silver hair with a single amber temple accent, one round teal measuring eyepiece covering the eye on the viewer-left, matte graphite and slate coat with a small amber graduation pin, reserved gentle half-smile, subtle circular instrument dial behind, clean precise geometric illustration.",
+    "icon": "Crop head and upper collar. Retain mature silver hair and beard, a SINGLE luminous teal optical monocle on the viewer-left eye, amber side hair clip and at least one amber coat marker.",
+    "portrait": "The user-provided full-resolution PNG is the reference for face, hair, beard, cybernetic monocle, coat and concentric instrument halo. Do not reconstruct its identity from earlier cartoon SVG alone.",
+    "full_body": "Extend formal dark graphite/charcoal high-collar coat into restrained ornate sci-fi attire. Keep beard, single teal lens, silver brushed hair, amber clip and lapel glyph.",
+    "pixel_art": "Reduce portrait to 16-bit character art while preserving silver swept-back hair, salt-and-pepper beard, single teal viewer-left optic and gold accents; do not change eye-side or facial age.",
+    "three_dimensional": "Preserve mature face and facial hair, detailed silver swept coiffure, a single round teal sensor over viewer-left eye, dark textured coat, amber triple-marker and metal lapel trim.",
+    "monochrome": "Use the one prominent monocle and mature beard/hair/coat collar silhouette as primary identity keys.",
+    "prompt": "Square cinematic, highly detailed realistic digital portrait of Gauge — The Witness, distinguished mature silver-haired and silver-bearded cybernetic gentleman, thick swept-back side-parted silver-white hair with one narrow amber hair clip at image viewer-right temple, serene observant expression, only ONE teal glowing mechanical optical monocle with crisp measurement reticle over image viewer-left eye, unobstructed other eye, richly textured charcoal black high-collared formal futurist coat with gold-edged angular lapels, pale gray inner stand-collar, small amber triple graduation lapel insignia, delicate teal and amber concentric instrument-dial halo against deep midnight teal background, dark elegant cinematic lighting, centered head and shoulders, no text, no watermarks.",
     "prohibited": [
-      "No second eyepiece or two-lens goggles.",
-      "Do not replace silver swept hair, teal circle, graphite coat or amber pin.",
-      "No military, police, medical, government or religious uniform or credentials.",
-      "No weapons, corporate logos, text or watermarks.",
-      "Do not portray any real person or claim authenticated agent identity."
+      "Do not render two optical devices or move the singular teal lens to image viewer-right.",
+      "Do not remove the mature silver beard or regress to a clean-shaven young/androgynous cartoon face.",
+      "Do not change the detailed swept silver hair or remove the small amber hair clip.",
+      "Do not simplify the textured graphite formal coat and distinct triple amber lapel marker into a casual jacket.",
+      "Do not place any official institutional credential, corporate logo, weapon or readable lettering.",
+      "Do not claim this fictional portrait identifies a real person or a verified runtime AI."
     ]
   },
   "continuity": {
-    "asset_status": "proposal-not-yet-approved",
+    "asset_status": "user-supplied-primary-candidate-with-private-original-and-github-description",
     "approval_required_for_canonical_publication": true,
     "mutation_rule": "If owner approval later establishes canon, publish a versioned reference; future adaptations must cite source visual ID and revision rather than silently overwrite historical renders.",
     "portable_formats": [
       "SVG master",
       "prompt specification",
       "palette and silhouette constraints"
-    ]
+    ],
+    "preferred_visual_id": "gauge-witness-visual-02",
+    "previous_visual_id": "gauge-witness-visual-01",
+    "github_svg_is_legacy_fallback": true,
+    "identity_update_note": "Keep original v01 vector asset and profile intact for provenance. v02 is currently represented in GitHub by this descriptive machine-readable contract; original image resides in the owner's ChatGPT Library and is not part of repository checkout. Approval and full-resolution repo publication are separate owner decisions.",
+    "source_sha256": "7b2862e62174a2fba800beec6ef2e56dfd0bccb1b961ab2964d24eb04d85f965"
+  },
+  "reference_portrait": {
+    "status": "user-supplied-preferred-candidate-not-published-canon",
+    "filename": "The Witness - Cybernetic Gentleman.png",
+    "origin": "user supplied in this project's conversation",
+    "library_path": "/Kestrel Studio/Gauge/The Witness - Cybernetic Gentleman.png",
+    "repository_binary_available": false,
+    "source_image": {
+      "width": 1254,
+      "height": 1254,
+      "format": "PNG",
+      "bytes": 2966311,
+      "sha256": "7b2862e62174a2fba800beec6ef2e56dfd0bccb1b961ab2964d24eb04d85f965"
+    },
+    "access_policy": "Private ChatGPT Library file. Do not assume an external agent or GitHub-only pickup can resolve it. Request owner-provided image bytes for pixel-faithful transformations; use this JSON's written traits for conceptual rendering when unavailable.",
+    "aesthetic": "High-detail realistic digital portrait with subtle cinematic science-fiction motifs, restrained teal and amber instrumentation and ornate finely textured graphite clothing."
+  },
+  "prior_draft": {
+    "visual_id": "gauge-witness-visual-01",
+    "design": {
+      "concept": "An adult-presenting androgynous, non-biographical scientific observer; calm, precise, curious and quietly skeptical.",
+      "facial_features": "Stylized warm-neutral face, direct gaze, subtle half-smile, minimal shading, no distinctive real-person likeness.",
+      "hair": "Close-cropped asymmetrical swept pale silver hair, one slender amber temple stroke on viewer-right.",
+      "eyepiece": "Exactly one circular translucent teal calibration optic positioned over the eye on the viewer-left; no second lens, goggles or visor.",
+      "clothing": "Matte graphite and slate-blue structured field jacket with lapels, pale neutral inset, small amber graduated-calibration clasp.",
+      "motif": "Concentric fine instrument dial rings and restrained tick marks behind the head.",
+      "palette": {
+        "midnight": "#0F1927",
+        "graphite": "#253748",
+        "slate": "#344B5C",
+        "silver": "#C7D5D9",
+        "warm_neutral": "#C8ADA2",
+        "teal": "#47D0C3",
+        "amber": "#D9914E"
+      },
+      "style": "Crisp vector geometry, reserved gradients, uncluttered silhouette, no text, no brands, no official uniforms."
+    },
+    "source_asset": "avatar.svg",
+    "status": "superseded-as-leading-candidate-but-retained-for-provenance"
   }
 }

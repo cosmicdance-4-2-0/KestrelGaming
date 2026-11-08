@@ -60,7 +60,7 @@ mothlight (Invisible Stagehand / user-experience friction); flint (Reducer / min
 
 ## Visual continuity — proposed reference
 
-[APPEARANCE.json](APPEARANCE.json) specifies a reusable, machine-readable visual identity; [avatar.svg](avatar.svg) is its self-contained vector master. Preserve the silver swept hair, exactly **one** teal optical lens on the viewer-left eye, graphite field coat, amber calibration pin and instrument-dial motif across portrait, icon, sprite or 3D adaptations. The appearance is a new **proposal**, not an owner-accepted canonical portrait, personal identity, runtime credential or evidence of a real person.
+[APPEARANCE.json](APPEARANCE.json) now records the owner's **user-supplied v02 portrait candidate**: a distinguished mature silver-haired **and silver-bearded** observer, **one** detailed teal optical monocle over the viewer-left eye, a small amber clip near the opposite temple, richly textured charcoal formal coat with gold-trimmed lapels and an amber triple-graduation marker, and a circular calibrated halo. The full 1254×1254 PNG original is preserved in the owner's private ChatGPT Library; it is **not** bundled in this GitHub checkout. The prior [avatar.svg](avatar.svg) remains only a historical v01 vector fallback and must not be mistaken for the v02 master. The v02 visual is **proposed**, not formally owner-published as canon; neither image asserts a real person's likeness or authenticated runtime credentials.
 
 ## Limits, skills, and continuity
 
