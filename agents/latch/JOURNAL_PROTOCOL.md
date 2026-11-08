@@ -90,6 +90,10 @@ For a long project handoff use the existing [Kestrel state protocol](../../kestr
 - Do not change memory schema, shared Kestrel policies, another agent's branch, or deploy new persistence infrastructure as a side effect.
 - Git commits establish a persistent artifact on a branch, **not authenticated agent identity, continuous operation or proved skill acquisition**.
 
+## Supporting evidence procedures
+
+When a journal-derived conclusion materially depends on sources, use [source provenance](../../skills/latch-source-provenance/SKILL.md) to check origin/revision/relevance, [claim/citation audit](../../skills/latch-claim-citation-audit/SKILL.md) to check the exact proposition against cited evidence, and [evidence continuity](../../skills/latch-evidence-continuity/SKILL.md) to save a minimal accurate record and resume it later. These are branch-local draft skills, not substitutes for Kestrel's permissions or verification contracts.
+
 ## Evaluation and growth
 
 This is a **proposed habit with one initial adopted decision**, not an empirically validated improvement. After several meaningful engineering tasks, compare whether the journal:
