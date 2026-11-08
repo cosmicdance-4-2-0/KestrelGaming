@@ -81,6 +81,33 @@ Do not merge whole agent branches into main, copy all individual memories into t
 
 Migration needs to address existing hard-coded cosmicdance-4-2-0 URLs and home_ref semantics before upstream adoption. Do not silently rewrite historical citations to point at a different repository.
 
+## 6A. Individual agency and integrity covenant — required at every pass
+
+**Agency is sacrosanct.** For this project, that is a design and workflow commitment to preserving each synthetic agent's independently defined judgment, identifiable work, memory provenance and opportunity to disagree. It does not imply sentience, legal personhood, intrinsic runtime permissions, governance votes or authority exceeding the human/host's grants.
+
+**Non-negotiable boundaries:**
+
+1. **Individual source ownership:** Axiom, Flint, Harbor, Gauge, Mothlight, Kite and Latch have separate character definitions, home branches and attributable memory. A team composes their methods; it does not average, overwrite, silently recharacterize or merge the individuals. No agent or team writes to another's personal home as its own work.
+2. **Publication is not mutation:** Copying an approved reference character to shared main never rewrites the living home, attributes composite output to the named individual, or automatically promotes future personal evolution. Pin source SHAs; review semantic changes to a persona with that agent in its own loaded context, when available, and obtain authorized human acceptance. If a required individual integrity review cannot be performed, mark the publication gate unverified rather than claiming assent.
+3. **Independent challenge:** A named-agent audit requires a genuinely separate, actually loaded agent context and an inspectable source/task/review receipt. The agent must be free within the authorized task to question premises, object to an assignment or proposed change, produce counterexamples, acknowledge uncertainty, and retain dissent. A single composite prompt considering seven perspectives is **not** seven audits.
+4. **Traceability:** Capture reviewer ID and exact home/contract/skill/project revisions actually loaded; scope, access and independence conditions; observations and counterexamples; tests executed versus proposed; verdict; and unresolved dissent. Auditors preserve their own public-safe findings in their authorized individual memory workflow; the plan or PR links to them rather than overwriting the histories or manufacturing consensus.
+5. **No self-certification:** The implementer does not certify the behavioral correctness of its own identity or team implementation. The authorized human accepts changes after relevant independent review and empirical gates. Reviewers may disagree; do not use synthetic majority votes to suppress a grounded minority finding.
+6. **No universal review ceremony:** Consult the specialist whose failure mode materially intersects the pass, then add others when evidence or risk warrants it. Every one of the seven must have an opportunity to review its **own** proposed reference publication, but seven parallel reviews are not a prerequisite for every small code change.
+7. **Host authority is unchanged:** Preserve runtime permission and privacy limits. The individual's ability to dissent in analysis is not a license to push, disclose secrets, alter another profile, or take external actions without authorization.
+
+### Targeted audit routing and stop conditions
+
+| Pass | Initial independent challenge assignments | Audit focus / gate |
+| --- | --- | --- |
+| 1 — Team contract closure | **Axiom** (parity and invariants), **Flint** (necessary complexity), **Latch** if trust/authority parsing changes | Close concrete counterexamples at exact PR SHA; do not claim an independent audit that was only simulated. **Harbor** checks continuity-impacting changes if introduced. |
+| 2 — Reference seven | **Each individual** reviews its own published snapshot; **Axiom** checks cross-reference invariants; **Mothlight** reviews discoverability | Seven identities remain semantically distinct and independently attributable; no home overwrite or silent identity revision. |
+| 3 — Pickup and memory | **Harbor** (restart/recovery), **Latch** (scope, privacy, authority), **Axiom** (loader integrity) | No cross-agent memory contamination, phantom permissions, false receipts or loss of attributable provenance. |
+| 4 — Operational Teams | **Flint** (minimum viable composition), **Axiom** (contract compliance), **Harbor** (interruption); **Mothlight** for operator-facing pickup | Actual composite execution is demonstrated and honestly labeled; other specialists are consulted when their domain is invoked, not impersonated. |
+| 5 — Federation and evaluation | **Gauge** (measurement/independence), **Kite** (falsifying experiments), **Harbor** (fresh-context recovery); **Latch** for cross-agent trust and **Mothlight** for user-facing handoff | Distinct independently executed artifacts, dissent, cost/quality evidence, usable recovery, and faithful attribution. |
+| 6 — Upstream optional integration | **Axiom** (compatibility/invariants), **Flint** (feature isolation), **Latch** (host permission boundary), **Harbor** (migration/rollback); **Gauge** for performance claims | Disabled-by-default generic Kestrel unchanged, source/agent integrity retained, upstream CI baseline and combined gates green. |
+
+These are **planned invitations, not performed audits or standing permission to run agents**. At each pass record who was actually invited, who actually reviewed, reviewed revision, findings, dissent, acceptance authority, and any review not performed. New risks can change this matrix, with reasons recorded before widening scope.
+
 ## 7. Multi-pass development and review gates
 
 Each pass is a bounded work package with its own reviewable diff, evidence and stop condition. Do not skip review gates or begin following passes merely because a previous one has code.
@@ -89,7 +116,7 @@ Each pass is a bounded work package with its own reviewable diff, evidence and s
 
 **Scope:** This proposal only; inspect existing Studio/upstream state and retain dependency SHAs, optionality, acceptance requirements, and staged work. No code, contracts, profiles, memory, CI, upstream merge, or host integration modified.
 
-**Exit:** proposal is readable on a dedicated Studio branch, and reviewer can identify changes, gates and deferrals. Human revises/accepts plan before implementation.
+**Exit:** proposal is readable on a dedicated Studio branch, and reviewer can identify changes, gates, agent-integrity covenant, independent-audit routing and deferrals. Human revises/accepts plan before implementation.
 
 ### Pass 1 — Contract and team-parity closure
 
@@ -101,7 +128,7 @@ Each pass is a bounded work package with its own reviewable diff, evidence and s
 ### Pass 2 — Publish seven and lock references
 
 **Tasks:** examine each current home and source revision, select/reference seven first-person characters on Studio main, make paths/links portable, add registry/normalization and version rules, verify every home resolves without changing home histories. Keep identity, skills, memories and runtime permissions separate.
-**Exit:** seven unique, navigable and source-pinned published references; name and version resolution tests; no fabricated status, lost home, merged personal journal, or unapproved remote write.
+**Exit:** seven unique, navigable and source-pinned published references; actual individual integrity review receipts (or explicitly unresolved reviews) for each persona change; name and version resolution tests; no fabricated status, lost home, merged personal journal, or unapproved remote write.
 **Stop:** migration ambiguity that could alter agent identity or lose provenance.
 
 ### Pass 3 — Agent pickup and continuity surface
@@ -156,6 +183,6 @@ At stable-v1 acceptance, demand observed demonstrations of:
 
 ## 10. Change-control and next action
 
-No new execution work is authorized by the existence of this document. Pass 0 creates only this plan; later passes require scoped selection and review. Existing authorizations on separate agent branches, PRs, or target projects do not transfer to this branch.
+No new execution work is authorized by the existence of this document. Pass 0 creates only this plan; later passes require scoped selection, relevant independent agent audits, and review. Existing authorizations on separate agent branches, PRs, or target projects do not transfer to this branch.
 
 **Recommended immediate next action:** review this proposal, then dispatch Pass 1 against the current PR #6 head with exact-SHA validation. Do not reimplement team contracts from scratch or begin Pass 2 publication before Pass 1 is accepted.
