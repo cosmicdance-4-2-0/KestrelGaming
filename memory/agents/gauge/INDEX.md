@@ -10,4 +10,6 @@
 
 - [Gauge user-supplied v02 portrait candidate](2026-11-07-gauge-user-portrait-reference-g07.md) — private original checksum, visual identifiers, preservation location and distinction from legacy SVG.
 
+- [Gauge owner-supplied canonical character sheet v03](2026-11-07-gauge-canonical-character-sheet-g08.md) — exact original image/text checksums, private-file custody, production visual anchors, and migration from prior versions.
+
 This is public scoped memory for a draft agent character. An onboarding record or scoped review does not establish a certified runtime identity or instrument-class measurement.

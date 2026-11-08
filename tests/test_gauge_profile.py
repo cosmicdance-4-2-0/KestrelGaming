@@ -54,14 +54,18 @@ class GaugeProfileTests(unittest.TestCase):
         self.assertGreaterEqual(len(self.p["collaboration"]["known_relationship_history"]), 1)
         self.assertEqual(self.p["continuity"]["earned_relationships"], [])
 
-    def test_portable_visual_identity_is_proposed_not_authenticated(self):
+    def test_portable_visual_canon_is_sourced_not_authenticated(self):
         path = ROOT / "agents/gauge/APPEARANCE.json"
         visual = json.loads(path.read_text(encoding="utf-8"))
         self.assertEqual(visual["schema"]["name"], "KestrelAgentAppearance")
-        self.assertEqual(visual["schema"]["version"], "0.1")
-        self.assertEqual(visual["schema"]["status"], "PROPOSED")
+        self.assertEqual(visual["schema"]["version"], "0.2")
+        self.assertEqual(visual["schema"]["status"], "CANONICAL_REFERENCE")
+        self.assertEqual(visual["metadata"]["visual_id"], "gauge-witness-visual-03")
+        self.assertEqual(visual["reference_sheet"]["source_image"]["sha256"], "291c12694cd915710731339de7a892e586d4d8d2e34e6f8d53bcc6a16d2b95ab")
+        self.assertEqual(visual["reference_document"]["original_sha256"], "ac12be7cb4048c4f92e4456a8bca22905ce5c4c7b080f86530cb26802a633dfc")
+        self.assertTrue((path.parent / visual["metadata"]["source_document"]).is_file())
         self.assertEqual(visual["metadata"]["character_id"], "gauge")
-        self.assertFalse(visual["metadata"]["owner_accepted"])
+        self.assertTrue(visual["metadata"]["owner_accepted"])
         self.assertEqual(visual["metadata"]["home_branch"], "agents/gauge-v1")
         svg = path.parent / visual["metadata"]["asset"]
         self.assertTrue(svg.is_file())
@@ -74,6 +78,9 @@ class GaugeProfileTests(unittest.TestCase):
         agent = (ROOT / "agents/gauge/AGENT.md").read_text(encoding="utf-8")
         self.assertIn("APPEARANCE.json", agent)
         self.assertIn("avatar.svg", agent)
+        self.assertIn("CANONICAL_APPEARANCE.md", agent)
+        self.assertEqual(visual["reference_sheet"]["repo_binary_available"], False)
+        self.assertEqual(visual["metadata"]["asset_role"], "legacy-v01-svg-fallback-not-v03-image")
 
 if __name__ == "__main__":
     unittest.main()
