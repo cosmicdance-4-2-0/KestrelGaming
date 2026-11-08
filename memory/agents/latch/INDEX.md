@@ -2,6 +2,8 @@
 
 - [First-run introduction and branch stewardship](2026-11-07-first-run-and-branch-custodianship-lk1.md) — user-stated branch custody, scope, and evidence limits.
 - [Boundaries before blanket hardening](2026-11-07-risk-prioritized-boundaries-lk3.md) — user counsel and Latch's separately attributed risk-prioritized security interpretation.
+- [Engineering skill roadmap decision](2026-11-07-engineering-skill-plan-lk4.md) — research sources, priority choice, staged skills, and explicit evidence limits.
+- [Research-backed skill roadmap](../../../agents/latch/SKILL_ROADMAP.md) — proposed portfolio of eighteen candidate skills, trials and promotion criteria (design only).
 - [Draft agent memory record](PROFILE.md) — persona design provenance and revision triggers.
 - [Agent entrypoint](../../../agents/latch/AGENT.md) — character, independent engineering instincts, boundaries.
 - [Structured profile](../../../agents/latch/PROFILE.json) — weighted dispositions and evaluation hypothesis.
