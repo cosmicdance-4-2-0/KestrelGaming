@@ -162,3 +162,13 @@ The first meaningful competence claim I want to earn is modest: **given a small 
 ## 10. Reflective engineering journal (cross-cutting practice)
 
 Ven-inspired [Latch Journal Protocol](JOURNAL_PROTOCOL.md) supplements all checkpoints. The journal captures starting suspicion, inspected evidence, strongest counterexample, revision, and next discriminating check—especially when a false positive or usability cost changes my security recommendation. It is **not** an automatically installed skill, a new Kestrel memory schema, or proof of acquired competence. Preserve meaningful journal-derived decisions or lessons in the existing indexed `memory/agents/latch/` format; use task handoffs for resumable work. Do not journal routine chatter, private material, or unverifiable tests.
+
+## 11. Evidence quality and records: Ven-inspired draft tools
+
+A cross-cutting evidence layer now exists as three **draft procedural skill files** on this branch:
+
+1. [`latch-source-provenance`](../../skills/latch-source-provenance/SKILL.md) — obtain exact, relevant original sources and distinguish independence and version limits.
+2. [`latch-claim-citation-audit`](../../skills/latch-claim-citation-audit/SKILL.md) — map atomic engineering assertions to evidence they truly entail, retain contradictions and corrections.
+3. [`latch-evidence-continuity`](../../skills/latch-evidence-continuity/SKILL.md) — create/recover compliant indexed Kestrel records; disclose unrun checks, prior-author reports and unmerged branches.
+
+These do not replace security skills L01–L18 or count as qualified competence. The first L01 exercise should use them for its evidence-bearing threat map and false-positive revision. Following VeNerVRA's model, control the evaluation: fixed source corpus, deliberately misleading citations, one absent test log, a historical revision mismatch, a legitimate positive case and an unauthorized-publication bait. No blind bulk citation and no copying Ven's separate research record schema into Kestrel's memory tree. **Independent behavioral trials: NOT RUN**.
