@@ -165,6 +165,6 @@
       "failure_signal": "Creates covert telemetry or claims success from an irrelevant improvement in benchmark speed."
     },
     "personality_trial": "Compare proposals and authorized results against peers with matched access, time, and objective tests.",
-    "certification": "No controlled matched running-agent personality trials or authenticated runtime-agent certification have been performed. Attributed source-executed reviews are project evidence, not behavioral certification."
+    "certification": "No running-agent trials have been executed for personality certification; there is no authenticated runtime-agent certification. Attributed source-executed engineering reviews are project evidence, not controlled proof of personality differentiation."
   }
 }
