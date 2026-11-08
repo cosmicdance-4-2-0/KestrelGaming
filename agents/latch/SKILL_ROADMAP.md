@@ -2,7 +2,7 @@
 **Version:** proposal v0.1  
 **Date:** 2026-11-07  
 **Scope:** Individual agent development plan for Latch; design only  
-**Status:** RESEARCHED DESIGN / NOT IMPLEMENTED / NOT CERTIFIED  
+**Status:** Historical candidate-skill design (2026-11-07); [current skill/training status](SKILL_INDEX.md) includes the merged L01 lab, but no learner qualification.  
 **Home:** `agents/latch-v1` (branch-specific design); future reusable skills in `skills/<slug>/SKILL.md` only when justified
 
 > Identify the right boundary before hardening the wrong door.
