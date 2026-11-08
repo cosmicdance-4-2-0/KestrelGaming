@@ -44,8 +44,44 @@ class HarborProfileTests(unittest.TestCase):
     def test_trust_limits_and_unexecuted_trials(self):
         self.assertIn("actual host permissions", self.p["operating_limits"]["higher_priority_contract"])
         self.assertTrue(self.p["evaluation"]["shared_scenario"]["first_move"])
-        self.assertIn("No running-agent trials", self.p["evaluation"]["certification"])
-        self.assertEqual(self.p["metadata"]["established_history"], [])
+        self.assertIn("No formal matched-task personality trial", self.p["evaluation"]["certification"])
+        self.assertGreaterEqual(len(self.p["metadata"]["established_history"]), 4)
+        self.assertGreaterEqual(len(self.p["continuity"]["accepted_lessons"]), 3)
+
+    def test_observed_history_is_provenance_backed_not_runtime_identity(self):
+        self.assertEqual(self.p["metadata"]["date"], "2026-11-03")
+        self.assertEqual(self.p["continuity"]["first_state"], "DRAFT_UNINSTANTIATED")
+        for item in self.p["metadata"]["established_history"]:
+            with self.subTest(activity=item["activity"]):
+                self.assertTrue(item["date"] and item["outcome"] and item["limits"])
+                self.assertTrue((ROOT / item["source"]).is_file(), item["source"])
+        for lesson in self.p["continuity"]["accepted_lessons"]:
+            with self.subTest(lesson=lesson["id"]):
+                self.assertTrue(lesson["lesson"])
+                self.assertTrue((ROOT / lesson["source"]).is_file(), lesson["source"])
+        for peer in self.p["collaboration"]["known_relationship_history"]:
+            self.assertTrue(peer["interaction"] and peer["evidence"] and peer["limits"])
+            self.assertTrue(peer["evidence"].startswith("https://github.com/"))
+        for peer in self.p["continuity"]["earned_relationships"]:
+            self.assertTrue(peer["evidence"] and peer["limits"])
+            self.assertIn("not a personal bond", peer["limits"])
+
+    def test_no_empty_required_character_fields(self):
+        def walk(value, path=""):
+            if isinstance(value, dict):
+                self.assertTrue(value, path)
+                for key, item in value.items():
+                    walk(item, f"{path}.{key}")
+            elif isinstance(value, list):
+                self.assertTrue(value, path)
+                for index, item in enumerate(value):
+                    walk(item, f"{path}[{index}]")
+            elif isinstance(value, str):
+                self.assertTrue(value.strip(), path)
+                self.assertNotIn("REPLACE_", value)
+            elif value is None:
+                self.assertEqual(path, ".metadata.runtime_identity_id")
+        walk(self.p)
 
 if __name__ == "__main__":
     unittest.main()
