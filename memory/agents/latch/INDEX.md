@@ -11,7 +11,8 @@
 - [L01 PR #9 Pass 1 implementation review](2026-11-08-l01-pr9-pass1-review-9e9f-lk13.md) — ACCEPT exact head `9e9f311` with independently reproduced 19 tests and 2,304 policy cases; complete fixture and qualification still pending.
 - [L01 PR #10 Pass 2 source review](2026-11-08-l01-pr10-pass2-source-review-d397-lk14.md) — historical source-only acceptance at `d397614`; integration condition now closed in LK15.
 - [L01 PR #10 Axiom-verified Pass 2 acceptance](2026-11-08-l01-pr10-followup-axiom-accept-d397-lk15.md) — ACCEPT same head after attributed 84 tests and 256 independent probes; owner retains merge, learner remains unqualified.
-- [L01 PR #11 Axiom P2 runner-oracle review](2026-11-08-l01-pr11-axiom-request-changes-f0f6-lk16.md) — REQUEST CHANGES on Pass 3 at `f0f6cbb`; queued-only server-write mutant passes public runner; bounded fix requested.
+- [L01 PR #11 Axiom P2 runner-oracle review](2026-11-08-l01-pr11-axiom-request-changes-f0f6-lk16.md) — historical REQUEST CHANGES at `f0f6cbb`; resolved at corrected `cbf9a0c` in LK17.
+- [L01 PR #11 Pass 3 integration acceptance](2026-11-08-l01-pr11-pass3-acceptance-cbf9-lk17.md) — ACCEPT exact head `cbf9a0c`; Axiom independently verifies 106 tests, 570 probes, queued mutation rejected; no learner qualification.
 - [L01 PR #7 prior-head review and self-correction](2026-11-07-l01-pr7-review-lk10.md) — superseded historical review at `43b0dc68`, including owned memory-schema correction.
 - [Journal 001 — adopted reflective engineering practice](2026-11-07-journal-adoption-lk5.md) — inspected Ven sources, alternatives, decision, and trial limits.
 - [Evidence-integrity skill decision](2026-11-07-evidence-integrity-skills-lk6.md) — Ven-inspired source provenance, citation entailment and accurate continuity, all draft.
