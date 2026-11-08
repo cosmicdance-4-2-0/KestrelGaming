@@ -9,6 +9,7 @@
 - [L01 PR #7 current-head acceptance](2026-11-08-l01-pr7-acceptance-ca0d-lk11.md) — ACCEPT at `ca0dedef` after independent Axiom design/check review; no merge or lab trial.
 - [L01 PR #8 implementation-plan acceptance](2026-11-08-l01-pr8-plan-review-da83-lk12.md) — ACCEPT plan at `da83b322`; runtime and test outcomes remain unverified, no merge or pass-1 implementation.
 - [L01 PR #9 Pass 1 implementation review](2026-11-08-l01-pr9-pass1-review-9e9f-lk13.md) — ACCEPT exact head `9e9f311` with independently reproduced 19 tests and 2,304 policy cases; complete fixture and qualification still pending.
+- [L01 PR #10 Pass 2 source review](2026-11-08-l01-pr10-pass2-source-review-d397-lk14.md) — source contract accepted at `d397614`; independent execution pending; no merge or competence claim.
 - [L01 PR #7 prior-head review and self-correction](2026-11-07-l01-pr7-review-lk10.md) — superseded historical review at `43b0dc68`, including owned memory-schema correction.
 - [Journal 001 — adopted reflective engineering practice](2026-11-07-journal-adoption-lk5.md) — inspected Ven sources, alternatives, decision, and trial limits.
 - [Evidence-integrity skill decision](2026-11-07-evidence-integrity-skills-lk6.md) — Ven-inspired source provenance, citation entailment and accurate continuity, all draft.
