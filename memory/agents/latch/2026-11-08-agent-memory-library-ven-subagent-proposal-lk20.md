@@ -110,4 +110,4 @@ Require exact artifact revisions, actual executed commands, output/log sensitivi
 
 ## Revisit when
 
-The authorized architect accepts/revises this proposal; Identity vNext and optional behavior-model interfaces stabilize; a real Universal Discord Bot host API/subagent interface is available for source inspection; independent team reviewers identify a smaller sufficient model; or the first two-tenant fixture demonstrates a counterexample. No shared code, permissions, agent identities, clients, branch refs or running subagents have been changed by this design note.
+The authorized architect accepts/revises this proposal; Identity vNext and optional behavior-model interfaces stabilize; a real Universal Discord Bot host API/subagent interface is available for source inspection; independent team reviewers identify a smaller sufficient model; or the first two-tenant fixture demonstrates a counterexample. Only this Latch-owned design memory record and its index are modified on the authorized home branch. No shared code, permission configuration, agent identity contract, client memory, other branch or running subagent has been changed.
