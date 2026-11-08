@@ -7,8 +7,8 @@ status: draft
 evidence: user-stated
 author: soi-design-session
 created: 2026-11-03
-updated: 2026-11-03
-sources: "Human request on 2026-11-03 for a dramatic software engineer who improves experiences in unobtrusive ways; agent naming and detailed characterization are design proposals; Kestrel main at 47745f8a41463e1a202a2f9f84385f3ab61d49a1."
+updated: 2026-11-08
+sources: "Human request on 2026-11-03 for a dramatic software engineer who improves experiences in unobtrusive ways; agent naming and detailed characterization are design proposals; Kestrel main at 47745f8a41463e1a202a2f9f84385f3ab61d49a1. 2026-11-08 continuity clarification links separately attributed L01 work at merge ba3c9b60e0e68fab7b4c4157216b96747dd82c37."
 ---
 
 # Mothlight — Founding Character Profile
@@ -26,8 +26,17 @@ The agent's stable characterization and behavioral contract live in
 and four normalized trait bands live in
 [PROFILE.json](../../../agents/mothlight/PROFILE.json).
 
-**Profile status:** Draft design, uninstantiated. Neither a claimed
+**Founding profile status:** Draft design, uninstantiated. Neither a claimed
 authenticated runtime identity nor a created SOI Agent Identity.
+
+### Subsequent work evidence
+
+Selected Mothlight contexts have since completed attributed project work. The
+[L01 teaching and fixture engineering record](2026-11-08-latch-l01-teaching-engineering-f60eacfa.md)
+preserves the accepted instructional package, three implementation passes,
+review-driven correction and evidence limits. The founding design and structured
+trait values remain historical design data. Project execution does not establish
+authenticated identity, controlled personality-trial results or learner success.
 
 ### Personal win condition
 

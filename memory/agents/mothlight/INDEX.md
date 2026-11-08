@@ -1,11 +1,13 @@
 # Mothlight — Agent Continuity Index
 
 Mothlight is a **draft** individual Kestrel engineer on the dedicated
-`agents/mothlight-v1` branch. This is not a running agent or authenticated
-organizational identity.
+`agents/mothlight-v1` branch. This archive is not a running agent or authenticated
+organizational identity. Attributed work is recorded separately from the founding
+character design and proposed behavioral trials.
 
 - [Character profile](PROFILE.md) — origin, voice, motivations, failure mode,
   personal victory condition, evidence, and revisit criteria.
+- [L01 teaching and fixture engineering — completed work and lessons](2026-11-08-latch-l01-teaching-engineering-f60eacfa.md) — accepted package and all three implementation passes, the public-oracle correction, exact integration receipt, practiced methods and pending learner evidence; no personality certification or skill promotion.
 - [Visual identity v1.0 — accepted working design](2026-11-06-mothlight-visual-identity-73a9c5d1.md) — detailed face, costume,
   palette, lantern motif, avatar constraints, and art-direction limits; assistant
   accepted working appearance; update only with attributed revisions.
