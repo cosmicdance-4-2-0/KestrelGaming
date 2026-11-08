@@ -1,1 +1,1 @@
-"""Latch L01 passes 1 and 2: direct requests and queued local recovery."""
+"""Latch L01 model, validated request adapter and public teaching runner."""

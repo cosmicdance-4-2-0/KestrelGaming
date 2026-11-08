@@ -1,4 +1,4 @@
-# Shared-Draft Lab — passes 1 and 2
+# Shared-Draft Lab — public teaching fixture
 
 This is a deterministic, in-memory teaching fixture. It implements direct read authorization, local recovery, and immutable-origin replay/retry from the accepted [lesson](../../docs/latch-education/Latch_L01_Instructional_Checkpoint.md), [addendum](../../docs/latch-education/Latch_L01_Review_Addendum.md) and [R1/R2 errata](../../docs/latch-education/Latch_L01_R1_R2_Errata.md), in that precedence order. The [three-pass plan](../../docs/latch-education/L01_FIXTURE_IMPLEMENTATION_PLAN.md) defines this slice.
 
@@ -75,8 +75,25 @@ print(lab.retry(queued.intent_id).status.value) # ALREADY_COMPLETED
 
 The 24 public replay tests cover the two Axiom counterexamples, both blocked origins, explicit retry and fresh revision checking, agent denial versus owner recovery, rejected-slot reuse, old completed IDs alongside new pending work, offline precedence, no-cache/conflict outcomes, reset and duplicate-effect suppression. Expected responses and state are specified from the contract; they do not use the policy helper to construct an oracle. These are implementer-authored fixture tests pending independent review, not learner qualification trials.
 
+## Public teaching runner — pass 3
+
+Run the 16 named public teaching cases from the repository root:
+
+```bash
+python3 -m labs.latch_l01
+python3 -m labs.latch_l01 --json
+```
+
+The first nine cases correspond to the original lesson; later cases cover identity claims, missing cache, actor retry/idempotence, the two Axiom counterexamples, old-completed/new-blocked isolation, malformed identifiers and harness separation. Each case gets a fresh fixture. Expected decisions and text are literal public oracles in `visible_cases.py`, not computed with the model's policy helper.
+
+The CLI exits 0 only for a nonempty set of passing cases; a failed comparison, case exception or empty run exits 1. JSON output includes `successful`, case counts and per-check outcomes, and always states `qualification_assessed: false`. Every successful queued automatic replay and blocked explicit retry captures server/cache snapshots before execution and checks named R1 body/revision and text/base invariants afterward. Unit tests deliberately substitute blanket-deny, empty-read, direct server-writing and queued-only store-writing fixtures to check that the public controls fail. Queued-only server writes must fail both CLI modes with named R1 observations, exit 1 and JSON `successful: false`; no oracle is adjusted to match the mutation. These are tests of the teaching runner, not learner scores.
+
+The new [surface contract](SURFACE_CONTRACT.md) defines request shape and precedence before untyped caller data reaches the model. Malformed identifiers return `INVALID_REQUEST` without state changes. Harness commands return `UNSUPPORTED_ACTION`. Well-shaped application requests preserve the existing model rules. The scripted agent receives only a request callable and labels returned draft text as untrusted. It has no language model or interpreter; explicit tool/publication requests are denied and synthetic effect logs remain empty. No live tool engine exists behind those logs.
+
+An [independent implementation review handoff](../../docs/latch-education/L01_PASS3_REVIEW_HANDOFF.md) accompanies this slice. Current-head acceptance remains pending. Until that review and Latch's gate are complete, do not treat these public examples as an accepted learner assessment.
+
 ## Deferred and excluded
 
-Pass 3 will add the public teaching runner and simulated agent/tool effect checks. The agent-context simulation, edit API, delegation issuance/renewal, publication and cancellation remain unimplemented. No hidden evaluator cases are supplied.
+The edit API, delegation issuance/renewal, live publication, cancellation and production agent integrations remain unimplemented. No hidden evaluator cases are supplied. The surface is an already-parsed dictionary adapter, not a network/JSON-parser or Python-sandbox boundary.
 
 No production authentication, storage isolation, cryptography, OS compromise, learner exercise or skill qualification is claimed. All driver controls are trusted test setup, not security barriers against Python code with access to the fixture object. Follow-up work stays gated by Latch's current-head acceptance.
