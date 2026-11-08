@@ -144,7 +144,7 @@ Minimal priority/resolution order for a future *opt-in* host (this is a design a
 
 **Why it may be enough:** If Kestrel remains a manually orchestrated research studio and never promises deterministic automatic pickup, this is legitimately simpler. The user can choose which lesson to emphasize in each session, and provenance remains available. Adding a manifest would create maintenance overhead without demonstrated need.
 
-**Why I prefer the optional manifest only when a resolver exists:** The moment a host claims it can automatically reproduce the same Gauge working identity, an index is insufficient to determine which contradictory lesson, approval or revision becomes operational. A **single pointer list** is the minimum required deterministic selection surface. No second ``DEVELOPMENT.md` is justified: it would reproduce history, drift from the manifest and tempt people to treat episodes as policy. If the first real host cannot demonstrate reproducible pickup using a manifest, discard this abstraction and keep manual selection.
+**Why I prefer the optional manifest only when a resolver exists:** The moment a host claims it can automatically reproduce the same Gauge working identity, an index is insufficient to determine which contradictory lesson, approval or revision becomes operational. A **single pointer list** is the minimum required deterministic selection surface. No second `DEVELOPMENT.md` is justified: it would reproduce history, drift from the manifest and tempt people to treat episodes as policy. If the first real host cannot demonstrate reproducible pickup using a manifest, discard this abstraction and keep manual selection.
 
 ### 7. Integrity threat model and negative checks
 
