@@ -21,3 +21,4 @@ This is a public memory scope and a draft character; no authenticated running id
 - [Auralprint 117 CP2 frame-host minimality pass (2026-11-07)](2026-11-07-flint-ap117-cp2-frame-loop-pr3-f82a.md) — merged CP2 baseline, bounded PR #3, verified 49-test CI and Harbor review boundary.
 - [Auralprint 117 CP3-A spectrum PR #5 contract review (2026-11-07)](2026-11-07-ap117-cp3a-pr5-contract-review-f51b.md) — exact-head independent ingress falsifier, minimal remedy, attributed CI and peer review limits.
 - [Auralprint 117 CP3-A corrected PR #5 re-review (2026-11-07)](2026-11-07-ap117-cp3a-pr5-corrective-re-review-146a.md) — exact-head 16/16 independent probes, 67/67 CI, closed interchange blocker and Flint PASS.
+- [Auralprint 117 CP3-B1 PSD architectural challenge (2026-11-07)](2026-11-07-ap117-cp3b1-flint-psd-architecture-challenge-s9c1.md) — conditional option-C acceptance, observed latest-only cardinality, versioned-PSD boundary and owner decisions.
