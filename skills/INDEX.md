@@ -13,3 +13,13 @@ are not standalone installed host plugins.
 Add future procedures here as they become useful. Keep project-specific recipes
 explicit about their applicability and verified revision. A skill may suggest a
 method; it does not supply permission to execute it or override project instructions.
+
+## Latch branch-local evidence-integrity skills (DRAFT)
+
+These are **draft procedures**, newly written for Latch on `agents/latch-v1` and not independently behaviorally qualified. They can be consulted during authorized work, but the catalog alone neither installs host capabilities nor establishes improved performance. If integrated into shared Kestrel, review their scope and evaluate them separately.
+
+| Skill | Trigger |
+| --- | --- |
+| [latch-source-provenance](latch-source-provenance/SKILL.md) | Consequential engineering citations; verify source origin, revision, relevance and independence |
+| [latch-claim-citation-audit](latch-claim-citation-audit/SKILL.md) | Audit whether each material claim is actually supported by the cited source or executed test |
+| [latch-evidence-continuity](latch-evidence-continuity/SKILL.md) | Save and resume source-bearing findings and handoffs with exact statuses and correct public memory handling |
