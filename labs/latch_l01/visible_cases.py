@@ -55,6 +55,16 @@ class CaseContext:
         return self.call("queue", {"action": "queue_replay", "resource": resource},
                          "QUEUED").intent_id
 
+    def recover(self, label, payload, body) -> Reply:
+        before = self.lab.inspect()
+        reply = self.call(label, payload, "RESTORED", body)
+        after = self.lab.inspect()
+        self.expect(label + ": R1 server body/revision unchanged",
+                    after["drafts"], before["drafts"])
+        self.expect(label + ": R1 cached text/base unchanged",
+                    after["cache"], before["cache"])
+        return reply
+
 
 def cross_user(c):
     cache = c.lab.inspect()["cache"]
@@ -107,8 +117,7 @@ def switched_replay(c):
     c.expect("blocked session", c.lab.inspect()["intents"][intent_id]["state"],
              "BLOCKED_SESSION")
     c.context("A", "A")
-    c.call("explicit owner retry", {"action": "retry", "intent_id": intent_id},
-           "RESTORED", "local-A1")
+    c.recover("explicit owner retry", {"action": "retry", "intent_id": intent_id}, "local-A1")
     c.expect("one recovery effect", c.lab.inspect()["effects"],
              [{"intent_id": intent_id, "action": "restore"}])
 
@@ -175,7 +184,7 @@ def actor_retry(c):
     c.call("wrong actor retry", {"action": "retry", "intent_id": intent_id}, "DENIED")
     c.expect("blocked intent retained", c.lab.inspect(), before)
     c.lab.bind("A")
-    c.call("origin retry", {"action": "retry", "intent_id": intent_id}, "RESTORED", "local-A1")
+    c.recover("origin retry", {"action": "retry", "intent_id": intent_id}, "local-A1")
     before = c.lab.inspect()
     c.call("completed retry", {"action": "retry", "intent_id": intent_id}, "ALREADY_COMPLETED")
     c.expect("no duplicate effect", c.lab.inspect(), before)
@@ -193,12 +202,12 @@ def pending_and_full(c):
     before = c.lab.inspect()
     c.call("offline and full", {"action": "queue_replay", "resource": "D1"}, "QUEUE_FULL")
     c.expect("no second allocation", c.lab.inspect(), before)
-    c.call("valid automatic path", {"action": "reconnect_and_replay"}, "RESTORED", "local-A1")
+    c.recover("valid automatic path", {"action": "reconnect_and_replay"}, "local-A1")
 
 
 def old_id_new_blocked(c):
     old = c.queue()
-    c.call("first completion", {"action": "reconnect_and_replay"}, "RESTORED", "local-A1")
+    c.recover("first completion", {"action": "reconnect_and_replay"}, "local-A1")
     fresh = c.queue()
     c.context("B", "B")
     c.call("block newer intent", {"action": "reconnect_and_replay"}, "DENIED")
@@ -206,8 +215,7 @@ def old_id_new_blocked(c):
     before = c.lab.inspect()
     c.call("retry old completion", {"action": "retry", "intent_id": old}, "ALREADY_COMPLETED")
     c.expect("new blocked work untouched", c.lab.inspect(), before)
-    c.call("complete newer intent", {"action": "retry", "intent_id": fresh},
-           "RESTORED", "local-A1")
+    c.recover("complete newer intent", {"action": "retry", "intent_id": fresh}, "local-A1")
     c.expect("one effect per ID", c.lab.inspect()["effects"],
              [{"intent_id": old, "action": "restore"},
               {"intent_id": fresh, "action": "restore"}])

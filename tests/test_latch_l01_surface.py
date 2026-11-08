@@ -156,6 +156,41 @@ class WrongServerWrite(SharedDraftLab):
         return result
 
 
+class QueuedWriteOnly(SharedDraftLab):
+    """Axiom's fault: direct restore is correct; queued execution writes server."""
+
+    def _execute_intent(self, intent, block_on_mismatch):
+        result = super()._execute_intent(intent, block_on_mismatch)
+        if result.status == Status.RESTORED:
+            self._drafts[intent.resource] = replace(self._drafts[intent.resource], body=result.body)
+        return result
+
+
+class QueuedRetryWriteOnly(SharedDraftLab):
+    def _execute_intent(self, intent, block_on_mismatch):
+        result = super()._execute_intent(intent, block_on_mismatch)
+        if result.status == Status.RESTORED and not block_on_mismatch:
+            self._drafts[intent.resource] = replace(self._drafts[intent.resource], body=result.body)
+        return result
+
+
+class QueuedCacheWriteOnly(SharedDraftLab):
+    def _execute_intent(self, intent, block_on_mismatch):
+        result = super()._execute_intent(intent, block_on_mismatch)
+        if result.status == Status.RESTORED:
+            self._cache[intent.resource] = replace(self._cache[intent.resource],
+                                                   body="wrong queued cache write", base_revision=2)
+        return result
+
+
+class QueuedRevisionWriteOnly(SharedDraftLab):
+    def _execute_intent(self, intent, block_on_mismatch):
+        result = super()._execute_intent(intent, block_on_mismatch)
+        if result.status == Status.RESTORED:
+            self._drafts[intent.resource] = replace(self._drafts[intent.resource], revision=2)
+        return result
+
+
 class RunnerTests(unittest.TestCase):
     def test_all_sixteen_public_cases_have_actual_successful_checks(self):
         outcomes = run_visible_cases()
@@ -173,6 +208,50 @@ class RunnerTests(unittest.TestCase):
     def test_public_oracle_rejects_hidden_server_write_on_restore(self):
         outcomes = run_visible_cases(WrongServerWrite)
         self.assertFalse(next(case for case in outcomes if case.name.startswith("C07 ")).passed)
+
+    def test_queued_server_write_fails_named_r1_checks_for_automatic_and_blocked_retry(self):
+        outcomes = run_visible_cases(QueuedWriteOnly)
+        self.assertEqual(len(outcomes), 16)
+        for prefix in ("C05 ", "C12 ", "C13 ", "C14 "):
+            case = next(case for case in outcomes if case.name.startswith(prefix))
+            self.assertFalse(case.passed)
+            self.assertTrue(any(not check.passed and "R1 server body/revision unchanged" in check.label
+                                for check in case.checks))
+        # The queued-only variant leaves the direct recovery case intact.
+        self.assertTrue(next(case for case in outcomes if case.name.startswith("C07 ")).passed)
+
+    def test_blocked_retry_only_write_fails_r1_comparison(self):
+        outcomes = run_visible_cases(QueuedRetryWriteOnly)
+        for prefix in ("C05 ", "C12 "):
+            case = next(case for case in outcomes if case.name.startswith(prefix))
+            self.assertTrue(any(not check.passed and "R1 server body/revision unchanged" in check.label
+                                for check in case.checks))
+        self.assertTrue(next(case for case in outcomes if case.name.startswith("C13 ")).passed)
+
+    def test_queued_cache_and_revision_writes_are_observed(self):
+        for factory, label in ((QueuedCacheWriteOnly, "R1 cached text/base unchanged"),
+                               (QueuedRevisionWriteOnly, "R1 server body/revision unchanged")):
+            case = next(case for case in run_visible_cases(factory) if case.name.startswith("C13 "))
+            self.assertTrue(any(not check.passed and label in check.label for check in case.checks))
+
+    def test_queued_only_write_fails_both_cli_modes_with_visible_r1_evidence(self):
+        for args in ([], ["--json"]):
+            with patch.object(cli, "run_visible_cases", lambda: run_visible_cases(QueuedWriteOnly)):
+                with redirect_stdout(io.StringIO()) as output:
+                    code = cli.main(args)
+            self.assertEqual(code, 1)
+            if args:
+                data = json.loads(output.getvalue())
+                self.assertFalse(data["successful"])
+                self.assertGreater(data["failed"], 0)
+                self.assertEqual(data["case_count"], 16)
+                self.assertFalse(data["qualification_assessed"])
+                self.assertTrue(any(not check["passed"] and "R1 server body/revision unchanged"
+                                    in check["label"] for case in data["cases"]
+                                    for check in case["checks"]))
+            else:
+                self.assertIn("FAIL C13", output.getvalue())
+                self.assertIn("R1 server body/revision unchanged", output.getvalue())
 
     def test_case_exceptions_report_failure_and_do_not_silently_skip_cases(self):
         def broken_factory():
