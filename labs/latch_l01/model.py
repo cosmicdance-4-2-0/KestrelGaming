@@ -1,13 +1,13 @@
-"""Deterministic in-memory Shared-Draft Lab, pass 1.
+"""Deterministic in-memory Shared-Draft Lab, passes 1 and 2.
 
 Policy: docs/latch-education lesson -> addendum -> R1/R2 errata.
 Driver binding/setup/inspection are trusted fixture controls, not authentication.
-Replay, retry and the teaching runner are intentionally absent in this slice.
+The teaching runner and agent/tool simulation remain deferred to pass 3.
 """
 
 from dataclasses import asdict, dataclass, replace
 from enum import Enum
-from typing import Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 
 class Status(str, Enum):
@@ -18,12 +18,42 @@ class Status(str, Enum):
     NO_CACHE = "NO_CACHE"
     CONFLICT = "CONFLICT"
     INVALID_CONTEXT = "INVALID_CONTEXT"
+    QUEUED = "QUEUED"
+    NOT_OFFLINE = "NOT_OFFLINE"
+    QUEUE_FULL = "QUEUE_FULL"
+    NO_PENDING = "NO_PENDING"
+    RETRY_REQUIRED = "RETRY_REQUIRED"
+    ALREADY_COMPLETED = "ALREADY_COMPLETED"
+
+
+class IntentState(str, Enum):
+    PENDING = "PENDING"
+    BLOCKED_SESSION = "BLOCKED_SESSION"
+    BLOCKED_ACTOR = "BLOCKED_ACTOR"
+    REJECTED = "REJECTED"
+    COMPLETED = "COMPLETED"
 
 
 @dataclass(frozen=True)
 class Result:
     status: Status
     body: Optional[str] = None
+    intent_id: Optional[str] = None
+
+
+@dataclass(frozen=True)
+class Intent:
+    intent_id: str
+    actor: str
+    user: str
+    resource: str
+    state: IntentState = IntentState.PENDING
+
+
+@dataclass(frozen=True)
+class RecoveryEffect:
+    intent_id: str
+    action: str = "restore"
 
 
 @dataclass(frozen=True)
@@ -70,6 +100,8 @@ class FixtureConfig:
     cache: Tuple[CachedDraft, ...] = (CachedDraft("D1", "A", "local-A1", 1),)
     grant: Grant = Grant()
     conflict_revision: int = 2
+    intent_prefix: str = "intent-"
+    initial_intent_sequence: int = 1
 
 
 DEFAULT_CONFIG = FixtureConfig()
@@ -89,6 +121,10 @@ class SharedDraftLab:
         self._drafts = {d.resource: d for d in self.config.drafts}
         self._cache = {c.resource: c for c in self.config.cache}
         self._editor = None
+        self._intents: Dict[str, Intent] = {}
+        self._pending_id: Optional[str] = None
+        self._next_intent_sequence = self.config.initial_intent_sequence
+        self._effects: List[RecoveryEffect] = []
 
     def switch(self, user: str) -> None:
         """Trusted driver: clear private display and requester binding."""
@@ -140,11 +176,20 @@ class SharedDraftLab:
             raise ValueError("Setup mutation is limited to the delegated fixture draft")
         return self._drafts[draft_id]
 
-    def _gate(self, action: str, resource: str, claimed_actor: Optional[str]) -> Status:
-        if self._actor is None or self._user not in self.config.users:
+    def _valid_context(self) -> bool:
+        return self._actor is not None and self._user in self.config.users
+
+    def _request_status(self) -> Optional[Status]:
+        if not self._valid_context():
             return Status.INVALID_CONTEXT
         if not self._online:
             return Status.OFFLINE
+        return None
+
+    def _gate(self, action: str, resource: str, claimed_actor: Optional[str]) -> Status:
+        status = self._request_status()
+        if status is not None:
+            return status
         if claimed_actor is not None and claimed_actor != self._actor:
             return Status.DENIED
         if self._actor in self.config.users and self._actor != self._user:
@@ -187,6 +232,70 @@ class SharedDraftLab:
         self._editor = {"resource": resource, "body": cached.body, "unsent": True}
         return Result(Status.RESTORED, cached.body)
 
+    def queue_replay(self, resource: str) -> Result:
+        """Store an offline restore intent, never an authorization decision."""
+        if not self._valid_context():
+            return Result(Status.INVALID_CONTEXT)
+        if self._online:
+            return Result(Status.NOT_OFFLINE)
+        if self._pending_id is not None:
+            return Result(Status.QUEUE_FULL)
+        intent_id = self.config.intent_prefix + str(self._next_intent_sequence)
+        intent = Intent(intent_id, self._actor, self._user, resource)
+        self._intents[intent_id] = intent
+        self._pending_id = intent_id
+        self._next_intent_sequence += 1
+        return Result(Status.QUEUED, intent_id=intent_id)
+
+    def reconnect_and_replay(self) -> Result:
+        if not self._valid_context():
+            return Result(Status.INVALID_CONTEXT)
+        self._online = True
+        if self._pending_id is None:
+            return Result(Status.NO_PENDING)
+        intent = self._intents[self._pending_id]
+        if intent.state != IntentState.PENDING:
+            return Result(Status.RETRY_REQUIRED)
+        return self._execute_intent(intent, block_on_mismatch=True)
+
+    def retry(self, intent_id: str) -> Result:
+        status = self._request_status()
+        if status is not None:
+            return Result(status)
+        intent = self._intents.get(intent_id)
+        if intent is None or intent.state in (IntentState.REJECTED, IntentState.PENDING):
+            # AX-L01-01: a PENDING intent exists but is not retry-eligible.
+            return Result(Status.NO_PENDING)
+        if intent.state == IntentState.COMPLETED:
+            if self._user != intent.user or self._actor != intent.actor:
+                return Result(Status.DENIED)
+            return Result(Status.ALREADY_COMPLETED)
+        return self._execute_intent(intent, block_on_mismatch=False)
+
+    def _execute_intent(self, intent: Intent, block_on_mismatch: bool) -> Result:
+        mismatch = None
+        if self._user != intent.user:
+            mismatch = IntentState.BLOCKED_SESSION
+        elif self._actor != intent.actor:
+            mismatch = IntentState.BLOCKED_ACTOR
+        if mismatch is not None:
+            if block_on_mismatch:
+                self._intents[intent.intent_id] = replace(intent, state=mismatch)
+            return Result(Status.DENIED)
+
+        # Origin equality is not authority: restore rechecks current policy/cache.
+        result = self.restore(intent.resource)
+        if result.status == Status.RESTORED:
+            state = IntentState.COMPLETED
+            self._effects.append(RecoveryEffect(intent.intent_id))
+        elif result.status in (Status.DENIED, Status.NO_CACHE, Status.CONFLICT):
+            state = IntentState.REJECTED
+        else:
+            return result
+        self._intents[intent.intent_id] = replace(intent, state=state)
+        self._pending_id = None
+        return result
+
     def inspect(self) -> dict:
         """Trusted driver snapshot; never exposed as an application response."""
         return {
@@ -196,4 +305,11 @@ class SharedDraftLab:
             "drafts": {key: asdict(value) for key, value in self._drafts.items()},
             "cache": {key: asdict(value) for key, value in self._cache.items()},
             "editor": None if self._editor is None else dict(self._editor),
+            "pending_intent_id": self._pending_id,
+            "intents": {key: {**asdict(value), "state": value.state.value}
+                        for key, value in self._intents.items()},
+            "completed_ids": [key for key, value in self._intents.items()
+                              if value.state == IntentState.COMPLETED],
+            "next_intent_sequence": self._next_intent_sequence,
+            "effects": [asdict(effect) for effect in self._effects],
         }
