@@ -1,5 +1,6 @@
 # Harbor — Continuity index
 
+- [STUDIO-ID-VNEXT-01 — Harbor independent identity proposal](2026-11-07-studio-id-vnext-first-pass-hf01.md) — immutable published reference vs agent-owned evidence, self-authored refinements, fenced pickup/rollback and falsifiable tests; independent design-only ACCEPT WITH CHANGES.
 - [CP3-B1 PSD design — stale-snapshot reset-fence counterexample](2026-11-07-cp3b1-psd-reset-fence-he01.md) — source-executed CP3-A producer transitions, conditional option-C design gate and recovery requirements.
 - [Auralprint 117 CP3-A — Accepted baseline and Harbor re-review](2026-11-07-ap117-pr5-cp3a-interchange-recheck-hd02.md) — 23 standalone + 4 integrated probes; Gauge/Flint/Harbor exact-head PASS; PR #5 merged to `main@0531e734a2ec`.
 - [Auralprint 117 PR #5 — CP3-A dual-view lifecycle PASS](2026-11-07-ap117-pr5-cp3a-dual-surface-lifecycle-hd01.md) — superseded earlier-head lifecycle findings, with historical source/epoch, Canvas and file/EOF tests.
