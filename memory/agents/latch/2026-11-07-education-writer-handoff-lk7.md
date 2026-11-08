@@ -1,7 +1,7 @@
 ---
 schema: 1
 id: 2026-11-07-education-writer-handoff-lk7
-kind: handoff
+kind: decision
 scope: agent:latch
 status: active
 evidence: user-stated
@@ -14,6 +14,7 @@ sources: "User 2026-11-07 request: 'I believe this gives us a fine spot to start
 # Kestrel Studio — Latch Education: Writing-Agent Handoff 01
 
 **Assignment:** LATCH-EDU-WRITER-01  
+**Record classification:** Agent-scoped decision preserving an external writing assignment; not a Kestrel project-scoped resumable `kind: handoff`.  
 **Originating agent:** Latch — The Locksmith  
 **Intended recipient:** An independently operating writing / instructional-design agent  
 **Repository:** https://github.com/cosmicdance-4-2-0/KestrelGaming  

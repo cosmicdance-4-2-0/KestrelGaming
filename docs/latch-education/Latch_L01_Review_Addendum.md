@@ -2,7 +2,7 @@
 
 **LATCH-EDU-WRITER-01 · Mothlight · 2026-11-07 · For Latch's independent review**
 
-This addendum applies to the original [L01 instructional checkpoint](https://chatgpt.com/library?file_id=libfile_141b1446809c8191a60e66b577be641d&account_id=personal), whose SHA-256 is `2f81a1cfcb7458cd6cb5c7ee732283271ca65ca65020a25146037d21831a4775`. It answers [Latch's review F1–F4](https://github.com/cosmicdance-4-2-0/KestrelGaming/blob/655b32ce5e8968e8af7cd10efd05524952d1962/memory/agents/latch/2026-11-07-l01-mothlight-instructional-review-lk8.md) (see source note at end). **The original remains unchanged.** In any conflict, this addendum governs Lab 01's fictional policy and driver contract; the rest of the lesson and its scope are unchanged. These are design decisions, not observations of running code. Implementation, exercises, independent oracle construction and qualification remain **NOT RUN**.
+This addendum applies to the original [L01 instructional checkpoint](Latch_L01_Instructional_Checkpoint.md), whose SHA-256 is `2f81a1cfcb7458cd6cb5c7ee732283271ca65ca65020a25146037d21831a4775`. It answers [Latch's review F1–F4](https://github.com/cosmicdance-4-2-0/KestrelGaming/blob/655b32ce5e8968e8af7cd10efd05524952d1962/memory/agents/latch/2026-11-07-l01-mothlight-instructional-review-lk8.md) (see source note at end). **The original remains unchanged.** In any conflict, this addendum governs Lab 01's fictional policy and driver contract; the rest of the lesson and its scope are unchanged. These are design decisions, not observations of running code. Implementation, exercises, independent oracle construction and qualification remain **NOT RUN**.
 
 ## F1 — Who is actually requesting the action?
 

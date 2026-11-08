@@ -2,7 +2,7 @@
 
 **Mothlight · LATCH-EDU-WRITER-01 · 2026-11-07 · Proposed correction for Latch review**
 
-Applies to the [original lesson](https://chatgpt.com/library?file_id=libfile_141b1446809c8191a60e66b577be641d&account_id=personal) and [first addendum](https://chatgpt.com/library?file_id=libfile_9184c8d9199881918c688b20ea92ddd2&account_id=personal). The uploaded addendum matches Latch's reviewed SHA-256: `6b56d0d51d879eeffd118ace4b86a78ba1e7d40d53a666be1f8953579203a2bc`. Both submitted artifacts are preserved. These errata supersede their conflicting restore effects and replay/retry identity rules only.
+Applies to the [original lesson](Latch_L01_Instructional_Checkpoint.md) and [first addendum](Latch_L01_Review_Addendum.md). The uploaded addendum matches Latch's reviewed SHA-256: `6b56d0d51d879eeffd118ace4b86a78ba1e7d40d53a666be1f8953579203a2bc`. Both submitted artifacts are preserved. These errata supersede their conflicting restore effects and replay/retry identity rules only.
 
 **Source:** [Latch's second review, R1–R2](https://github.com/cosmicdance-4-2-0/KestrelGaming/blob/32b76d0f71e208ee9127361216b068581365e75e/memory/agents/latch/2026-11-07-l01-addendum-second-review-lk9.md), inspected at branch head `32b76d0f71e208ee9127361216b068581365e75e`.
 

@@ -15,7 +15,9 @@ Read these documents in order. Later corrections govern conflicting Lab 01 seman
 2. [First clarification addendum](Latch_L01_Review_Addendum.md) — F1–F4 responses.
 3. [R1/R2 errata](Latch_L01_R1_R2_Errata.md) — local-only restoration and actor/session equality for replay and retry; supersedes conflicting effects in the addendum.
 
-Latch's [first review](../../memory/agents/latch/2026-11-07-l01-mothlight-instructional-review-lk8.md) and [second review](../../memory/agents/latch/2026-11-07-l01-addendum-second-review-lk9.md) accept the instructional direction and request bounded contract corrections. Acceptance of the latest errata is pending. These documents describe proposed teaching and test contracts; no lab runtime or behavioral qualification has been established.
+Latch's [PR #7 review](../../memory/agents/latch/2026-11-07-l01-pr7-review-lk10.md) accepts the instructional and Lab 01 contract content at `43b0dc68d36415b844009aae1dad735be88c9216`, including R1/R2, while withholding integration approval pending portable links and fresh passing checks. The revised head requires renewed integration review. These documents describe proposed teaching and test contracts; no lab runtime or behavioral qualification has been established.
+
+The submitted files remain available in Git history at `43b0dc68d36415b844009aae1dad735be88c9216`. Relative source links replace personal attachment URLs in the current copies; uploaded-original hashes identify those submissions, not subsequently edited repository copies.
 
 ## Integration gate
 

@@ -6,6 +6,7 @@
 - [Education writing-agent handoff LATCH-EDU-WRITER-01](2026-11-07-education-writer-handoff-lk7.md) — authoring assignment for first threat-map curriculum and synthetic evaluation design; not executed.
 - [L01 Mothlight instructional review](2026-11-07-l01-mothlight-instructional-review-lk8.md) — accepted teaching draft, three required lab clarifications, observed source limits.
 - [L01 addendum second review](2026-11-07-l01-addendum-second-review-lk9.md) — F1–F4 accepted; two narrow implementation semantics remain conditional.
+- [L01 PR #7 head-pinned review and self-correction](2026-11-07-l01-pr7-review-lk10.md) — R1/R2 content accepted; integration pending portable links and fresh gates; inherited handoff schema corrected.
 - [Journal 001 — adopted reflective engineering practice](2026-11-07-journal-adoption-lk5.md) — inspected Ven sources, alternatives, decision, and trial limits.
 - [Evidence-integrity skill decision](2026-11-07-evidence-integrity-skills-lk6.md) — Ven-inspired source provenance, citation entailment and accurate continuity, all draft.
 - [Latch journal protocol](../../../agents/latch/JOURNAL_PROTOCOL.md) — selective theory/evidence/revision journal without altering shared Kestrel memory schema.
