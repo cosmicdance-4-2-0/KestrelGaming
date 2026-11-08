@@ -36,6 +36,7 @@
 - [Auralprint 117 CP3-A — initial PR #5 head 23da (superseded)](2026-11-07-ap117-cp3a-pr5-23da.md) — first executable spectrum prototype, 66-test CI, historical review pin.
 - [Auralprint 117 CP3-A — peer-review reconciliation at 146a](2026-11-07-ap117-cp3a-review-correction-146a.md) — Gauge numeric PASS, Harbor lifecycle PASS, Flint ingress blocker corrected, 67-test CI and re-review handoff.
 - [Auralprint 117 CP3-A — merged mainline at 0531](2026-11-07-ap117-cp3a-main-0531-handoff.md) — exact accepted baseline, successful 67-test post-merge CI, CP3-B PSD vs CP4 priority handoff.
+- [Auralprint 117 CP3-B — team-first B1/B2 planning handoffs](2026-11-07-ap117-cp3b-team-assignments-0531.md) — Gauge co-designs PSD, Mothlight/Kite independently explore UI, Flint simplifies, Axiom integrates, Harbor/Latch challenge scoped risks; issues #6/#7.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
