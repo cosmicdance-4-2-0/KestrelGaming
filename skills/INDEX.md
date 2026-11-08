@@ -23,6 +23,19 @@ Load **only** the relevant module; consult [the mathematics curriculum](../docs/
 | [math-complex-numbers](math-complex-numbers/SKILL.md) | Complex arithmetic, polar representations, conjugates, Euler exponentials and phasors |
 | [math-probability-statistics](math-probability-statistics/SKILL.md) | Sampling, estimators, distributions, variability and uncertainty |
 
+## Audio signal recognition and decoding (independent curriculum)
+
+Load only relevant skills; consult [the dependency and observation contract](../docs/AUDIO_SIGNAL_RECOGNITION.md). These documents are not working receiver implementations.
+
+| Skill | Trigger |
+| --- | --- |
+| [audio-signal-recognition](audio-signal-recognition/SKILL.md) | Identify or reject Morse/DTMF/FSK-like candidates with explicit evidence |
+| [audio-tone-event-recovery](audio-tone-event-recovery/SKILL.md) | Recover timed tone keys, gaps and simultaneous pairs for Morse/DTMF |
+| [audio-binary-fsk-demodulation](audio-binary-fsk-demodulation/SKILL.md) | Recover timed binary FSK/AFSK states with polarity and erasures |
+| [audio-asynchronous-framing](audio-asynchronous-framing/SKILL.md) | Recover start/data/parity/stop serial frames, including fractional stops |
+| [audio-character-codec-decoding](audio-character-codec-decoding/SKILL.md) | Decode ITA2 LETTERS/FIGURES/USOS and ASCII/IRA codepoints |
+| [audio-decoder-validation](audio-decoder-validation/SKILL.md) | Independently verify decoding and rejection with samples and layered oracles |
+
 Add future procedures here as they become useful. Keep project-specific recipes
 explicit about their applicability and verified revision. A skill may suggest a
 method; it does not supply permission to execute it or override project instructions.
