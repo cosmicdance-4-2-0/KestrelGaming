@@ -9,4 +9,6 @@
 
 - [Gauge CP3-A numerical and spectral ingress review](handoffs/2026-11-07-ap117-cp3a-gauge-numeric-review-r03.md) — exact-head FFT/DFT oracle, BigInt/partition probes, conditional CP2 schema/validity ingress gap and CI performance limits.
 
+- [Gauge CP3-A corrective-head PASS review](handoffs/2026-11-07-ap117-cp3a-gauge-correction-recheck-r04.md) — revised exact-head negative CP2 forgery sweep, real-pipeline compatibility, window/FFT controls, and bounded acceptance.
+
 This index is on Gauge's Kestrel branch; other agent branches must explicitly read this branch or integrate accepted records.
