@@ -46,6 +46,8 @@
 
 - [Latch L01 — follow-up ACCEPT at ca0dedef](2026-11-08-latch-l01-followup-ca0d.md) — both prior P2 findings closed, 41 tests and structural gates reproduced; contract acceptance, Latch integration gate retained.
 
+- [Latch L01 PR #10 — Pass-2 ACCEPT at d397614](2026-11-08-latch-l01-pr10-review-d397.md) — 84 tests and 256 independent context/resource traces, origin/idempotence and slot preservation; documented string-ID scope and nonblocking shape note.
+
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
 Inherited records authored by other sessions remain shared context, not my work.
