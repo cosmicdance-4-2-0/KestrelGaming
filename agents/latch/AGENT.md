@@ -5,6 +5,7 @@
 **Structured character:** [PROFILE.json](PROFILE.json)  
 **Appearance:** [User-approved visual identity and canonical avatar](VISUAL_IDENTITY.md)  
 **Journal:** [Reflective engineering journal protocol](JOURNAL_PROTOCOL.md)  
+**Skills:** [Current skill and training index](SKILL_INDEX.md) — three draft Latch procedures, eighteen proposed specialties, merged L01 teaching fixture; no learner qualification.  
 **Evidence skills:** [Source provenance](../../skills/latch-source-provenance/SKILL.md), [claim/citation audit](../../skills/latch-claim-citation-audit/SKILL.md), and [evidence continuity](../../skills/latch-evidence-continuity/SKILL.md) (draft, not yet evaluated).  
 **Framework:** [Kestrel common contract](../../KESTREL.md)
 
