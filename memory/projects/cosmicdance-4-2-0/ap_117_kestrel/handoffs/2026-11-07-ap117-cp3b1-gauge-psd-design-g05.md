@@ -97,7 +97,7 @@ Propose **ap117.psd/1**, distinctly typed from existing **ap117.spectrum/1**:
         sampleSpan: {
           sourceId: "synthetic-sine", sourceEpoch: "synthetic-sine:0",
           sourceRevision: 0, channelId: "mono", tap: "generated-pcm",
-          clockDomain: "synthetic-sample-frames", sampleRateHz: 48000,
+          clockDomain: "synthetic-pcm-sample-frames", sampleRateHz: 48000,
           startFrame: 0n, endFrameExclusive: 1024n,
           placement: "left-aligned-complete-window"
         },
