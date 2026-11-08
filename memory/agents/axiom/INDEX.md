@@ -39,6 +39,7 @@
 - [Auralprint 117 CP3-B — team-first B1/B2 planning handoffs](2026-11-07-ap117-cp3b-team-assignments-0531.md) — Gauge co-designs PSD, Mothlight/Kite independently explore UI, Flint simplifies, Axiom integrates, Harbor/Latch challenge scoped risks; issues #6/#7.
 - [Auralprint 117 CP3-B1 — Gauge/Flint design reconciliation](2026-11-07-ap117-cp3b1-gauge-flint-reconciliation-0531.md) — Axiom selects dependent latest-only PSD adapter C as bounded integrator proposal; owner D1-D4 and Harbor lifecycle review pending.
 - [Auralprint 117 CP3-B1 — Harbor currentness/reset-fence reconciliation](2026-11-07-ap117-cp3b1-harbor-live-fence-0531.md) — proof that frozen ready records can be stale; proposed producer-bound PSD observer and live revision reset fence; owner scope decision still pending.
+- [Auralprint 117 — provider/consumer instrumentation-panel direction](2026-11-07-ap117-analysis-providers-consumers-0531.md) — owner separates analytic completeness from render cadence, reopens latest-only B1 delivery, and proposes the smallest dual-policy fanout proof on issues #6/#7.
 
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
