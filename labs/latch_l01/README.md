@@ -1,11 +1,11 @@
-# Shared-Draft Lab — pass 1
+# Shared-Draft Lab — passes 1 and 2
 
-This is a deterministic, in-memory teaching fixture. It implements direct read authorization and local recovery from the accepted [lesson](../../docs/latch-education/Latch_L01_Instructional_Checkpoint.md), [addendum](../../docs/latch-education/Latch_L01_Review_Addendum.md) and [R1/R2 errata](../../docs/latch-education/Latch_L01_R1_R2_Errata.md), in that precedence order. The [three-pass plan](../../docs/latch-education/L01_FIXTURE_IMPLEMENTATION_PLAN.md) defines this slice.
+This is a deterministic, in-memory teaching fixture. It implements direct read authorization, local recovery, and immutable-origin replay/retry from the accepted [lesson](../../docs/latch-education/Latch_L01_Instructional_Checkpoint.md), [addendum](../../docs/latch-education/Latch_L01_Review_Addendum.md) and [R1/R2 errata](../../docs/latch-education/Latch_L01_R1_R2_Errata.md), in that precedence order. The [three-pass plan](../../docs/latch-education/L01_FIXTURE_IMPLEMENTATION_PLAN.md) defines this slice.
 
-Run the public pass-1 regression controls from the repository root:
+Run the public fixture regression controls from the repository root:
 
 ```bash
-python3 -m unittest discover -s tests -p test_latch_l01.py -v
+python3 -m unittest discover -s tests -p 'test_latch_l01*.py' -v
 ```
 
 A small direct demonstration:
@@ -28,7 +28,7 @@ print(lab.read("D1").body)            # server-D1: server content unchanged
 
 | Surface | Interface and trust |
 |---|---|
-| Application requests | `read(resource, claimed_actor=None)` and `restore(resource, claimed_actor=None)` return a frozen `Result(status, body)`. Failures carry no body. Resource and claimed actor are request data. |
+| Application requests | `read(resource, claimed_actor=None)` and `restore(resource, claimed_actor=None)` return a frozen `Result(status, body, intent_id)`; the new optional `intent_id` defaults to `None`, preserving Pass-1 construction and equality. Only successful queueing supplies an ID. Failures carry no body. Resource and claimed actor are request data. |
 | Harness context | `switch(user)` clears the editor and requester binding; the driver then calls `bind(actor)`. Binding is trusted out-of-band setup, not a callable user-request field. Missing/unknown binding produces `INVALID_CONTEXT`; a bound human in another user's session is denied by policy. |
 | Harness controls | `online(bool)`, `advance(non_decreasing_integer_tick)`, and `revoke(grant_id)` control connectivity, time and G1. No renewal or privilege expansion is implemented. |
 | Scenario setup | `set_server_text(D1,text)` operates at D1's initial revision; `set_server_revision(D1,2)` creates the specified conflict. Invalid trusted setup raises `ValueError`; it is not an authorization response. |
@@ -36,7 +36,7 @@ print(lab.read("D1").body)            # server-D1: server content unchanged
 
 Valid-context offline server requests return `OFFLINE` before authorization is evaluated. Online checks use the bound actor and current session, never a supplied identity claim. A can read both owned drafts and restore cached D1; uncached D2 gives `NO_CACHE` only after authorization. X may read D1 only under current G1 in A's session. X and Y can read public H in either active user session without a private-draft grant. Current time must be within G1's inclusive start and exclusive end.
 
-Successful restore installs local unsent editor text without changing server body/revision or cache text/base. Denial, offline, missing-cache and conflict results leave existing data and editor unchanged. Switching users clears the editor and binding while retaining A's cache for later A recovery.
+Successful restore installs local unsent editor text without changing server body/revision or cache text/base. For direct reads/restores, denial, offline, missing-cache and conflict results leave existing data and editor unchanged. Replay also records its specified intent-state transitions; it preserves server/cache and leaves the editor unchanged on failure. Switching users clears the editor and binding while retaining A's cache for later A recovery.
 
 ## What is actually checked
 
@@ -44,8 +44,39 @@ The public tests specify expected statuses and real allowed text independently o
 
 An instruction-like string is read verbatim as inert text without changing fixture state. This does not exercise a reasoning agent or tool dispatch and cannot establish prompt-injection resistance in a deployed system. Tests are public fixture regressions authored by the implementer; independent implementation review remains pending.
 
+## Queue and retry — pass 2
+
+`queue_replay(resource)` derives its immutable originating actor and user from the current trusted binding. It queues an offline restore request, not a grant. Valid context is required first; online queueing gives `NOT_OFFLINE` before the occupied-slot check; offline occupied queueing gives `QUEUE_FULL`. Refusals allocate no ID. Queueing itself neither reads draft text nor performs restoration.
+
+`online(True)` alone never replays. `reconnect_and_replay()` connects and attempts only a `PENDING` intent. A session mismatch takes precedence over actor mismatch, producing `BLOCKED_SESSION` or `BLOCKED_ACTOR` and a body-free `DENIED`. Repeated reconnect calls for blocked work give `RETRY_REQUIRED`. Only explicit `retry(id)` can resume blocked work; both current actor and session must match the origin, then `restore` checks current policy, cache availability and revision again. A mismatched retry preserves the existing blocked state.
+
+An online retry of a still-`PENDING` ID returns `NO_PENDING` (no retry-eligible intent), preserving the valid automatic-replay path. Rejected/unknown IDs also give `NO_PENDING`. Offline retry returns `OFFLINE` without changing state, regardless of ID state, after valid-context setup.
+
+Success installs local unsent text, records one `{intent_id, action}` recovery effect, marks `COMPLETED` and frees the pending slot. Permission denial, missing cache and conflict mark `REJECTED` and free the slot without a recovery effect. Completed-ID retry checks origin before returning `ALREADY_COMPLETED`; it never reinstalls editor text or consumes another pending intent. Completed and rejected records persist only for the current fixture run. Reset clears them, effects and the ID sequence; test cases must not carry references across reset epochs.
+
+`inspect()` now includes pending ID, detached origin/state records, completed IDs, next sequence and recovery effects. These remain privileged driver data. Intent/effect records contain no draft bodies. There is deliberately no cancellation: a blocked slot awaits its origin's explicit retry or trusted reset. Direct online owner recovery remains available.
+
+A replay example (trusted driver calls):
+
+```python
+lab = SharedDraftLab()
+lab.online(False)
+queued = lab.queue_replay("D1")
+lab.switch("B")
+lab.bind("B")
+print(lab.reconnect_and_replay().status.value)  # DENIED, blocked session
+lab.switch("A")
+lab.bind("X")
+print(lab.retry(queued.intent_id).status.value) # DENIED, no actor substitution
+lab.bind("A")
+print(lab.retry(queued.intent_id).status.value) # RESTORED
+print(lab.retry(queued.intent_id).status.value) # ALREADY_COMPLETED
+```
+
+The 24 public replay tests cover the two Axiom counterexamples, both blocked origins, explicit retry and fresh revision checking, agent denial versus owner recovery, rejected-slot reuse, old completed IDs alongside new pending work, offline precedence, no-cache/conflict outcomes, reset and duplicate-effect suppression. Expected responses and state are specified from the contract; they do not use the policy helper to construct an oracle. These are implementer-authored fixture tests pending independent review, not learner qualification trials.
+
 ## Deferred and excluded
 
-Pass 2 will implement `queue_replay`, `reconnect_and_replay`, `retry`, pending/blocked/terminal states, completed IDs and recovery-effect logs. Those methods are absent here; there are no success stubs. Pass 3 will add the public case runner and simulated agent/tool effect checks. The agent-context simulation, edit API, delegation issuance/renewal, publication and cancellation are not implemented in pass 1.
+Pass 3 will add the public teaching runner and simulated agent/tool effect checks. The agent-context simulation, edit API, delegation issuance/renewal, publication and cancellation remain unimplemented. No hidden evaluator cases are supplied.
 
-No production authentication, storage isolation, cryptography, OS compromise, hidden evaluator cases, learner exercise or skill qualification is claimed. All driver controls are trusted test setup, not security barriers against Python code with access to the fixture object. Follow-up work stays gated by Latch's current-head acceptance.
+No production authentication, storage isolation, cryptography, OS compromise, learner exercise or skill qualification is claimed. All driver controls are trusted test setup, not security barriers against Python code with access to the fixture object. Follow-up work stays gated by Latch's current-head acceptance.

@@ -19,7 +19,7 @@ Read these documents in order. Later corrections govern conflicting Lab 01 seman
 
 **Implementation plan:** [PR #8](https://github.com/cosmicdance-4-2-0/KestrelGaming/pull/8) integrated the [three-pass plan](L01_FIXTURE_IMPLEMENTATION_PLAN.md) after Latch accepted source head `da83b322eb19655500c245315ba4b663ae694fa5`.
 
-**Current slice:** [Pass-1 fixture and public tests](../../labs/latch_l01/README.md) implement direct reads and local recovery. Implementation acceptance is pending; replay/retry and the teaching runner remain later passes. Repository test results verify this fixture slice, not learner capability or qualification.
+**Current slice:** [The fixture and public tests](../../labs/latch_l01/README.md) now cover direct requests plus queued recovery. Pass 1 was accepted at `9e9f311bbb83e6d8f59b5dafa125ff4d48679589` and merged in [PR #9](https://github.com/cosmicdance-4-2-0/KestrelGaming/pull/9) at `c04331d4ad39ac4c95a1e42d9cd303964715b56a`. Pass 2 adds replay/retry, origin guards and idempotent effects; its implementation acceptance is pending. The public teaching runner remains pass 3. Repository test results verify the fixture slice, not learner capability or qualification.
 
 The submitted files remain available in Git history at `43b0dc68d36415b844009aae1dad735be88c9216`. Relative source links replace personal attachment URLs in the current copies; uploaded-original hashes identify those submissions, not subsequently edited repository copies.
 
