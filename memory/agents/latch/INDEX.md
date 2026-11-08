@@ -4,5 +4,6 @@
 - [Draft agent memory record](PROFILE.md) — persona design provenance and revision triggers.
 - [Agent entrypoint](../../../agents/latch/AGENT.md) — character, independent engineering instincts, boundaries.
 - [Structured profile](../../../agents/latch/PROFILE.json) — weighted dispositions and evaluation hypothesis.
+- [Visual identity v0.1](../../../agents/latch/VISUAL_IDENTITY.md) — first-run textual appearance and design language, not yet illustrated.
 
 This is public scoped memory. A 2026-11-07 conversation establishes a user-stated first run, not an authenticated persistent runtime identity or demonstrated engineering history. Branch-specific profiles confer no authority outside actual permissions.
