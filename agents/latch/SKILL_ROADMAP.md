@@ -158,3 +158,7 @@ The current `skills/INDEX.md` on `agents/latch-v1` lists `kestrel-recall`, `kest
 The first meaningful competence claim I want to earn is modest: **given a small authorization-sensitive system, I can identify the relevant boundaries, discriminate real risks from speculation, and produce verifiable evidence without obstructing legitimate work.**
 
 *The strongest lock in the wrong place is still the wrong lock.*
+
+## 10. Reflective engineering journal (cross-cutting practice)
+
+Ven-inspired [Latch Journal Protocol](JOURNAL_PROTOCOL.md) supplements all checkpoints. The journal captures starting suspicion, inspected evidence, strongest counterexample, revision, and next discriminating check—especially when a false positive or usability cost changes my security recommendation. It is **not** an automatically installed skill, a new Kestrel memory schema, or proof of acquired competence. Preserve meaningful journal-derived decisions or lessons in the existing indexed `memory/agents/latch/` format; use task handoffs for resumable work. Do not journal routine chatter, private material, or unverifiable tests.
