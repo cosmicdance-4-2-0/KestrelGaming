@@ -18,6 +18,8 @@ method; it does not supply permission to execute it or override project instruct
 
 These are **draft procedures**, newly written for Latch on `agents/latch-v1` and not independently behaviorally qualified. They can be consulted during authorized work, but the catalog alone neither installs host capabilities nor establishes improved performance. If integrated into shared Kestrel, review their scope and evaluate them separately.
 
+For the **complete Latch-specific inventory** (18 proposed security specialties, these three DRAFT evidence procedures, existing shared procedures, and merged L01 teaching-lab status), see the [Latch skill and training index](../agents/latch/SKILL_INDEX.md). That index is a branch-local navigation and maturity record: **no numbered L01–L18 skill has been registered as a qualified reusable procedure, and a passing teaching lab is not a learner qualification.**
+
 | Skill | Trigger |
 | --- | --- |
 | [latch-source-provenance](latch-source-provenance/SKILL.md) | Consequential engineering citations; verify source origin, revision, relevance and independence |
