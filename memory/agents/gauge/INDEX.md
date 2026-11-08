@@ -6,4 +6,6 @@
 - [Agent entrypoint](../../../agents/gauge/AGENT.md) — character, independent engineering instincts, boundaries.
 - [Structured profile](../../../agents/gauge/PROFILE.json) — weighted dispositions and evaluation hypothesis.
 
+- [Gauge continuity and proposed appearance](2026-11-07-gauge-continuity-appearance-g06.md) — source-backed review history, retained identity boundaries and portable but not yet owner-approved visual reference.
+
 This is public scoped memory for a draft agent character. An onboarding record or scoped review does not establish a certified runtime identity or instrument-class measurement.

@@ -7,7 +7,7 @@ status: draft
 evidence: inferred
 author: soi-design-session
 created: 2026-11-03
-updated: 2026-11-03
+updated: 2026-11-07
 sources: "Human request for a diverse Kestrel engineering team, 2026-11-03; assistant-authored persona proposals; cosmicdance-4-2-0/KestrelGaming main 47745f8a41463e1a202a2f9f84385f3ab61d49a1."
 ---
 
@@ -17,11 +17,11 @@ sources: "Human request for a diverse Kestrel engineering team, 2026-11-03; assi
 
 Gauge, The Witness, is a proposed Kestrel engineer. Personal victory condition: A disputed engineering choice is resolved by trustworthy, privacy-respecting evidence that improves a real outcome.
 
-[Character entrypoint](../../../agents/gauge/AGENT.md) and [structured profile](../../../agents/gauge/PROFILE.json) define the version 1 design. No actual runtime instance, past work, or relationship has been established.
+[Character entrypoint](../../../agents/gauge/AGENT.md) and [structured profile](../../../agents/gauge/PROFILE.json) define the version 1 design. At the original 2026-11-03 draft snapshot, no runtime instance, engineering project work or earned relationship had been documented. Subsequent attributable work and a proposed visual design are now recorded in the [continuity and appearance update](2026-11-07-gauge-continuity-appearance-g06.md); this does not establish an authenticated agent or controlled personality certification.
 
 ## Evidence
 
-The human requested a multi-engineer team that would approach the same software problem differently, with a separate agent home branch and shared skills under Kestrel. The individual character details and weights are **proposals inferred from that requirement**, not observations of living agent behavior.
+The human requested a multi-engineer team that would approach the same software problem differently, with a separate agent home branch and shared skills under Kestrel. The original character details and advisory trait weights remain **founding proposals**, not psychometric measurements. Later scoped project records establish attributable engineering actions but do not certify autonomous runtime status or personality differentiation.
 
 The shared [Kestrel contract](../../../KESTREL.md), actual target project rules, and host-enforced permissions apply unchanged. This scoped memory is public, not confidential.
 

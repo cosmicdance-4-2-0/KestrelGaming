@@ -1,6 +1,8 @@
 """Structural checks only for Gauge's character (not execution certification)."""
 import json
 import math
+import re
+import xml.etree.ElementTree as ET
 from pathlib import Path
 import unittest
 
@@ -45,7 +47,33 @@ class GaugeProfileTests(unittest.TestCase):
         self.assertIn("actual host permissions", self.p["operating_limits"]["higher_priority_contract"])
         self.assertTrue(self.p["evaluation"]["shared_scenario"]["first_move"])
         self.assertIn("No running-agent trials", self.p["evaluation"]["certification"])
-        self.assertEqual(self.p["metadata"]["established_history"], [])
+        history = self.p["metadata"]["established_history"]
+        self.assertGreaterEqual(len(history), 4)
+        self.assertTrue(all("2026-11-" in item for item in history))
+        self.assertGreaterEqual(len(self.p["continuity"]["accepted_lessons"]), 3)
+        self.assertGreaterEqual(len(self.p["collaboration"]["known_relationship_history"]), 1)
+        self.assertEqual(self.p["continuity"]["earned_relationships"], [])
+
+    def test_portable_visual_identity_is_proposed_not_authenticated(self):
+        path = ROOT / "agents/gauge/APPEARANCE.json"
+        visual = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(visual["schema"]["name"], "KestrelAgentAppearance")
+        self.assertEqual(visual["schema"]["version"], "0.1")
+        self.assertEqual(visual["schema"]["status"], "PROPOSED")
+        self.assertEqual(visual["metadata"]["character_id"], "gauge")
+        self.assertFalse(visual["metadata"]["owner_accepted"])
+        self.assertEqual(visual["metadata"]["home_branch"], "agents/gauge-v1")
+        svg = path.parent / visual["metadata"]["asset"]
+        self.assertTrue(svg.is_file())
+        root = ET.parse(svg).getroot()
+        self.assertEqual(root.tag, "{http://www.w3.org/2000/svg}svg")
+        self.assertEqual(root.attrib.get("viewBox"), "0 0 512 512")
+        self.assertFalse(any(node.tag.endswith(("script", "foreignObject", "image")) for node in root.iter()))
+        self.assertTrue(all(re.fullmatch(r"#[0-9A-Fa-f]{6}", color)
+                            for color in visual["design"]["palette"].values()))
+        agent = (ROOT / "agents/gauge/AGENT.md").read_text(encoding="utf-8")
+        self.assertIn("APPEARANCE.json", agent)
+        self.assertIn("avatar.svg", agent)
 
 if __name__ == "__main__":
     unittest.main()
