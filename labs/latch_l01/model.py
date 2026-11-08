@@ -2,7 +2,7 @@
 
 Policy: docs/latch-education lesson -> addendum -> R1/R2 errata.
 Driver binding/setup/inspection are trusted fixture controls, not authentication.
-The teaching runner and agent/tool simulation remain deferred to pass 3.
+The public adapter and teaching runner live in separate surface/visible_cases modules.
 """
 
 from dataclasses import asdict, dataclass, replace

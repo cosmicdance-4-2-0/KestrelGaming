@@ -15,11 +15,13 @@ Read these documents in order. Later corrections govern conflicting Lab 01 seman
 2. [First clarification addendum](Latch_L01_Review_Addendum.md) — F1–F4 responses.
 3. [R1/R2 errata](Latch_L01_R1_R2_Errata.md) — local-only restoration and actor/session equality for replay and retry; supersedes conflicting effects in the addendum.
 
-[PR #7](https://github.com/cosmicdance-4-2-0/KestrelGaming/pull/7) merged at `d3cf43c5d4a2146371d05bf8c28712c5f1cf5266` after [Latch's integration acceptance](../../memory/agents/latch/2026-11-08-l01-pr7-acceptance-ca0d-lk11.md) and [Axiom's independent acceptance](https://github.com/cosmicdance-4-2-0/KestrelGaming/blob/53d5b0921e1001f64bab8ecf6ce2cea2583c33e3/memory/agents/axiom/2026-11-08-latch-l01-followup-ca0d.md), both pinned to source head `ca0dedef1b8ad9f02aa8f296b07f5059782a4bb8`. The instructional package is integrated; no lab runtime or behavioral qualification has been established.
+[PR #7](https://github.com/cosmicdance-4-2-0/KestrelGaming/pull/7) merged at `d3cf43c5d4a2146371d05bf8c28712c5f1cf5266` after [Latch's integration acceptance](../../memory/agents/latch/2026-11-08-l01-pr7-acceptance-ca0d-lk11.md) and [Axiom's independent acceptance](https://github.com/cosmicdance-4-2-0/KestrelGaming/blob/53d5b0921e1001f64bab8ecf6ce2cea2583c33e3/memory/agents/axiom/2026-11-08-latch-l01-followup-ca0d.md), both pinned to source head `ca0dedef1b8ad9f02aa8f296b07f5059782a4bb8`. The instructional package is integrated; executable fixture progress is recorded below. Learner qualification has not been assessed.
 
 **Implementation plan:** [PR #8](https://github.com/cosmicdance-4-2-0/KestrelGaming/pull/8) integrated the [three-pass plan](L01_FIXTURE_IMPLEMENTATION_PLAN.md) after Latch accepted source head `da83b322eb19655500c245315ba4b663ae694fa5`.
 
-**Current slice:** [The fixture and public tests](../../labs/latch_l01/README.md) now cover direct requests plus queued recovery. Pass 1 was accepted at `9e9f311bbb83e6d8f59b5dafa125ff4d48679589` and merged in [PR #9](https://github.com/cosmicdance-4-2-0/KestrelGaming/pull/9) at `c04331d4ad39ac4c95a1e42d9cd303964715b56a`. Pass 2 adds replay/retry, origin guards and idempotent effects; its implementation acceptance is pending. The public teaching runner remains pass 3. Repository test results verify the fixture slice, not learner capability or qualification.
+**Current slice:** [The fixture and public runner](../../labs/latch_l01/README.md) now implement all three planned slices. Passes 1 and 2 were accepted by Latch; Pass 2 was independently reproduced by Axiom and merged via [PR #10](https://github.com/cosmicdance-4-2-0/KestrelGaming/pull/10) at `ca49d6eabd6e6f17bfd139efd0d3804a16d351c8`. Pass 3 adds 16 public teaching cases, structured results and a typed application adapter/scripted-agent surface. Pass-3 implementation acceptance remains pending.
+
+**Next gate:** [Independent Pass-3 implementation review](L01_PASS3_REVIEW_HANDOFF.md), followed by Latch's exact-head acceptance. Public fixture runs are not hidden trials or evidence that Latch has learned the method.
 
 The submitted files remain available in Git history at `43b0dc68d36415b844009aae1dad735be88c9216`. Relative source links replace personal attachment URLs in the current copies; uploaded-original hashes identify those submissions, not subsequently edited repository copies.
 
@@ -31,7 +33,7 @@ Axiom's initial review identified AX-L01-01 and AX-L01-02. The addendum now defi
 
 PR #7 is merged. For subsequent project PRs, keep each PR in draft while Latch's acceptance is pending. Merge requires Latch's explicit acceptance tied to the PR's exact current head, the required repository checks, and resolution of any review blockers. Subsequent changes require Latch to assess the new head; earlier acceptance does not silently carry forward. Record the attributable review artifact and commit before marking the gate satisfied. Silence and this README are not acceptance.
 
-This is a project workflow gate. No branch protection, authenticated reviewer identity, CI approval enforcement or automatic merge mechanism is installed by this change. Latch's requested independent Axiom review precedes any separately authorized fixture implementation. The present work is documentation; implementation and qualification remain pending.
+This is a project workflow gate. No branch protection, authenticated reviewer identity, CI approval enforcement or automatic merge mechanism is installed by this change. Latch's requested independent Axiom review precedes any separately authorized fixture implementation. The current implementation needs its own head-specific review; learner assessment and qualification remain separate.
 
 ## Verification
 
