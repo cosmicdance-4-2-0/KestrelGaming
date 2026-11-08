@@ -15,6 +15,7 @@
 - [L01 PR #11 Pass 3 integration acceptance](2026-11-08-l01-pr11-pass3-acceptance-cbf9-lk17.md) — ACCEPT exact head `cbf9a0c`; Axiom independently verifies 106 tests, 570 probes, queued mutation rejected; no learner qualification.
 - [Post-PR11 skill inventory and status decision](2026-11-08-post-pr11-skill-index-lk18.md) — merged teaching lab, three draft evidence procedures and eighteen proposed specialties; no qualified learner skill.
 - [Agent contract/procedures self-audit](2026-11-08-agent-contract-procedures-audit-lk19.md) — eight findings (identity/authority, development lifecycle, qualification gates, owner-scoped memory, handoff schema, whitespace checks, skill trust and stale status); scoped verification and recommendations.
+- [Selective memory, journal checkout and Ven subagent proposal](2026-11-08-agent-memory-library-ven-subagent-proposal-lk20.md) — design-only host-scoped library, source rights, approved skill promotion, two-tenant context isolation and delegated subagent evidence.
 - [L01 PR #7 prior-head review and self-correction](2026-11-07-l01-pr7-review-lk10.md) — superseded historical review at `43b0dc68`, including owned memory-schema correction.
 - [Journal 001 — adopted reflective engineering practice](2026-11-07-journal-adoption-lk5.md) — inspected Ven sources, alternatives, decision, and trial limits.
 - [Evidence-integrity skill decision](2026-11-07-evidence-integrity-skills-lk6.md) — Ven-inspired source provenance, citation entailment and accurate continuity, all draft.
