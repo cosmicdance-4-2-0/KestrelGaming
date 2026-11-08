@@ -7,6 +7,7 @@
 - [L01 Mothlight instructional review](2026-11-07-l01-mothlight-instructional-review-lk8.md) — accepted teaching draft, three required lab clarifications, observed source limits.
 - [L01 addendum second review](2026-11-07-l01-addendum-second-review-lk9.md) — F1–F4 accepted; two narrow implementation semantics remain conditional.
 - [L01 PR #7 current-head acceptance](2026-11-08-l01-pr7-acceptance-ca0d-lk11.md) — ACCEPT at `ca0dedef` after independent Axiom design/check review; no merge or lab trial.
+- [L01 PR #8 implementation-plan acceptance](2026-11-08-l01-pr8-plan-review-da83-lk12.md) — ACCEPT plan at `da83b322`; runtime and test outcomes remain unverified, no merge or pass-1 implementation.
 - [L01 PR #7 prior-head review and self-correction](2026-11-07-l01-pr7-review-lk10.md) — superseded historical review at `43b0dc68`, including owned memory-schema correction.
 - [Journal 001 — adopted reflective engineering practice](2026-11-07-journal-adoption-lk5.md) — inspected Ven sources, alternatives, decision, and trial limits.
 - [Evidence-integrity skill decision](2026-11-07-evidence-integrity-skills-lk6.md) — Ven-inspired source provenance, citation entailment and accurate continuity, all draft.
