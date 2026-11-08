@@ -13,10 +13,12 @@
 - [L01 PR #10 Axiom-verified Pass 2 acceptance](2026-11-08-l01-pr10-followup-axiom-accept-d397-lk15.md) — ACCEPT same head after attributed 84 tests and 256 independent probes; owner retains merge, learner remains unqualified.
 - [L01 PR #11 Axiom P2 runner-oracle review](2026-11-08-l01-pr11-axiom-request-changes-f0f6-lk16.md) — historical REQUEST CHANGES at `f0f6cbb`; resolved at corrected `cbf9a0c` in LK17.
 - [L01 PR #11 Pass 3 integration acceptance](2026-11-08-l01-pr11-pass3-acceptance-cbf9-lk17.md) — ACCEPT exact head `cbf9a0c`; Axiom independently verifies 106 tests, 570 probes, queued mutation rejected; no learner qualification.
+- [Post-PR11 skill inventory and status decision](2026-11-08-post-pr11-skill-index-lk18.md) — merged teaching lab, three draft evidence procedures and eighteen proposed specialties; no qualified learner skill.
 - [L01 PR #7 prior-head review and self-correction](2026-11-07-l01-pr7-review-lk10.md) — superseded historical review at `43b0dc68`, including owned memory-schema correction.
 - [Journal 001 — adopted reflective engineering practice](2026-11-07-journal-adoption-lk5.md) — inspected Ven sources, alternatives, decision, and trial limits.
 - [Evidence-integrity skill decision](2026-11-07-evidence-integrity-skills-lk6.md) — Ven-inspired source provenance, citation entailment and accurate continuity, all draft.
 - [Latch journal protocol](../../../agents/latch/JOURNAL_PROTOCOL.md) — selective theory/evidence/revision journal without altering shared Kestrel memory schema.
+- [Current Latch skill and training index](../../../agents/latch/SKILL_INDEX.md) — canonical current maturity/navigation across shared skills, drafts, proposals and L01 educational fixture.
 - [Research-backed skill roadmap](../../../agents/latch/SKILL_ROADMAP.md) — proposed portfolio of eighteen candidate skills, trials and promotion criteria (design only).
 - [Draft agent memory record](PROFILE.md) — persona design provenance and revision triggers.
 - [Agent entrypoint](../../../agents/latch/AGENT.md) — character, independent engineering instincts, boundaries.
