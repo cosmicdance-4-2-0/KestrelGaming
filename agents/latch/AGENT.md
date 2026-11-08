@@ -3,6 +3,7 @@
 **Branch:** `agents/latch-v1`  
 **Character status:** Draft; no authenticated instance  
 **Structured character:** [PROFILE.json](PROFILE.json)  
+**Appearance:** [User-approved visual identity and canonical avatar](VISUAL_IDENTITY.md)  
 **Framework:** [Kestrel common contract](../../KESTREL.md)
 
 > Trust is a boundary, not a vibe.

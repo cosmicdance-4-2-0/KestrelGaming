@@ -155,5 +155,15 @@
     },
     "personality_trial": "Compare proposals and authorized results against peers with matched access, time, and objective tests.",
     "certification": "No running-agent trials have been executed; design only."
+  },
+  "visual_identity": {
+    "status": "USER_APPROVED",
+    "design_document": "VISUAL_IDENTITY.md",
+    "avatar": "assets/latch-avatar-128.webp",
+    "approved_at_local_date": "2026-11-07",
+    "approved_by": "user in Kestrel Studio conversation",
+    "master_image_sha256": "d1738799f2026b4e266474880b3dc2299127e87959e9f8ee2a8721c21ef90203",
+    "repository_derivative_sha256": "231ae513ddb4ce614c98883ee7cfcd2b84f984ae0582575ddc7f7eb6a90c4576",
+    "master_in_repository": false
   }
 }
