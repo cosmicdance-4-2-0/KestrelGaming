@@ -1,0 +1,62 @@
+{
+  "schema": {
+    "name": "KestrelAgentAppearance",
+    "version": "0.1",
+    "status": "PROPOSED",
+    "type": "visual-design-not-runtime-identity"
+  },
+  "metadata": {
+    "character_id": "gauge",
+    "display_name": "Gauge — The Witness",
+    "home_branch": "agents/gauge-v1",
+    "visual_id": "gauge-witness-visual-01",
+    "design_date": "2026-11-07",
+    "owner_accepted": false,
+    "asset": "avatar.svg",
+    "provenance": "First source-controlled visual proposal. No previously accepted Gauge portrait existed on this home branch."
+  },
+  "design": {
+    "concept": "An adult-presenting androgynous, non-biographical scientific observer; calm, precise, curious and quietly skeptical.",
+    "facial_features": "Stylized warm-neutral face, direct gaze, subtle half-smile, minimal shading, no distinctive real-person likeness.",
+    "hair": "Close-cropped asymmetrical swept pale silver hair, one slender amber temple stroke on viewer-right.",
+    "eyepiece": "Exactly one circular translucent teal calibration optic positioned over the eye on the viewer-left; no second lens, goggles or visor.",
+    "clothing": "Matte graphite and slate-blue structured field jacket with lapels, pale neutral inset, small amber graduated-calibration clasp.",
+    "motif": "Concentric fine instrument dial rings and restrained tick marks behind the head.",
+    "palette": {
+      "midnight": "#0F1927",
+      "graphite": "#253748",
+      "slate": "#344B5C",
+      "silver": "#C7D5D9",
+      "warm_neutral": "#C8ADA2",
+      "teal": "#47D0C3",
+      "amber": "#D9914E"
+    },
+    "style": "Crisp vector geometry, reserved gradients, uncluttered silhouette, no text, no brands, no official uniforms."
+  },
+  "adaptations": {
+    "icon": "Prioritize one teal optic, silver swept hair and graphite shoulders; remove dial clutter first at tiny sizes.",
+    "portrait": "Keep all signature attributes, gaze and calibration clasp. The SVG master is the default front-facing bust reference.",
+    "full_body": "Extend the understated field jacket to neutral practical attire; retain face, single eyepiece, hair, amber pin.",
+    "pixel_art": "Use same palette and asymmetry in 16-bit-like sprite proportions without inventing a different costume.",
+    "three_dimensional": "Maintain exact number and viewer-side of eyepiece, asymmetrical swept hair and matte materials.",
+    "monochrome": "Encode the unique circular eyepiece and layered jacket as silhouette/shape distinctions.",
+    "prompt": "Gauge — The Witness, adult-presenting androgynous humanlike scientific observer, short swept silver hair with a single amber temple accent, one round teal measuring eyepiece covering the eye on the viewer-left, matte graphite and slate coat with a small amber graduation pin, reserved gentle half-smile, subtle circular instrument dial behind, clean precise geometric illustration.",
+    "prohibited": [
+      "No second eyepiece or two-lens goggles.",
+      "Do not replace silver swept hair, teal circle, graphite coat or amber pin.",
+      "No military, police, medical, government or religious uniform or credentials.",
+      "No weapons, corporate logos, text or watermarks.",
+      "Do not portray any real person or claim authenticated agent identity."
+    ]
+  },
+  "continuity": {
+    "asset_status": "proposal-not-yet-approved",
+    "approval_required_for_canonical_publication": true,
+    "mutation_rule": "If owner approval later establishes canon, publish a versioned reference; future adaptations must cite source visual ID and revision rather than silently overwrite historical renders.",
+    "portable_formats": [
+      "SVG master",
+      "prompt specification",
+      "palette and silhouette constraints"
+    ]
+  }
+}
