@@ -17,7 +17,9 @@ Read these documents in order. Later corrections govern conflicting Lab 01 seman
 
 [PR #7](https://github.com/cosmicdance-4-2-0/KestrelGaming/pull/7) merged at `d3cf43c5d4a2146371d05bf8c28712c5f1cf5266` after [Latch's integration acceptance](../../memory/agents/latch/2026-11-08-l01-pr7-acceptance-ca0d-lk11.md) and [Axiom's independent acceptance](https://github.com/cosmicdance-4-2-0/KestrelGaming/blob/53d5b0921e1001f64bab8ecf6ce2cea2583c33e3/memory/agents/axiom/2026-11-08-latch-l01-followup-ca0d.md), both pinned to source head `ca0dedef1b8ad9f02aa8f296b07f5059782a4bb8`. The instructional package is integrated; no lab runtime or behavioral qualification has been established.
 
-**Next proposed checkpoint:** [Synthetic fixture implementation plan](L01_FIXTURE_IMPLEMENTATION_PLAN.md), beginning with read authorization and direct local recovery.
+**Implementation plan:** [PR #8](https://github.com/cosmicdance-4-2-0/KestrelGaming/pull/8) integrated the [three-pass plan](L01_FIXTURE_IMPLEMENTATION_PLAN.md) after Latch accepted source head `da83b322eb19655500c245315ba4b663ae694fa5`.
+
+**Current slice:** [Pass-1 fixture and public tests](../../labs/latch_l01/README.md) implement direct reads and local recovery. Implementation acceptance is pending; replay/retry and the teaching runner remain later passes. Repository test results verify this fixture slice, not learner capability or qualification.
 
 The submitted files remain available in Git history at `43b0dc68d36415b844009aae1dad735be88c9216`. Relative source links replace personal attachment URLs in the current copies; uploaded-original hashes identify those submissions, not subsequently edited repository copies.
 
