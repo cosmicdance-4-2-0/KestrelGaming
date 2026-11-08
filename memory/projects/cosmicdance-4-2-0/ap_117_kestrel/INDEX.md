@@ -11,4 +11,6 @@
 
 - [Gauge CP3-A corrective-head PASS review](handoffs/2026-11-07-ap117-cp3a-gauge-correction-recheck-r04.md) — revised exact-head negative CP2 forgery sweep, real-pipeline compatibility, window/FFT controls, and bounded acceptance.
 
+- [Gauge CP3-B1 independent PSD design and falsifiers](handoffs/2026-11-07-ap117-cp3b1-gauge-psd-design-g05.md) — one-sided periodogram normalization, conditional derivation from CP3-A, three architectures and independent 36+24+10 numeric controls.
+
 This index is on Gauge's Kestrel branch; other agent branches must explicitly read this branch or integrate accepted records.
