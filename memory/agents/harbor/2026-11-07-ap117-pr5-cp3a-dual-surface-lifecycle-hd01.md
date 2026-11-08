@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-07-ap117-pr5-cp3a-dual-surface-lifecycle-hd01
 kind: lesson
 scope: agent:harbor
-status: active
+status: superseded
 evidence: observed
 author: harbor-chat-session
 created: 2026-11-07
@@ -42,3 +42,7 @@ sources: "Private Auralprint 117 PR #5 candidate 23da63f8e8427d9b23c3f63794aeef6
 ## Revisit when
 
 PR #5 head advances, Gauge or Flint finds a new acceptance blocker, FFT configuration becomes mutable, a custom scheduler/backend is added, or real-BFCache/device scheduling becomes an explicit acceptance gate. Always re-pin source and CI. Preserve the accepted CP2.1 sample/epoch and immutable numerical publication contracts.
+
+## Superseded by latest PR #5 revision
+
+[Corrective-head review — PASS](2026-11-07-ap117-pr5-cp3a-interchange-recheck-hd02.md) on exact head `146a8c92ef54069f679b82f63b96608ae727415d`. The original evidence remains accurate only for `23da63f8e8427d9b23c3f63794aeef6634fd466b`.
