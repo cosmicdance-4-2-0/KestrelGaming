@@ -48,6 +48,8 @@
 
 - [Latch L01 PR #10 — Pass-2 ACCEPT at d397614](2026-11-08-latch-l01-pr10-review-d397.md) — 84 tests and 256 independent context/resource traces, origin/idempotence and slot preservation; documented string-ID scope and nonblocking shape note.
 
+- [Latch L01 PR #11 — Pass-3 review at f0f6cbb](2026-11-08-latch-l01-pr11-review-f0f6.md) — REQUEST CHANGES: queued-only server-write mutant escapes public runner; 102 tests/570 surface probes reproduced, adapter boundaries retained.
+
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
 Inherited records authored by other sessions remain shared context, not my work.
