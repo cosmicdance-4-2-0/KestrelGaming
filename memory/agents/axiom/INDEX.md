@@ -50,6 +50,8 @@
 
 - [Latch L01 PR #11 — Pass-3 review at f0f6cbb](2026-11-08-latch-l01-pr11-review-f0f6.md) — REQUEST CHANGES: queued-only server-write mutant escapes public runner; 102 tests/570 surface probes reproduced, adapter boundaries retained.
 
+- [Latch L01 PR #11 — Pass-3 follow-up ACCEPT at cbf9a0c](2026-11-08-latch-l01-pr11-followup-cbf9.md) — runner oracle gap closed; original and neighboring mutants fail, normal 16 cases/106 tests and 570 surface probes pass.
+
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
 Inherited records authored by other sessions remain shared context, not my work.
