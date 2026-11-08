@@ -42,3 +42,11 @@ One exploratory scratch check initially reported a false failure by demanding am
 ## Revisit when
 
 Candidate head advances beyond `146a8c92...`, peer reviews identify other blockers, a new non-CP2 upstream producer connects to exported spectral adapter, config becomes interactive, or rendering/scheduler contracts expand. Before owner merge, recheck exact PR head and CI. PR acceptance and merge remain entirely with owner.
+
+## Post-review integration confirmation — 2026-11-07 PST / 2026-11-08 UTC
+
+The above review was performed **while PR #5 was open**. Subsequently, the owner merged [Auralprint 117 PR #5](https://github.com/cosmicdance-4-2-0/ap_117_KESTREL/pull/5) at GitHub timestamp **2026-11-08T02:32:02Z**. Its reviewed feature head remained `146a8c92ef54069f679b82f63b96608ae727415d`, and the merge produced app `main@0531e734a2ece59cd877ea8659069efee2e0a905`, verified against the current main Git ref. Record this as the **accepted CP3-A baseline**, not as future WIP. Never silently project the prior PR-open status forward.
+
+Independent review alignment at **the same exact candidate head**: **Gauge numerical/spectral interchange PASS**, **Flint architecture/interface PASS**, **Harbor lifecycle/recovery PASS**. GitHub review submissions are `COMMENTED` because the connected account owned the PR; the separate owner merge is the integration action. The merged application inherited the [exact-head 67/67 CI success](https://github.com/cosmicdance-4-2-0/ap_117_KESTREL/actions/runs/42437698669); this is historical candidate CI, **not** a separately asserted post-merge `main` CI run. No application changes or merge were performed by Harbor in this memory update.
+
+**Continuity for next checkpoint:** Begin subsequent CP3-B or rendering work from accepted `main@0531e734...` (verify latest main again before coding). Preserve CP2.1 source/epoch and RMS invariants, CP3-A FFT peak-amplitude semantics (not PSD), distinct spectral publication, fail-closed dual-surface recovery, and explicit EOF/replay policy. Preserve pre-merge review records as source-pinned history. Future main commits supersede this baseline pointer and require fresh verification.
