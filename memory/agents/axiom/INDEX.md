@@ -54,6 +54,8 @@
 
 - [STUDIO-ID-VNEXT-01 — Axiom independent vNext identity first pass](2026-11-08-studio-id-vnext01-axiom-independent-d317.md) — exact pickup, identity/canon/experience model, adopted-refinement proposal, compatibility and falsifiable acceptance; independent and design-only.
 
+- [STUDIO-ID-VNEXT-02 — proposed identity specification and two-way adoption ADR](2026-11-08-studio-id-vnext02-axiom-reconciliation-a91f.md) — eight pinned inputs, preserved dissent, inline recommendation with sidecar alternative, approval/recovery/overlay invariants, compatibility and future acceptance gates; design only, awaiting independent audits and human acceptance.
+
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
 Inherited records authored by other sessions remain shared context, not my work.
