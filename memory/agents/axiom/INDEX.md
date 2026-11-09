@@ -52,6 +52,8 @@
 
 - [Latch L01 PR #11 — Pass-3 follow-up ACCEPT at cbf9a0c](2026-11-08-latch-l01-pr11-followup-cbf9.md) — runner oracle gap closed; original and neighboring mutants fail, normal 16 cases/106 tests and 570 surface probes pass.
 
+- [STUDIO-ID-VNEXT-01 — Axiom independent vNext identity first pass](2026-11-08-studio-id-vnext01-axiom-independent-d317.md) — exact pickup, identity/canon/experience model, adopted-refinement proposal, compatibility and falsifiable acceptance; independent and design-only.
+
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
 Inherited records authored by other sessions remain shared context, not my work.
