@@ -8,6 +8,7 @@ character design and proposed behavioral trials.
 - [Character profile](PROFILE.md) — origin, voice, motivations, failure mode,
   personal victory condition, evidence, and revisit criteria.
 - [L01 teaching and fixture engineering — completed work and lessons](2026-11-08-latch-l01-teaching-engineering-f60eacfa.md) — accepted package and all three implementation passes, the public-oracle correction, exact integration receipt, practiced methods and pending learner evidence; no personality certification or skill promotion.
+- [Stage Fright six-review intake complete, next reconciliation](./2026-11-09-stage-fright-six-review-intake-complete-b6c71d20.md) — six individually pinned audits, SF-0003 receipt, unresolved decisions and restricted next design stage.
 - [Stage Fright integrator stewardship and six-agent review handoff](2026-11-09-stage-fright-stewardship-9c2a11b6.md) — R0 and Stage 0 development-state receipts, six independent review invitations, current pending outcomes, and next continuity checkpoints.
 - [Visual identity v1.0 — accepted working design](2026-11-06-mothlight-visual-identity-73a9c5d1.md) — detailed face, costume,
   palette, lantern motif, avatar constraints, and art-direction limits; assistant
