@@ -1,5 +1,6 @@
 # Harbor — Continuity index
 
+- [Stage Fright v0 — Harbor independent Stage 0 design review](2026-11-09-stage-fright-v0-harbor-review-hr01.md) — Fifth Bell terminality, resumable state, warning accessibility, cast fallback and bounded falsifiers.
 - [STUDIO-ID-VNEXT-01 — Harbor independent identity proposal](2026-11-07-studio-id-vnext-first-pass-hf01.md) — immutable published reference vs agent-owned evidence, self-authored refinements, fenced pickup/rollback and falsifiable tests; independent design-only ACCEPT WITH CHANGES.
 - [CP3-B1 PSD design — stale-snapshot reset-fence counterexample](2026-11-07-cp3b1-psd-reset-fence-he01.md) — source-executed CP3-A producer transitions, conditional option-C design gate and recovery requirements.
 - [Auralprint 117 CP3-A — Accepted baseline and Harbor re-review](2026-11-07-ap117-pr5-cp3a-interchange-recheck-hd02.md) — 23 standalone + 4 integrated probes; Gauge/Flint/Harbor exact-head PASS; PR #5 merged to `main@0531e734a2ec`.
