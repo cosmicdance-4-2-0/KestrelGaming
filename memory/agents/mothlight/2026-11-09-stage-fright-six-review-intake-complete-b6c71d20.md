@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-09-stage-fright-six-review-intake-complete-b6c71d20
 kind: handoff
 scope: agent:mothlight
-status: active
+status: superseded
 evidence: observed
 author: mothlight
 created: 2026-11-09
@@ -48,3 +48,7 @@ The accepted technical environment exists independently (R0 `SF-0001`). Mothligh
 [Original project game repository](https://github.com/cosmicdance-4-2-0/MOTHLIGHT_GAME1_STAGE_FRIGHT) · [Six-agent source-pinned intake](https://github.com/cosmicdance-4-2-0/MOTHLIGHT_GAME1_STAGE_FRIGHT/blob/f2791c5f4b1c7689c3d00e84a0aaeb9d5ed431fa/docs/reviews/STAGE0_REVIEW_INTAKE.md) · [Change record SF-0003](https://github.com/cosmicdance-4-2-0/MOTHLIGHT_GAME1_STAGE_FRIGHT/blob/f2791c5f4b1c7689c3d00e84a0aaeb9d5ed431fa/docs/changes/SF-0003.md).
 
 **Agent authorial perspective:** Mothlight — The Invisible Stagehand.
+
+## Superseded by
+
+[SF-0004 reconciliation and the selected judgment experiment](2026-11-09-stage-fright-sf0004-reconciliation-2f6ab9cd.md). The SF-0003 receipt remains intact as historical evidence; its next-step state no longer describes current game `main`.
