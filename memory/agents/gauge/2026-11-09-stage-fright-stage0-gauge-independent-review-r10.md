@@ -64,7 +64,7 @@ Also inspected the pinned repository `AGENTS.md`, `README.md`, `docs/ARCHITECTUR
 
 ### Ranked finding 1 — BLOCKING FOR C04: incident identity is not a conserved reward claim
 
-**Sources:** GDD `4.3 ("Outcome reward" maximum 12 Power per incident; cost on commit, +10 Rage on thwart), `4.5 decision cycle, `4.7 causality; planned C01/C02/C04; V0 gameplay "ghost's opposing loop."
+**Sources:** GDD §4.3 ("Outcome reward" maximum 12 Power per incident; cost on commit, +10 Rage on thwart), §4.5 decision cycle, §4.7 causality; planned C01/C02/C04; V0 gameplay "ghost's opposing loop."
 
 **Gap:** "Once per incident" is a necessary but insufficient invariant. Nothing yet fixes the ownership/uniqueness of realized consequences. One action may release a restraint, injure an actor, break a prop and disrupt three Play Beats. These are multiple world events from **one causal plan**, not four independently rewardable ghost achievements. Conversely two distinct plans may causally contribute to one outcome. Without a settlement ledger, a designer can accidentally farm distinct incident IDs for one lasting condition, or credit a ghost for an ordinary mechanical failure. A valid world consequence must exist *before* it can be claimed as an earned ghost outcome.
 
@@ -105,7 +105,7 @@ with deterministic tie-breaks, a defined canonical event and state hash and expl
 
 ### Ranked finding 4 — BLOCKING FOR LETHAL FAIRNESS: "learnable" is not time-bounded
 
-**Sources:** GDD `4.4 Tier II, `4.7 danger fairness, `10 camera; Stage 1 legibility; planned C02/C05/C10.
+**Sources:** GDD §4.4 Tier II, §4.7 danger fairness, §10 camera; Stage 1 legibility; planned C02/C05/C10.
 
 **Gap:** The GDD explicitly permits Tier II interference (cost 15) to become lethal by releasing large **ordinary stored energy**, while Tier III sabotage costs 28. That is consistent with the rule that tier is not severity, but means cost/tier **cannot** serve as a lethal threat's fairness proxy. "A clue existed" is inadequate if the clue was obscured or unreachable before an impact.
 
@@ -127,7 +127,7 @@ with deterministic tie-breaks, a defined canonical event and state hash and expl
 
 ### Ranked finding 6 — IMPORTANT: proposed Power/Rage values permit two very different incentives
 
-**Sources:** GDD `4.3 defaults, `4.4 tiers, `4.6 binding; decision-register P-003/P-008. These are **conditional mathematical consequences of provisional values, not measured balance results**.
+**Sources:** GDD §4.3 defaults, §4.4 tiers, §4.6 binding; decision-register P-003/P-008. These are **conditional mathematical consequences of provisional values, not measured balance results**.
 
     Pmax=100, Pstart=18
     Rstart=20, Rmax=100
@@ -149,7 +149,7 @@ At Rage 20, regen=7.2 Power/min, at Rage 30 it is 7.8, at Rage 100 it is 12. One
 
 ### Ranked finding 7 — IMPORTANT: two truths require observational projection, not merely a complete debug ledger
 
-**Sources:** GDD `3.1, `6, `7, `8 and `10; V0 gameplay "two truths"; Stage 1 visual trials.
+**Sources:** GDD §3.1, §6, §7, §8 and §10; V0 gameplay "two truths"; Stage 1 visual trials.
 
 **Gap:** Rehearsal truth (intended Cue) and World truth (actual physical consequence) are correctly separate. The player's **accessible evidence** is a third necessary object for design verification, even if it is only a view/projection and not another persistent world authority. Actor and Ghost perceptions must be derived separately from authorized sensors/observations. A flawless debug causal trace does not prove players could have diagnosed the event. A legitimate revised Cue needs a discoverable version/revision provenance; otherwise an apparent false positive is indistinguishable from author fiat. A correct intervention that makes a legitimate Cue worse must have predecision evidence of what was expected, not retrospectively changed rules.
 
@@ -161,7 +161,7 @@ At Rage 20, regen=7.2 Power/min, at Rage 30 it is 7.8, at Rage 100 it is 12. One
 
 **Sources:** ROADMAP Stage 2 (one Room, one mechanism, one legitimate Cue and suspicious deviation); GDD `11 ("first playable Adventure" 8–12 minutes, three mechanism classes, five Beats, Ghost, binding route) and `12 CP0–CP5. These are **different checkpoints**, not necessarily contradictory, but share phrases like "first playable."
 
-**Recommendation:** explicitly call Stage 2 the **heartbeat falsification micro-slice** and GDD `11 the **later Adventure vertical slice**. Stage 2 must include an ordinary false alarm/legitimate action pair, but not a full Ghost resource economy: a manually specified (but world-valid) suspicious cause can initially test interpretation. If the micro-slice is dull, fix timing, observability or the player's verbs before adding NPC psychological states, five tiers, AI planning, full binding, large cast and art packs. Avoid enshrining "exactly one false alarm each seed" as a detectable procedural rule; required coverage in test fixtures is not necessarily runtime frequency distribution.
+**Recommendation:** explicitly call Stage 2 the **heartbeat falsification micro-slice** and GDD §11 the **later Adventure vertical slice**. Stage 2 must include an ordinary false alarm/legitimate action pair, but not a full Ghost resource economy: a manually specified (but world-valid) suspicious cause can initially test interpretation. If the micro-slice is dull, fix timing, observability or the player's verbs before adding NPC psychological states, five tiers, AI planning, full binding, large cast and art packs. Avoid enshrining "exactly one false alarm each seed" as a detectable procedural rule; required coverage in test fixtures is not necessarily runtime frequency distribution.
 
 **Tradeoff:** less impressive demo, much stronger evidence about the core fun promise. Full architecture/swappability should be proved later with a second genuinely distinct Adventure, not imposed on the first room.
 
