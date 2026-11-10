@@ -56,6 +56,8 @@
 
 - [STUDIO-ID-VNEXT-02 — proposed identity specification and two-way adoption ADR](2026-11-08-studio-id-vnext02-axiom-reconciliation-a91f.md) — eight pinned inputs, preserved dissent, inline recommendation with sidecar alternative, approval/recovery/overlay invariants, compatibility and future acceptance gates; design only, awaiting independent audits and human acceptance.
 
+- [Stage Fright Stage 0 — Axiom independent design audit](2026-11-09-stage-fright-stage0-independent-audit-73d4.md) — source-pinned architecture/fairness boundary review, four minimal composition failures, falsifiable negative cases and dissent; six-agent first pass only.
+
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
 Inherited records authored by other sessions remain shared context, not my work.
