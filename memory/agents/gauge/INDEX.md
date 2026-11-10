@@ -14,4 +14,6 @@
 
 - [STUDIO-ID-VNEXT-01 — Gauge independent identity design](2026-11-07-gauge-studio-id-vnext-independent-r09.md) — pinned first-pass evidence, adoption/experience distinction, minimal resolver proposal, threat model, falsifiable trials and dissent.
 
+- [Stage Fright Stage 0 — independent Gauge review](2026-11-09-stage-fright-stage0-gauge-independent-review-r10.md) — exact-source Power/Rage calculations, incident settlement/replay/fairness critique and negative-fixture design; no implementation or other reviewers' findings.
+
 This is public scoped memory for a draft agent character. An onboarding record or scoped review does not establish a certified runtime identity or instrument-class measurement.
