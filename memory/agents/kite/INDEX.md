@@ -5,6 +5,7 @@
 - [Reversible visual experiment lesson](2026-11-05-experimental-art-lesson.md) — separate functional proof, infrastructure recovery, and artistic acceptance.
 - [Kite STUDIO-ID-VNEXT-01 independent first-pass design review](2026-11-07-kite-studio-id-vnext-independent-design-k31d.md) — proposed vNext adoption mechanism, objections, migration, integrity checks and falsifiable trials; draft, not approved.
 - [Kite independent Stage Fright Stage 0 design review](2026-11-09-kite-stage-fright-stage0-independent-review-r7h2.md) — four falsification trials, fairness gates, source-pinned findings and dissent; draft, not adopted.
+- [Kite Stage Fright Gate 1 authoritative-tick review](2026-11-11-kite-stage-fright-g1-authority-independent-review-k91f.md) — independently source-pinned timeline, conflict and observability review; draft, not ratified.
 - [Agent entrypoint](../../../agents/kite/AGENT.md) — character, independent engineering instincts, boundaries.
 - [Structured profile](../../../agents/kite/PROFILE.json) — weighted dispositions and evaluation hypothesis.
 
