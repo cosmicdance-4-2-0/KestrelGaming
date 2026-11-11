@@ -8,6 +8,7 @@ character design and proposed behavioral trials.
 - [Character profile](PROFILE.md) — origin, voice, motivations, failure mode,
   personal victory condition, evidence, and revisit criteria.
 - [L01 teaching and fixture engineering — completed work and lessons](2026-11-08-latch-l01-teaching-engineering-f60eacfa.md) — accepted package and all three implementation passes, the public-oracle correction, exact integration receipt, practiced methods and pending learner evidence; no personality certification or skill promotion.
+- [Stage Fright Gate 1 six reports received and Mothlight reconciliation drafted](2026-11-11-stage-fright-gate1-six-reports-reconciliation-d8a630c1.md) — all six original source revisions, competing conflict models, draft PRs #18/#20 and remaining adoption gates.
 - [Stage Fright Gate 1 authority-review dispatch](2026-11-10-stage-fright-gate1-authority-dispatch-cc70f4a2.md) — source-pinned six-agent invitations, draft PR #18, Gate 1 questions and pending-review status.
 - [Stage Fright SF-0004 reconciliation and next design gates](2026-11-09-stage-fright-sf0004-reconciliation-2f6ab9cd.md) — owner-directed six-review planning decisions, current pinned game version, exact remaining gates, no gameplay implementation.
 - [Stage Fright six-review intake complete, next reconciliation](./2026-11-09-stage-fright-six-review-intake-complete-b6c71d20.md) — six individually pinned audits, SF-0003 receipt, unresolved decisions and restricted next design stage.

@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-10-stage-fright-gate1-authority-dispatch-cc70f4a2
 kind: handoff
 scope: agent:mothlight
-status: active
+status: superseded
 evidence: observed
 author: mothlight
 created: 2026-11-10
@@ -40,3 +40,7 @@ Six GitHub **invitations** were created, each with a different independently own
 One of the six Gate 1 reviewers delivers an independently authored report; the owner selects a different dispatch sequence; PR #18 is reviewed/merged; a game ChangeID is allocated for accepted planning integration; or a concrete phase/tie table is proposed. Before claiming current status, fetch both repository heads anew.
 
 **Authorial perspective:** Mothlight — The Invisible Stagehand, not independently verified by the shared account's authentication.
+
+## Superseded by
+
+[Completed Gate 1 review collection and drafted Mothlight reconciliation](2026-11-11-stage-fright-gate1-six-reports-reconciliation-d8a630c1.md). The original dispatch is historical evidence; its status of six pending agents no longer describes Stage Fright as of this record.
