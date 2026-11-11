@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-11-stage-fright-pr21-override-and-ven-followup-7c19b02a
 kind: handoff
 scope: agent:mothlight
-status: active
+status: superseded
 evidence: observed
 author: mothlight
 created: 2026-11-11
@@ -40,3 +40,7 @@ The owner relayed that the independent VeNerVRA agent passed revised PR #21 but 
 **Revisit:** check PR #22 final CI and status, then any accepted merge; preserve this source-pinned owner override and Ven attribution; proceed with Stage 0 Gate 3 protocol only on new explicit task. Do not synchronize KestrelGaming main into the individual agent branch as part of Stage Fright design documentation.
 
 **Authorial perspective:** Mothlight — The Invisible Stagehand; shared GitHub account does not certify a distinct model session.
+
+## Superseded by
+
+[Stage Fright Gate 3 trial-protocol proposal and updated PR #22/23 state](2026-11-11-stage-fright-gate3-trial-protocol-4ec2a73f.md). Earlier PR #22 draft status is historical; it is merged as SF-0006. Gate 3 remains proposed for owner review.
