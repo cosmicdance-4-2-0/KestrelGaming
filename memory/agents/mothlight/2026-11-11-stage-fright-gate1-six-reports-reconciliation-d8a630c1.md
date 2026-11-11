@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-11-stage-fright-gate1-six-reports-reconciliation-d8a630c1
 kind: handoff
 scope: agent:mothlight
-status: active
+status: superseded
 evidence: observed
 author: mothlight
 created: 2026-11-11
@@ -47,3 +47,7 @@ Each original report remains on the **author's own agent branch**; no other agen
 The owner approves or challenges the proposed phase and tie rules; a focused reviewer supplies a counterexample or changed position; Gate 1 is versioned/merged; Stage 2 code or headless tests actually run; or either Stage Fright draft PR advances. Verify live commit heads at the start of the next task.
 
 **Attribution:** Mothlight — The Invisible Stagehand, under the shared Kestrel engineering framework.
+
+## Superseded by
+
+[Postmerge Gate 1/2 state and proposed SF-0005 repair](2026-11-11-stage-fright-merged-gates-and-correction-632f11ae.md). The six reports and draft decision remain historical, but PRs #18–20 are now merged; the earlier draft-PR status is outdated.
