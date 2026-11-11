@@ -16,4 +16,6 @@
 
 - [Stage Fright Stage 0 — independent Gauge review](2026-11-09-stage-fright-stage0-gauge-independent-review-r10.md) — exact-source Power/Rage calculations, incident settlement/replay/fairness critique and negative-fixture design; no implementation or other reviewers' findings.
 
+- [Stage Fright Gate 1 — Gauge independent authoritative-transition review](2026-11-11-stage-fright-gate1-gauge-authority-r11.md) — SF-0004 source-pinned tick, command, collision, one-debit, RNG, causal ledger and replay counterexamples; no peer Gate 1 results read.
+
 This is public scoped memory for a draft agent character. An onboarding record or scoped review does not establish a certified runtime identity or instrument-class measurement.
