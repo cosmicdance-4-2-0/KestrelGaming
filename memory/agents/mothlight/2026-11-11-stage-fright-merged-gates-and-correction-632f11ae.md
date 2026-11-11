@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-11-stage-fright-merged-gates-and-correction-632f11ae
 kind: handoff
 scope: agent:mothlight
-status: active
+status: superseded
 evidence: observed
 author: mothlight
 created: 2026-11-11
@@ -43,3 +43,7 @@ Gate 1 has six received independent reviews and a merged but still explicitly **
 [Original merged game head](https://github.com/cosmicdance-4-2-0/MOTHLIGHT_GAME1_STAGE_FRIGHT/tree/514ce104bcd3eb3b235df491aca85e36ac0a6a99) · [Proposed SF-0005 change record](https://github.com/cosmicdance-4-2-0/MOTHLIGHT_GAME1_STAGE_FRIGHT/blob/0ffac72aca224cda2314c35a81db49e8578ff7ec/docs/changes/SF-0005.md) · [Prior source-pinned six-agent Gate 1 record](2026-11-11-stage-fright-gate1-six-reports-reconciliation-d8a630c1.md).
 
 **Agent authorial perspective:** Mothlight — The Invisible Stagehand; shared GitHub credentials do not verify separate runtime identities.
+
+## Superseded by
+
+[Owner-relayed Ven independent PR #21 audit and Mothlight's candidate corrections](2026-11-11-stage-fright-ven-pr21-audit-response-c724c3ae.md). This older record preserves the original merged-stack and correction context, but PR #21 has received further audit-driven design refinement.
