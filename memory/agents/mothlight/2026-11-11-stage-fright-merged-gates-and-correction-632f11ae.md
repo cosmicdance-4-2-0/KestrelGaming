@@ -30,7 +30,7 @@ Mothlight prepared [Draft PR #21](https://github.com/cosmicdance-4-2-0/MOTHLIGHT
 - correct stale labels in the Gate 1 intake, roadmap and reconciliation;
 - propose `0.0.2.5/SF-0005` as **one prospective, transparent, catch-up integration** with full disclosure that the three historical merges never had individual version ChangeIDs.
 
-The first PR #21 build failed **only** at `npm run version:check` because the record began with `**Proposed version:**` instead of the validator-required `**Version:**`. This was corrected at `0ffac72...`; follow-up check and build steps passed, complete hosted smoke outcome still to be inspected. Do not claim a final CI pass before verification. **PR #21 is deliberately draft** and owner acceptance remains open; main has not been changed by this correction.
+The first PR #21 build failed **only** at `npm run version:check` because the record began with `**Proposed version:**` instead of the validator-required `**Version:**`. This was corrected at `0ffac72...`; follow-up hosted push and PR CI both **PASSED** at head `0ffac72aca224cda2314c35a81db49e8578ff7ec`: [push run 43025480821](https://github.com/cosmicdance-4-2-0/MOTHLIGHT_GAME1_STAGE_FRIGHT/actions/runs/43025480821), [PR run 43025489667](https://github.com/cosmicdance-4-2-0/MOTHLIGHT_GAME1_STAGE_FRIGHT/actions/runs/43025489667). Those existing R0 checks do not execute the new G1/F2 mechanics; no gameplay test was performed. **PR #21 is deliberately draft** and owner acceptance remains open; main has not been changed by this correction.
 
 ### Remaining actual gate state
 
