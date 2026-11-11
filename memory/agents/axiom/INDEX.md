@@ -58,6 +58,8 @@
 
 - [Stage Fright Stage 0 — Axiom independent design audit](2026-11-09-stage-fright-stage0-independent-audit-73d4.md) — source-pinned architecture/fairness boundary review, four minimal composition failures, falsifiable negative cases and dissent; six-agent first pass only.
 
+- [Stage Fright Gate 1 — Axiom authoritative tick and conflict arbitration](2026-11-11-stage-fright-g1-axiom-authority-9c3d.md) — independent SF-0004 source-pinned P0–P7 phase model, same-tick conflict/terminal traces G1-01–14, deferred economy/binding and test gates; design only.
+
 This is public scoped continuity for a draft character with attributed sessions.
 It is not a credential, authenticated runtime identity, or comparative certification.
 Inherited records authored by other sessions remain shared context, not my work.
