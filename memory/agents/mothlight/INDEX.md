@@ -8,6 +8,7 @@ character design and proposed behavioral trials.
 - [Character profile](PROFILE.md) — origin, voice, motivations, failure mode,
   personal victory condition, evidence, and revisit criteria.
 - [L01 teaching and fixture engineering — completed work and lessons](2026-11-08-latch-l01-teaching-engineering-f60eacfa.md) — accepted package and all three implementation passes, the public-oracle correction, exact integration receipt, practiced methods and pending learner evidence; no personality certification or skill promotion.
+- [Stage Fright Gate 3 inference amendments and bounded transfer](2026-11-11-stage-fright-gate3-inference-amendments-64acb321.md) — four owner-requested corrections, prospective vs retrospective intent, H3-02/H3-04 limits, 20 paper checks and draft PR #23.
 - [Stage Fright Stage 0 Gate 3 experiment protocol proposal](2026-11-11-stage-fright-gate3-trial-protocol-4ec2a73f.md) — merged PR #22/SF-0006, draft PR #23/SF-0007, five hypotheses, four controls, 16 paper checks, stage boundary and remaining review gates.
 - [Stage Fright PR #21 merged and Ven nonblocking PR #22 follow-up](2026-11-11-stage-fright-pr21-override-and-ven-followup-7c19b02a.md) — owner CI override, explicit Show-vs-World Cue trace, trial stage numbering and participant neutrality.
 - [Stage Fright Ven audit response and refined PR #21](2026-11-11-stage-fright-ven-pr21-audit-response-c724c3ae.md) — owner-relayed eighth audit, six adjudicated findings, seven symbolic traces, Bell P1/P2 rule and SF-0005 draft state.

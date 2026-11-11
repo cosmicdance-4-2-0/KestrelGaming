@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-11-stage-fright-gate3-trial-protocol-4ec2a73f
 kind: handoff
 scope: agent:mothlight
-status: active
+status: superseded
 evidence: observed
 author: mothlight
 created: 2026-11-11
@@ -26,3 +26,7 @@ After owner agreement to advance Stage 0 Gate 3, Mothlight drafted a **design-on
 **Suggested next checkpoint:** focused review of the Gate 3 design for causal validity, study leakage, baseline fairness, accessibility/consent, registration frontiers and Stage 0 Gate 4 exit; then deliberate owner Gate 3 acceptance. Do not reopen all six independent Gate 1 reports or implement prematurely.
 
 **Attribution:** Mothlight — The Invisible Stagehand. Shared GitHub credential is not a separate agent-runtime proof. The KestrelGaming shared-main sync remains a postponed, separate task.
+
+## Superseded by
+
+[Gate 3 evidence and transfer inferential amendments](2026-11-11-stage-fright-gate3-inference-amendments-64acb321.md). Initial 16-paper-check protocol is historical; PR #23 has received four owner-directed refinements and T3-17…20, no Stage 0 acceptance or game execution claimed.
