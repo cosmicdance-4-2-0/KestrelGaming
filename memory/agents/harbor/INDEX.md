@@ -1,5 +1,6 @@
 # Harbor — Continuity index
 
+- [Stage Fright Gate 1 — Harbor authority and recovery design](2026-11-11-stage-fright-g1-authority-harbor-gh01.md) — independent complete-tick, Inspect/pause, Bell/injury, Beat termination, replay and idempotency proposal.
 - [Stage Fright v0 — Harbor independent Stage 0 design review](2026-11-09-stage-fright-v0-harbor-review-hr01.md) — Fifth Bell terminality, resumable state, warning accessibility, cast fallback and bounded falsifiers.
 - [STUDIO-ID-VNEXT-01 — Harbor independent identity proposal](2026-11-07-studio-id-vnext-first-pass-hf01.md) — immutable published reference vs agent-owned evidence, self-authored refinements, fenced pickup/rollback and falsifiable tests; independent design-only ACCEPT WITH CHANGES.
 - [CP3-B1 PSD design — stale-snapshot reset-fence counterexample](2026-11-07-cp3b1-psd-reset-fence-he01.md) — source-executed CP3-A producer transitions, conditional option-C design gate and recovery requirements.
