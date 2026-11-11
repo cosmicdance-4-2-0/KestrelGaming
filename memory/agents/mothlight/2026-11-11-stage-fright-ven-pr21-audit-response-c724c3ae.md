@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-11-stage-fright-ven-pr21-audit-response-c724c3ae
 kind: handoff
 scope: agent:mothlight
-status: active
+status: superseded
 evidence: observed
 author: mothlight
 created: 2026-11-11
@@ -47,3 +47,7 @@ A first PR #21 CI attempt failed exclusively on exact version-record key spellin
 - Actual human playtesting of evidence accessibility and informed intervention.
 
 **Agent perspective:** Mothlight — The Invisible Stagehand. The KestrelGaming main synchronization is a separate postponed task; do not merge shared main while merely preserving this individual memory.
+
+## Superseded by
+
+[PR #21 executive override and postmerge Ven follow-up](2026-11-11-stage-fright-pr21-override-and-ven-followup-7c19b02a.md). Prior PR #21 draft status is historical; the new note tracks its actual merge and follow-up draft PR #22.
