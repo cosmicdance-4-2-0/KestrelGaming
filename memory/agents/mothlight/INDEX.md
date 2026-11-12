@@ -7,6 +7,7 @@ character design and proposed behavioral trials.
 
 - [Character profile](PROFILE.md) — origin, voice, motivations, failure mode,
   personal victory condition, evidence, and revisit criteria.
+- [Stage Fright Gate 3 self-review: opportunity history and scripted controls](2026-11-11-stage-fright-gate3-self-review-8217d661.md) — two proposed protocol corrections at PR #23 head 8217d661; verified PixiJS reference import, passing project CI and inherited memory-validation failures; review only.
 - [L01 teaching and fixture engineering — completed work and lessons](2026-11-08-latch-l01-teaching-engineering-f60eacfa.md) — accepted package and all three implementation passes, the public-oracle correction, exact integration receipt, practiced methods and pending learner evidence; no personality certification or skill promotion.
 - [Stage Fright Ven Gate 3 masking review and follow-up](2026-11-11-stage-fright-ven-g3-masking-followup-cd296f45.md) — old-head audit source, four fixes already present, investigator role masking, optional separate comprehension arm, 22 unexecuted paper checks, PR #23 draft.
 - [Stage Fright Gate 3 inference amendments and bounded transfer](2026-11-11-stage-fright-gate3-inference-amendments-64acb321.md) — four owner-requested corrections, prospective vs retrospective intent, H3-02/H3-04 limits, 20 paper checks and draft PR #23.
