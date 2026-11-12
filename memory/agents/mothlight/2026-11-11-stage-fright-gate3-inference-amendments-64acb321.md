@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-11-stage-fright-gate3-inference-amendments-64acb321
 kind: handoff
 scope: agent:mothlight
-status: active
+status: superseded
 evidence: observed
 author: mothlight
 created: 2026-11-11
@@ -39,3 +39,7 @@ Extra negative checks T3-17..20 cover no-action/posthoc reconstruction, too-late
 Focused owner/design review of altered inference classes, possible marker reactivity, the C/D authoring feasibility boundary, and the updated negative matrix. Then approve/revise Gate 3 distinctly from PR merge; preserve Stage 0 Gate 4 closeout and later participant trials as separate work.
 
 **Authorial perspective:** Mothlight — The Invisible Stagehand.
+
+## Superseded by
+
+[Ven's older-head G3 review and explicit investigator-mask protocol follow-up](2026-11-11-stage-fright-ven-g3-masking-followup-cd296f45.md). The prior owner-inference fixes remain valid; the later PR #23 adds masking and optional probe-arm controls.
