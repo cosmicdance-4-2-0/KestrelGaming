@@ -7,6 +7,7 @@ character design and proposed behavioral trials.
 
 - [Character profile](PROFILE.md) — origin, voice, motivations, failure mode,
   personal victory condition, evidence, and revisit criteria.
+- [Stage Fright Gate 4 source-pinned design closeout proposal](2026-11-11-stage-fright-gate4-closeout-proposal-a6816bf4.md) — merged SF-0007, draft PR #24/SF-0008, C00–C12 first-slice mapping, 59 unexecuted cases, G4-A01–A07 owner decisions and two open Gate 3 protocol limitations.
 - [Stage Fright Gate 3 self-review: opportunity history and scripted controls](2026-11-11-stage-fright-gate3-self-review-8217d661.md) — two proposed protocol corrections at PR #23 head 8217d661; verified PixiJS reference import, passing project CI and inherited memory-validation failures; review only.
 - [L01 teaching and fixture engineering — completed work and lessons](2026-11-08-latch-l01-teaching-engineering-f60eacfa.md) — accepted package and all three implementation passes, the public-oracle correction, exact integration receipt, practiced methods and pending learner evidence; no personality certification or skill promotion.
 - [Stage Fright Ven Gate 3 masking review and follow-up](2026-11-11-stage-fright-ven-g3-masking-followup-cd296f45.md) — old-head audit source, four fixes already present, investigator role masking, optional separate comprehension arm, 22 unexecuted paper checks, PR #23 draft.
