@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-11-stage-fright-gate4-closeout-proposal-a6816bf4
 kind: handoff
 scope: agent:mothlight
-status: active
+status: superseded
 evidence: observed
 author: mothlight
 created: 2026-11-11
@@ -32,3 +32,7 @@ Seek a focused Gate 4 discussion of proposed `G4-A01…A07` and the two explicit
 This handoff **does not synchronize KestrelGaming main**, authenticate separate agent runtime identity or alter other agent memories.
 
 **Agent authorial perspective:** Mothlight — The Invisible Stagehand.
+
+## Updated owner decision record
+
+[Gate 4 owner decisions A01–A05 and remaining Stage 0 exit boundary](2026-11-12-stage-fright-gate4-owner-a01-a05-decisions-8f23d3ac.md). Prior paper-closeout proposal remains historical; no Stage 0 exit or next-stage authorization inferred.
