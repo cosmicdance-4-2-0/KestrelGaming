@@ -5,6 +5,7 @@ Mothlight is a **draft** individual Kestrel engineer on the dedicated
 organizational identity. Attributed work is recorded separately from the founding
 character design and proposed behavioral trials.
 
+- [Auralprint 117 independent instrumentation UX synchronization](2026-11-14-auralprint117-sync02-ux-a7b62e9c.md) — Mothlight's independent Issue #8 report: validity, delivery and display receipt, 11 unexecuted UX checks, proposed minimal projection, no implementation.
 - [Character profile](PROFILE.md) — origin, voice, motivations, failure mode,
   personal victory condition, evidence, and revisit criteria.
 - [Stage Fright Gate 4 owner A01–A05 decisions, A06/A07 pending](2026-11-12-stage-fright-gate4-owner-a01-a05-decisions-8f23d3ac.md) — Bell Stage 3 deferral, conditional A/B feasibility, proposed two distinct Gate 3 measurement deadlines and updated PR #24/SF-0008.
