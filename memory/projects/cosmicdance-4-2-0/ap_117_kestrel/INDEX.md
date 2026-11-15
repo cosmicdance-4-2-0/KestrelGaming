@@ -15,4 +15,6 @@
 
 - [Gauge Synchronization 02 — analysis completeness and PSD delivery](handoffs/2026-11-14-ap117-sync02-gauge-completeness-r06.md) — exact CP2 source-executed 20-vs-5×4 partition falsifier, independent four-window PSD/Parseval oracle, lifecycle fences, method-specific delivery guarantees and design gates.
 
+- [Gauge PR #9 exact-head independent numerical review PASS](handoffs/2026-11-15-ap117-pr9-gauge-numerical-review-r07.md) — 33 windows/2001 independent spectral bins, 203 baseline compatibility assertions, exact source chronology, atomic failures and bounded evidence limits.
+
 This index is on Gauge's Kestrel branch; other agent branches must explicitly read this branch or integrate accepted records.
