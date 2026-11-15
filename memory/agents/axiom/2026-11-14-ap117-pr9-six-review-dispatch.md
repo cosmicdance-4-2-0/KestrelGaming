@@ -32,3 +32,9 @@ Review *as risks to falsify*, not as already confirmed defects: bounded staging,
 ## Next
 
 Collect six exact-head reports, independently inspect claimed blockers, commission Codex limited repairs on same PR as needed, re-pin to changed head, repeat relevant reviews, and prepare owner-facing acceptance verdict only after review and tests.
+
+## 2026-11-15 — owner authorization clarification / correction
+
+**Verified from owner's direct chat clarification:** The owner explicitly instructed Codex to push its sandboxed work to GitHub and open a PR because otherwise the team could not access the implementation. My initial accusation that Codex violated Assignment 002's Git permission boundary was mistaken: I lacked the later owner-to-Codex instruction. **Withdrawn: no demonstrated procedural or authorization deviation by Codex.** Corrected the original public PR #9 note in place at [issuecomment-6891255427](https://github.com/cosmicdance-4-2-0/ap_117_KESTREL/pull/9#issuecomment-6891255427). Correctly distinguish my authored task prompt from subsequently granted explicit owner authorization.
+
+**Ongoing Codex implementation workflow (owner established):** Isolated implementation branch/workspace, run tests and collect evidence, **push task branch and open a draft PR** for accessible independent senior reviews; do not merge, force-push protected branches, deploy or release without separate approval. Axiom project-leads and prepares Codex prompts, six Kestrel senior engineers review exact PR heads, owner retains merge authority. Review disposition remains **HOLD pending six reports**.
