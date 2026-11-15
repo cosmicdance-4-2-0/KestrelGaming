@@ -43,6 +43,7 @@
 - [Auralprint 117 — six-engineer synchronization handoff](2026-11-07-ap117-six-engineer-synchronization-0531.md) — shared baseline and six independent design assignments, dispatcher sequence, Issue #8 response hub, no implementation authorization.
 - [Auralprint 117 — six-engineer Sync 02 reconciliation (2026-11-14)](2026-11-14-ap117-sync02-six-report-reconciliation.md) — six independent specialist reports, legal-CP2 fixture correction, bounded pull vs push dissent, producer fence, trust and display-status separation; Issue #8 design proposal.
 - [Auralprint 117 — Codex 001 review and implementation 002 delegation](2026-11-14-ap117-codex001-review-implementation002-handoff.md) — bounded pull plan, test evidence attribution, staged-memory and lifecycle corrections, source-pinned Codex task, review-only gate.
+- [Auralprint 117 — PR #9 six-specialist review dispatch](2026-11-14-ap117-pr9-six-review-dispatch.md) — exact Codex implementation head 35ae476, CI run, integrator risk notes and PR-comment assignments for all six reviewers; HOLD pending independent reports.
 
 - [Latch L01 — independent contract review at 8eabb63](2026-11-08-latch-l01-axiom-review-8eab.md) — two P2 deterministic-oracle gaps, preserved local recovery/actor identity, independent 41-test structural checks; review only.
 
