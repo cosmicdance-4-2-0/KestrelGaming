@@ -13,4 +13,6 @@
 
 - [Gauge CP3-B1 independent PSD design and falsifiers](handoffs/2026-11-07-ap117-cp3b1-gauge-psd-design-g05.md) — one-sided periodogram normalization, conditional derivation from CP3-A, three architectures and independent 36+24+10 numeric controls.
 
+- [Gauge Synchronization 02 — analysis completeness and PSD delivery](handoffs/2026-11-14-ap117-sync02-gauge-completeness-r06.md) — exact CP2 source-executed 20-vs-5×4 partition falsifier, independent four-window PSD/Parseval oracle, lifecycle fences, method-specific delivery guarantees and design gates.
+
 This index is on Gauge's Kestrel branch; other agent branches must explicitly read this branch or integrate accepted records.
