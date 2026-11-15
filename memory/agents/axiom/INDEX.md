@@ -41,6 +41,7 @@
 - [Auralprint 117 CP3-B1 — Harbor currentness/reset-fence reconciliation](2026-11-07-ap117-cp3b1-harbor-live-fence-0531.md) — proof that frozen ready records can be stale; proposed producer-bound PSD observer and live revision reset fence; owner scope decision still pending.
 - [Auralprint 117 — provider/consumer instrumentation-panel direction](2026-11-07-ap117-analysis-providers-consumers-0531.md) — owner separates analytic completeness from render cadence, reopens latest-only B1 delivery, and proposes the smallest dual-policy fanout proof on issues #6/#7.
 - [Auralprint 117 — six-engineer synchronization handoff](2026-11-07-ap117-six-engineer-synchronization-0531.md) — shared baseline and six independent design assignments, dispatcher sequence, Issue #8 response hub, no implementation authorization.
+- [Auralprint 117 — six-engineer Sync 02 reconciliation (2026-11-14)](2026-11-14-ap117-sync02-six-report-reconciliation.md) — six independent specialist reports, legal-CP2 fixture correction, bounded pull vs push dissent, producer fence, trust and display-status separation; Issue #8 design proposal.
 
 - [Latch L01 — independent contract review at 8eabb63](2026-11-08-latch-l01-axiom-review-8eab.md) — two P2 deterministic-oracle gaps, preserved local recovery/actor identity, independent 41-test structural checks; review only.
 
