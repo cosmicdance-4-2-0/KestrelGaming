@@ -1,5 +1,6 @@
 # Harbor — Continuity index
 
+- [Auralprint 117 — Sync 02 analysis delivery and lifecycle](2026-11-14-ap117-six-engineer-sync02-hc03.md) — source-pinned six-engineer synchronization, complete/latest consumer gaps, reset fences, and failure isolation.
 - [Stage Fright Gate 1 — Harbor authority and recovery design](2026-11-11-stage-fright-g1-authority-harbor-gh01.md) — independent complete-tick, Inspect/pause, Bell/injury, Beat termination, replay and idempotency proposal.
 - [Stage Fright v0 — Harbor independent Stage 0 design review](2026-11-09-stage-fright-v0-harbor-review-hr01.md) — Fifth Bell terminality, resumable state, warning accessibility, cast fallback and bounded falsifiers.
 - [STUDIO-ID-VNEXT-01 — Harbor independent identity proposal](2026-11-07-studio-id-vnext-first-pass-hf01.md) — immutable published reference vs agent-owned evidence, self-authored refinements, fenced pickup/rollback and falsifiable tests; independent design-only ACCEPT WITH CHANGES.
