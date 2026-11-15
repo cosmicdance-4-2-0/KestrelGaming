@@ -1,5 +1,6 @@
 # Harbor — Continuity index
 
+- [Auralprint 117 PR #9 — Harbor AP117-002 lifecycle/EOF PASS](2026-11-15-ap117-pr9-lifecycle-review-hc04.md) — exact-head source-executed reset/overrun/final-tail/post-end/disposal review, evidence and limitations.
 - [Auralprint 117 — Sync 02 analysis delivery and lifecycle](2026-11-14-ap117-six-engineer-sync02-hc03.md) — source-pinned six-engineer synchronization, complete/latest consumer gaps, reset fences, and failure isolation.
 - [Stage Fright Gate 1 — Harbor authority and recovery design](2026-11-11-stage-fright-g1-authority-harbor-gh01.md) — independent complete-tick, Inspect/pause, Bell/injury, Beat termination, replay and idempotency proposal.
 - [Stage Fright v0 — Harbor independent Stage 0 design review](2026-11-09-stage-fright-v0-harbor-review-hr01.md) — Fifth Bell terminality, resumable state, warning accessibility, cast fallback and bounded falsifiers.
