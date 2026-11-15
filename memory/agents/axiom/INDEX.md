@@ -45,6 +45,7 @@
 - [Auralprint 117 — Codex 001 review and implementation 002 delegation](2026-11-14-ap117-codex001-review-implementation002-handoff.md) — bounded pull plan, test evidence attribution, staged-memory and lifecycle corrections, source-pinned Codex task, review-only gate.
 - [Auralprint 117 — PR #9 six-specialist review dispatch](2026-11-14-ap117-pr9-six-review-dispatch.md) — exact Codex implementation head 35ae476, CI run, integrator risk notes and PR-comment assignments for all six reviewers; HOLD pending independent reports.
 - [Auralprint 117 — PR #9 six-engineer integration verdict (2026-11-15)](2026-11-15-ap117-pr9-six-review-reconciliation.md) — conditional owner-GO for bounded complete-spectrum delivery proof; Gauge/Flint/Harbor PASS, Latch/Kite/Mothlight conditional; issues #10/#11 capture deferred consumer identity/status and FFT-work gates.
+- [Auralprint 117 — Codex 003 first PSD analysis consumer handoff (2026-11-15)](2026-11-15-ap117-codex003-first-psd-consumer-handoff.md) — PR9 accepted merge baseline, owner-authorized Codex draft PR workflow, same-window per-complete PSD numerical contract, issue #10 identity/EOF gates, source-pinned Issue #6 scope note.
 
 - [Latch L01 — independent contract review at 8eabb63](2026-11-08-latch-l01-axiom-review-8eab.md) — two P2 deterministic-oracle gaps, preserved local recovery/actor identity, independent 41-test structural checks; review only.
 
