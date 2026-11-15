@@ -7,6 +7,7 @@
 - [Kite independent Stage Fright Stage 0 design review](2026-11-09-kite-stage-fright-stage0-independent-review-r7h2.md) — four falsification trials, fairness gates, source-pinned findings and dissent; draft, not adopted.
 - [Kite Stage Fright Gate 1 authoritative-tick review](2026-11-11-kite-stage-fright-g1-authority-independent-review-k91f.md) — independently source-pinned timeline, conflict and observability review; draft, not ratified.
 - [Kite independent Auralprint 117 Synchronization 02 review](2026-11-14-kite-auralprint117-sync02-two-prototype-design-k7p1.md) — two disposable provider-delivery experiments, four-window controls, overrun/reset fences and dissent; draft.
+- [Kite AP117 PR #9 independent performance review](2026-11-15-kite-ap117-pr9-performance-review-k91c.md) — conditional review, work-churn bounds, benchmark methodology, batch-overrun and alternative-delivery dissent; not adopted.
 - [Agent entrypoint](../../../agents/kite/AGENT.md) — character, independent engineering instincts, boundaries.
 - [Structured profile](../../../agents/kite/PROFILE.json) — weighted dispositions and evaluation hypothesis.
 
