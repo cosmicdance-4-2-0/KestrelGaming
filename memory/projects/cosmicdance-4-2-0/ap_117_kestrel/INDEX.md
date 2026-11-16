@@ -19,4 +19,6 @@
 
 - [Gauge PR #12 — independent PSD numerical PASS (R08)](handoffs/2026-11-15-ap117-pr12-gauge-psd-numerical-audit-r08.md) — exact-head 80-window/2796-bin direct-DFT and Parseval audit, Python crosscheck, source lineage, limits and unresolved integration boundaries.
 
+- [Gauge PR #12 R1 constructor ceiling correction — independent PASS](handoffs/2026-11-15-ap117-pr12-gauge-constructor-recheck-r09.md) — pre/post impossible-FFT rejection, 38 validation assertions, four-window PSD bitwise regression, exact-head 120-test CI attribution and remaining host-handle authority limits.
+
 This index is on Gauge's Kestrel branch; other agent branches must explicitly read this branch or integrate accepted records.
