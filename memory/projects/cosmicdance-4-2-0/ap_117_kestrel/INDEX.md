@@ -17,4 +17,6 @@
 
 - [Gauge PR #9 exact-head independent numerical review PASS](handoffs/2026-11-15-ap117-pr9-gauge-numerical-review-r07.md) — 33 windows/2001 independent spectral bins, 203 baseline compatibility assertions, exact source chronology, atomic failures and bounded evidence limits.
 
+- [Gauge PR #12 — independent PSD numerical PASS (R08)](handoffs/2026-11-15-ap117-pr12-gauge-psd-numerical-audit-r08.md) — exact-head 80-window/2796-bin direct-DFT and Parseval audit, Python crosscheck, source lineage, limits and unresolved integration boundaries.
+
 This index is on Gauge's Kestrel branch; other agent branches must explicitly read this branch or integrate accepted records.
