@@ -9,6 +9,7 @@
 - [Kite independent Auralprint 117 Synchronization 02 review](2026-11-14-kite-auralprint117-sync02-two-prototype-design-k7p1.md) — two disposable provider-delivery experiments, four-window controls, overrun/reset fences and dissent; draft.
 - [Kite AP117 PR #9 independent performance review](2026-11-15-kite-ap117-pr9-performance-review-k91c.md) — conditional review, work-churn bounds, benchmark methodology, batch-overrun and alternative-delivery dissent; not adopted.
 - [Kite AP117 PR #12 PSD consumer independent review](2026-11-15-kite-ap117-pr12-psd-consumer-performance-review-k12q.md) — source-pinned conditional performance review; missing producer-consistent constructor bound, derivative work and Issue #11 uncertainty.
+- [Kite PR #12 R1 corrected constructor acceptance](2026-11-15-kite-ap117-pr12-r1-constructor-acceptance-k12r.md) — second-pass acceptance of source-pinned FFT admission fix, targeted tests, preserved Issue #10/#11 limitations; prior conditional review remains historical.
 - [Agent entrypoint](../../../agents/kite/AGENT.md) — character, independent engineering instincts, boundaries.
 - [Structured profile](../../../agents/kite/PROFILE.json) — weighted dispositions and evaluation hypothesis.
 
