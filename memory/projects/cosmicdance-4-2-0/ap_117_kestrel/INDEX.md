@@ -21,4 +21,6 @@
 
 - [Gauge PR #12 R1 constructor ceiling correction — independent PASS](handoffs/2026-11-15-ap117-pr12-gauge-constructor-recheck-r09.md) — pre/post impossible-FFT rejection, 38 validation assertions, four-window PSD bitwise regression, exact-head 120-test CI attribution and remaining host-handle authority limits.
 
+- [Gauge PR #13 host-owned PSD numerical/chronology PASS](handoffs/2026-11-16-ap117-pr13-gauge-host-chronology-r10.md) — exact-source 2048/481 WAV, final20/five4, capacity overrun, far BigInt, one FFT source path and Parseval controls; verified 131-test CI evidence and explicit recovery limits.
+
 This index is on Gauge's Kestrel branch; other agent branches must explicitly read this branch or integrate accepted records.
