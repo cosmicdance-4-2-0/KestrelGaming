@@ -1,5 +1,6 @@
 # Harbor — Continuity index
 
+- [Auralprint 117 PR #13 — Harbor host PSD recovery CONDITIONAL PASS](2026-11-16-ap117-pr13-host-psd-recovery-hc06.md) — exact-head EOF/hold/error/import tests and HC06-01 no-op slider false-positive fence.
 - [Auralprint 117 PR #12 — Harbor PSD lifecycle/EOF PASS](2026-11-15-ap117-pr12-psd-lifecycle-hc05.md) — exact-head 20/20 isolated reset, terminal drain, resync, origin-binding and recovery probes.
 - [Auralprint 117 PR #9 — Harbor AP117-002 lifecycle/EOF PASS](2026-11-15-ap117-pr9-lifecycle-review-hc04.md) — exact-head source-executed reset/overrun/final-tail/post-end/disposal review, evidence and limitations.
 - [Auralprint 117 — Sync 02 analysis delivery and lifecycle](2026-11-14-ap117-six-engineer-sync02-hc03.md) — source-pinned six-engineer synchronization, complete/latest consumer gaps, reset fences, and failure isolation.
