@@ -8,6 +8,7 @@ are not standalone installed host plugins.
 | --- | --- |
 | [kestrel-recall](kestrel-recall/SKILL.md) | Begin or resume a project task; retrieve relevant shared context |
 | [kestrel-remember](kestrel-remember/SKILL.md) | Save a useful lesson, decision, project profile, or resumable handoff |
+| [codex-task-brief](codex-task-brief/SKILL.md) | Draft or audit concise, source-pinned and permission-bounded Codex/coding-agent work orders (branch-local Axiom adoption) |
 | [kestrel-html-conformance](kestrel-html-conformance/SKILL.md) | Lesson 1: create, edit, generate, or ship HTML; validate final artifacts with the official Nu Html Checker and require a verified zero-error gate |
 
 ## Core mathematics (independent curriculum)
