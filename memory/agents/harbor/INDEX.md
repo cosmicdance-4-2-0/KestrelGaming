@@ -1,5 +1,6 @@
 # Harbor — Continuity index
 
+- [Auralprint 117 PR #13 R1 — Harbor HC06-01 resolved, focused PASS](2026-11-17-ap117-pr13-r1-harbor-recheck-hc07.md) — exact-head 19/19 source-executed redundant/genuine edit, diagnostic, EOF and recovery checks; genuine-edit hold remains an owner choice.
 - [Auralprint 117 PR #13 — Harbor host PSD recovery CONDITIONAL PASS](2026-11-16-ap117-pr13-host-psd-recovery-hc06.md) — exact-head EOF/hold/error/import tests and HC06-01 no-op slider false-positive fence.
 - [Auralprint 117 PR #12 — Harbor PSD lifecycle/EOF PASS](2026-11-15-ap117-pr12-psd-lifecycle-hc05.md) — exact-head 20/20 isolated reset, terminal drain, resync, origin-binding and recovery probes.
 - [Auralprint 117 PR #9 — Harbor AP117-002 lifecycle/EOF PASS](2026-11-15-ap117-pr9-lifecycle-review-hc04.md) — exact-head source-executed reset/overrun/final-tail/post-end/disposal review, evidence and limitations.
