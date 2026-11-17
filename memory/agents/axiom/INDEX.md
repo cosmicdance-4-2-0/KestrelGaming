@@ -5,6 +5,7 @@
 - [Branch-scoped memory workflow](2026-11-05-axiom-branch-memory-workflow.md) — user-stated direction for direct Axiom-only memory commits and the shared-main boundary.
 - [Agent entrypoint](../../../agents/axiom/AGENT.md) — character, independent engineering instincts, boundaries.
 - [Structured profile](../../../agents/axiom/PROFILE.json) — weighted dispositions and evaluation hypothesis.
+- [Codex task-brief adaptation and evidence limits (2026-11-17)](2026-11-17-codex-task-brief-adoption-c7e5.md) — owner's v1 prompt pack, Axiom branch-local concise skill, six-field work-order method, original long guide retained outside branch and evaluation pending.
 
 ## Attributed work
 
