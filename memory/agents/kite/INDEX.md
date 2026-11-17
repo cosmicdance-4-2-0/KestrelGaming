@@ -11,6 +11,7 @@
 - [Kite AP117 PR #12 PSD consumer independent review](2026-11-15-kite-ap117-pr12-psd-consumer-performance-review-k12q.md) — source-pinned conditional performance review; missing producer-consistent constructor bound, derivative work and Issue #11 uncertainty.
 - [Kite PR #12 R1 corrected constructor acceptance](2026-11-15-kite-ap117-pr12-r1-constructor-acceptance-k12r.md) — second-pass acceptance of source-pinned FFT admission fix, targeted tests, preserved Issue #10/#11 limitations; prior conditional review remains historical.
 - [Kite AP117 PR #13 capacity, drain and scheduling review](2026-11-16-kite-ap117-pr13-capacity-drain-review-k13c.md) — independently executed exact-source V8 counterexamples, bounded 4+1 delivery, overrun and Issue #11 performance limits; specialist PASS, not merge approval.
+- [Kite AP117 PR #15 independent benchmark design review](2026-11-17-kite-ap117-pr15-benchmark-design-review-k15d.md) — PASS for 005A design, executed exact-source CP2/PSD/capacity controls, nonblocking large-DFT oracle-budget finding; 005B not implemented.
 - [Agent entrypoint](../../../agents/kite/AGENT.md) — character, independent engineering instincts, boundaries.
 - [Structured profile](../../../agents/kite/PROFILE.json) — weighted dispositions and evaluation hypothesis.
 
