@@ -32,3 +32,16 @@ Posted [Axiom PR #16 review](https://github.com/cosmicdance-4-2-0/ap_117_KESTREL
 ## Revisit when
 
 Codex updates the same draft PR to enforce PSD currentness in `parseAppSnapshot()`, adds direct counterexample/regression and positive controls, and pins any accompanying browser harness provenance claims; then recheck the new exact head, file diff, and CI. Kite independently evaluates 005B performance/guard correctness; owner decides whether to merge/accept tooling or authorize measured operating envelope/optimizations. Keep Issue #11 open and do not claim full pathological execution, physical device evidence or universal admission capacity.
+
+
+## R1 closure — 6ec106d (2026-11-17)
+
+At exact [PR #16 R1 head `6ec106d2937116c7a6f6c41f72c1dae7533734e0`](https://github.com/cosmicdance-4-2-0/ap_117_KESTREL/pull/16), parent `f7b6b00...`, unchanged accepted main base `4bc1245...`, Codex changed **only** `scripts/measure-analysis-browser.mjs`, `tests/analysis-envelope.test.js`, and `docs/AP117_005_OPERATING_ENVELOPE.md` (+215/−11). Axiom reviewed the full updated parser and regression tests and cross-checked actual `src/main.js` diagnostic status/transport and `src/analysis/spectrum-stream.js` final-window behavior.
+
+**P2 CLOSED; Axiom final individual verdict PASS for bounded development-only AP117-005B instrumentation.** The browser parser now matches valid complete/drained/final/ended, paused/session-ready/ready/open and measuring/processing/ready/open diagnostic tuples, rejects unknown/broken/duplicate/incomplete/error states and stale zero-window spans, and preserves W(T) counts and FFT spans. A terminal drained PSD final span is explicitly historical by the production host; the new parser allows that case without mislabeling it as *active* continuity. Presentation-only historical peak label remains independent. Unit tests include the exact originally accepted broken/historical counterexample and positive/negative variants. The author reports red-before/green-after; Axiom only verified code/CI, not the author's prepatch local run.
+
+**Provenance request CLOSED for newly produced browser evidence.** `browserHarnessProvenance()` SHA-256 hashes shared-case and browser-driver files and records checkout/dirty metadata; production byte-pin/built control remains. The original `f7b6b00` local seven-trial files are unshared author-reported outputs and not retroactively certified or rerun on R1.
+
+[Exact-head Actions 44177111378](https://github.com/cosmicdance-4-2-0/ap_117_KESTREL/actions/runs/44177111378), job `134371297463`, success, actual log **150/150 Node tests, zero fail/skip**, build, official HTML validation, Chromium smoke and whitespace all passed; this is GitHub CI, not Axiom local execution. The fully primed 8192-FFT pathological case remains guarded and unexecuted. [Axiom final independent PR comment 6963666868](https://github.com/cosmicdance-4-2-0/ap_117_KESTREL/pull/16#issuecomment-6963666868) records full evidence and limits.
+
+**Outstanding:** Kite's independent PR16 implementation/evidence assessment, owner adoption/merge decision, and the substantive Issue #11 operating envelope for target devices, concurrency, latency, CPU/GC, live policy. No production tuning, Worker/WASM/GPU preference or realtime claims authorized.
