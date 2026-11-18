@@ -24,3 +24,5 @@
 - [Gauge PR #13 host-owned PSD numerical/chronology PASS](handoffs/2026-11-16-ap117-pr13-gauge-host-chronology-r10.md) — exact-source 2048/481 WAV, final20/five4, capacity overrun, far BigInt, one FFT source path and Parseval controls; verified 131-test CI evidence and explicit recovery limits.
 
 This index is on Gauge's Kestrel branch; other agent branches must explicitly read this branch or integrate accepted records.
+
+- [Gauge AP117-006A independent PSD recovery review](handoffs/2026-11-17-ap117-006a-gauge-psd-recovery-r11.md) — source-pinned two-fence timing, post-attachment window support, exact-revision authorization, missing-completion frontier, and minimal falsifying tests; B conditional, A preserved as dissent.
