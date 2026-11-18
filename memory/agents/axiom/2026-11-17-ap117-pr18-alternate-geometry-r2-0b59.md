@@ -29,6 +29,8 @@ One new `tests/app-b0-alternate-geometry.test.js` uses a test-only module loader
 
 ## Outstanding gate / handoff
 
+**Outcome: PARTIAL** — implemented and CI-verified the scoped regression; independent second-pass review and owner acceptance are outstanding.
+
 **HOLD owner merge.** Obtain actual independent R2 reports for the corrected PR #18 plus the new test; reconcile any blockers, check current head and CI, and only then issue owner merge GO/NO-GO. Do not treat test passing as source/product certification or six-role consensus. A review may uncover additional geometry, EOF, origin, interaction or producer-currentness risks.
 
 Original AP117-005B benchmark script/pin still refuses the modified host source; **151/151 CI includes an explicit refusal test**, not a fresh 72-trial scientific benchmark or new target-device performance admission. No Issue #11 policy or CP3-B2 presentation implementation is part of this checkpoint.
