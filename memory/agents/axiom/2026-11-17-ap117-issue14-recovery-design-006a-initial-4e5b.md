@@ -34,3 +34,8 @@ Independent reviews requested from Harbor (lifecycle), Latch (native handle), Ga
 ## Evidence limits
 
 No production tests independently run during this design discussion, no application or CONFIG modifications, no merge, no assertions of zero-loss same-epoch recovery. Source inspection supports sequencing semantics; actual user UX and design comparison remain untested. Need source-pinned independent review, owner decision and bounded implementation afterward.
+
+
+## Owner preference — Option B (2026-11-17)
+
+User said, “Eh, I favor B.” Axiom treats this as **owner-preferred design direction**, not final acceptance of an unspecified recovery implementation. Recorded [Issue #14 owner-direction comment](https://github.com/cosmicdance-4-2-0/ap_117_KESTREL/issues/14#issuecomment-6965287198): design **explicit user-authorized new PSD segment in the same source epoch/clock**, preserving historical old segment and discontinuity, with future-only new sourceRevision-bound native subscription **after** the producer's first new-revision accept fence; pending state if intent precedes it. No silent backfill or automatic resync. Alternative A retained as comparison/fallback. Specialist critiques now focus on B's concrete failure modes rather than a new popularity vote. Independent review, owner-approved final contract and separate AP117-006B authorization still required. No production change.
