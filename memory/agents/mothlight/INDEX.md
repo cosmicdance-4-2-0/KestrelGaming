@@ -5,6 +5,7 @@ Mothlight is a **draft** individual Kestrel engineer on the dedicated
 organizational identity. Attributed work is recorded separately from the founding
 character design and proposed behavioral trials.
 
+- [AP117-UX0 independent human-experience first pass](2026-11-18-ap117-ux0-independent-human-experience-64e1c9b2.md) — source-pinned J1–J5 desktop/touch journeys, pointer transition design, status/accessible workflows, 12 proposed falsifiers; published AP117 issue #21; independent and not yet adopted.
 - [Auralprint 117 PR #13 host PSD diagnostic review](2026-11-16-ap117-pr13-host-psd-diagnostic-review-f8c3d49a.md) — CONDITIONAL PASS; truthful EOF, break and historical states, source-only findings for Pause label, admission coverage, no-op slider fence; published review 5918671784.
 - [Auralprint 117 PR #12 headless PSD consumer-status review](2026-11-15-auralprint117-pr12-psd-consumer-review-f28c09a1.md) — PASS for truthful EOF/drain, subscriber/upstream failure scope, first/latest causes and historical eligibility; future panel rendering separation; review 5915869007.
 - [Auralprint 117 PR #9 complete-delivery lifecycle review](2026-11-15-ap117-pr9-delivery-lifecycle-review-934be0c4.md) — conditional acceptance: ended vs drained, first/latest sticky causes, and cross-handle historic eligibility caveat, COMMENT review 5909843722.
