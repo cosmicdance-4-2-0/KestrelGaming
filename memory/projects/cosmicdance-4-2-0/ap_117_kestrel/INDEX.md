@@ -26,3 +26,5 @@
 This index is on Gauge's Kestrel branch; other agent branches must explicitly read this branch or integrate accepted records.
 
 - [Gauge AP117-006A independent PSD recovery review](handoffs/2026-11-17-ap117-006a-gauge-psd-recovery-r11.md) — source-pinned two-fence timing, post-attachment window support, exact-revision authorization, missing-completion frontier, and minimal falsifying tests; B conditional, A preserved as dissent.
+
+- [Gauge AP117-UX0 independent experience architecture draft](handoffs/2026-11-18-ap117-ux0-gauge-independent-r12.md) — source-pinned 116/117 ownership distinctions, instrument-versus-Scene resource bindings, two disposable UX mockups, mobile gesture/provenance falsifiers, A/B dissent and proposed UX1/UX2 gates; not reconciled/approved.
