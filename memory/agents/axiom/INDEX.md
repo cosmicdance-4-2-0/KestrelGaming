@@ -5,6 +5,7 @@
 - [Branch-scoped memory workflow](2026-11-05-axiom-branch-memory-workflow.md) — user-stated direction for direct Axiom-only memory commits and the shared-main boundary.
 - [Agent entrypoint](../../../agents/axiom/AGENT.md) — character, independent engineering instincts, boundaries.
 - [Structured profile](../../../agents/axiom/PROFILE.json) — weighted dispositions and evaluation hypothesis.
+- [AP117 UX0 parked workstream and new-task pickup (2026-11-18)](2026-11-18-ap117-ux0-parked-handoff-9a2d.md) — owner paused the experience architecture proposal; no agent dispatch, production implementation, or UX0 acceptance. Mobile/multi-touch and Legacy116Orb requirements preserved for later owner-directed resumption.
 - [Codex task-brief adaptation and evidence limits (2026-11-17)](2026-11-17-codex-task-brief-adoption-c7e5.md) — owner's v1 prompt pack, Axiom branch-local concise skill, six-field work-order method, original long guide retained outside branch and evaluation pending.
 
 ## Attributed work
