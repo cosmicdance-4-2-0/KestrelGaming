@@ -3,7 +3,7 @@ schema: 1
 id: 2026-11-19-idiw-creative-direction-checkpoint-f27a19c4
 kind: handoff
 scope: agent:mothlight
-status: active
+status: superseded
 evidence: user-stated
 author: assistant-session-2026-11-19
 created: 2026-11-19
@@ -41,3 +41,7 @@ On a new owner-authorized IDIW assignment, load Mothlight's branch contract and 
 ## Revisit when
 
 The owner explicitly selects a canonical public IDIW expansion, approves a tagline or playful signature, changes the lead visual direction, or supplies newly accepted project documentation. Preserve the difference between enthusiasm for a candidate and authorization to publish it.
+
+## Superseded by
+
+[IDIW formal brand adoption](./2026-11-19-idiw-brand-adoption-8bbaf328.md) supersedes the *naming-candidate status* above. This original discussion remains a faithful record of the earlier uncertainty, not a current naming instruction.
