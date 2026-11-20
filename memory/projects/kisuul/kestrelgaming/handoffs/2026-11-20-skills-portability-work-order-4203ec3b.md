@@ -93,7 +93,7 @@ There are no host discovery folders. The validator and 6 of 84 tests fail at bas
 
 | ID | Question | Options | Recommendation |
 | --- | --- | --- | --- |
-| D1 | How should the shared-scope handoff that breaks `main` be fixed? | (a) Allow shared handoffs, which changes the memory protocol; (b) reclassify the record as `kind: decision` or `fact`, with the text unchanged; (c) move it to a project scope, which its own privacy note argues against | (b): the smallest change and no protocol change |
+| D1 | How should the shared-scope handoff that breaks `main` be fixed? | (a) Allow shared handoffs, which changes the memory protocol; (b) reclassify the record as `kind: decision` or `fact`, with the text unchanged; (c) move it to a project scope, which its own privacy note argues against | **Decided 2026-11-20 by the owner: (b), `kind: decision`, applied on `claude/nifty-ritchie-t1cur9` as part of DOC-STD-001 PR A.** Stage 0 exits when CI is confirmed green |
 | D2 | What portability model per skill? | Checkout-required, standalone, or a hybrid | Recall and remember: **checkout-required**, declared in `compatibility`, located via `KESTREL_HOME`. Math and HTML: **hybrid**, with a self-sufficient core procedure and repository links as optional context. PixiJS: unchanged, installed as a set |
 | D3 | Which owner is canonical? | `Kisuul` or `cosmicdance-4-2-0`, for skill wording and memory scope | Owner-neutral skill wording regardless; owner decides the memory scope |
 | D4 | What to do about the over-limit PixiJS description? | Report upstream; documented local patch plus manifest update; accepted exception that excludes strict upload paths | Report upstream, and keep a documented exception until upstream fixes it |
