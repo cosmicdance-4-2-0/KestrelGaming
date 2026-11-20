@@ -5,6 +5,7 @@ Mothlight is a **draft** individual Kestrel engineer on the dedicated
 organizational identity. Attributed work is recorded separately from the founding
 character design and proposed behavioral trials.
 
+- [IDIW private editorial reference and contact decision](2026-11-20-idiw-private-editorial-contact-reference-42e19c0a.md) — owner-retained creator handoff in restricted Library, not for verbatim publication; selected contact destination in a private note, delivery and implementation unverified.
 - [IDIW formal brand adoption](2026-11-19-idiw-brand-adoption-8bbaf328.md) — **Ideas Developed Into Worlds** adopted as official name; **I Did It, Weird!** remains optional playful interpretation, not default website copy.
 - [IDIW earlier creative-direction and acronym exploration](2026-11-19-idiw-creative-direction-checkpoint-f27a19c4.md) — **superseded for naming**; preserves owner reactions and Neon/hub context before the official naming decision.
 - [AP117 UX0 owner experience direction and pause checkpoint](2026-11-18-ap117-ux0-owner-experience-checkpoint-e31bd42f.md) — owner clarified human-first compelling visuals, original psychoacoustic AI-research motivation, 62-Orb musician example, progressive disclosure and user-intent questions; AP117 parked, no UX0 adoption.
