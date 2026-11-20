@@ -105,7 +105,7 @@ land before host trials (expensive, environment-dependent). This way trials test
 
 ### Staged plan
 
-**Stage 0: restore green main.** Apply D1 on a work branch. Exit: AC1 locally, then CI is confirmed green after push.
+**Stage 0: restore green main.** Apply D1 on a work branch. Exit: AC1 locally, then CI is confirmed green after push. **Note, 2026-11-20 (observed):** D1 is applied and the validator plus all tests pass locally. GitHub lists zero workflow runs on this fork, so CI confirmation needs the owner to enable Actions here, or to accept local evidence for AC1.
 
 **Stage 1: spec gate.** Extend the validator. Allow `compatibility` for first-party skills.
 Allow `metadata` only if the flat parser is deliberately extended. Check description ≤1,024 and `compatibility` ≤500.

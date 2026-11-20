@@ -76,6 +76,10 @@ describe this repository dependence as deliberate. A "host adapter" is named, bu
    the skill does but rarely when to use it, which the spec asks for.
 7. **Main fails its own checks (observed).** CI runs the validator on push, so the main workflow
    is *inferred* to be failing at `3aef6e5`. The GitHub connector failed to connect, so this was not confirmed.
+   **Amendment, 2026-11-20 (observed):** once the GitHub connector was available, it listed **zero workflow
+   runs** for `cosmicdance-4-2-0/KestrelGaming`, on any branch. The workflow does not run on this fork, so the
+   inference "CI is failing" is withdrawn: CI gives no evidence here. The local validator failure stands, and the
+   owner's D1 choice fixed it on `claude/nifty-ritchie-t1cur9`.
 8. **Listing budget risk (hypothesis).** Codex documents a startup skill-list cap of 2% of the context window,
    or 8,000 characters when the window is unknown. Installing all 35 skills (18,301 description characters)
    natively could exceed it. Truncation behavior was not tested.
