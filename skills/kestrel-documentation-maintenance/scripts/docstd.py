@@ -72,6 +72,7 @@ CURRENT_CLAIM = re.compile(
 VERIFICATION_CLAIM = re.compile(
     r"\b(tests?|checks?|CI|builds?|validation)\b[^.\n]{0,60}\b(pass(?:es|ed|ing)?|green|succeed(?:s|ed)?)\b"
     r"|\b(pass(?:es|ed|ing)?|green)\b[^.\n]{0,30}\b(tests?|checks?|CI)\b", re.I)
+REQUIREMENT = re.compile(r"\b(?:must|should|shall|will|needs? to|required to|has to)\s+(?:\w+\s+){0,2}pass", re.I)
 EVIDENCE_MARK = re.compile(
     r"\b" + SHA + r"\b|/actions/runs/\d+|\b\d{4}-\d{2}-\d{2}\b|\bas of\b|\brun \d+\b", re.I)
 DATE = re.compile(r"\b(\d{4}-\d{2}-\d{2})\b")
@@ -416,22 +417,24 @@ def check_git_claims(repo: Repo, report: Report):
             refs += [m[3] for m in URL_SHA.finditer(line) if repo.identity and
                      (m[1].casefold(), re.sub(r"\.git$", "", m[2].casefold())) == repo.identity]
             current = CURRENT_CLAIM.search(line)
+            known = []
             for sha in dict.fromkeys(refs):
                 if not repo.commit(sha):
                     level = "UNVERIFIED" if repo.shallow else "REVIEW"
                     report.add(level, "baseline", f"Commit {sha} is not in local history"
                                f"{' (shallow clone)' if repo.shallow else '; it may belong to another repository'}.",
                                doc, number)
-                    continue
-                if not current:
-                    continue
-                ancestry = repo.ancestor(sha, repo.ref)
+                elif current:
+                    known.append(sha)
+            states = {sha: (repo.ancestor(sha, repo.ref), repo.later_merges(sha)) for sha in known}
+            # A line that also cites a commit with no later merges distinguishes an older
+            # checkpoint from the current head, so its older references are not stale.
+            reconciled = any(ancestry and not merges for ancestry, merges in states.values())
+            for sha, (ancestry, merges) in states.items():
                 if ancestry is False:
                     report.add("REVIEW", "baseline", f"Current-state claim cites {sha}, which is not an ancestor of "
                                f"{repo.ref}.", doc, number)
-                    continue
-                merges = repo.later_merges(sha)
-                if merges:
+                elif merges and not reconciled:
                     stale += 1
                     report.add("REVIEW", "baseline", f"Current-state claim cites {sha}, but {len(merges)} later "
                                f"merge(s) exist on {repo.ref}; latest: {merges[0]}. Confirm or update the claim.",
@@ -447,7 +450,7 @@ def check_git_claims(repo: Repo, report: Report):
                         stale += 1
                         report.add("REVIEW", "baseline", f"Current-state claim cites PR #{newest[0]}, but "
                                    f"{len(later)} later merge(s) exist; latest: {later[0]}.", doc, number)
-            if VERIFICATION_CLAIM.search(line) and not EVIDENCE_MARK.search(line):
+            if VERIFICATION_CLAIM.search(line) and not EVIDENCE_MARK.search(line) and not REQUIREMENT.search(line):
                 report.add("REVIEW", "verification", "Verification claim without a revision, run or date: confirm it "
                            "is current evidence, not a historical result.", doc, number)
     if not stale:

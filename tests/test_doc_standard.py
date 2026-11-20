@@ -202,11 +202,21 @@ class CheckTests(Workspace):
         self.commit("status")
         self.assertEqual(self.findings("REVIEW", "baseline")[0], [])
 
+    def test_old_checkpoint_beside_current_head_is_not_stale(self):
+        self.init_git()
+        self.bootstrap()
+        base = self.commit("init")
+        head = self.merge_pr(4, "feature.txt", "x\n")
+        self.write("README.md", (self.root / "README.md").read_text() +
+                   f"\nStatus: accepted checkpoint main@{base[:7]}; latest merge main@{head[:7]} is not yet accepted.\n")
+        self.commit("status")
+        self.assertEqual(self.findings("REVIEW", "baseline")[0], [])
+
     def test_historical_verification_presented_as_current_requires_review(self):
         self.init_git()
         self.bootstrap()
-        self.write("README.md", (self.root / "README.md").read_text() + "\nAll tests pass.\n"
-                   "CI passed on 2026-11-20 for main@abc1234.\n")
+        self.write("README.md", (self.root / "README.md").read_text() + "\nChanges must pass CI before merge.\n"
+                   "All tests pass.\nCI passed on 2026-11-20 for main@abc1234.\n")
         self.commit("claims")
         flagged = self.findings("REVIEW", "verification")[0]
         self.assertEqual([f["line"] for f in flagged], [len((self.root / "README.md").read_text().splitlines()) - 1])
