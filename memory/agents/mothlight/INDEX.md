@@ -5,6 +5,7 @@ Mothlight is a **draft** individual Kestrel engineer on the dedicated
 organizational identity. Attributed work is recorded separately from the founding
 character design and proposed behavioral trials.
 
+- [IDIW owner creative-direction and acronym checkpoint](2026-11-19-idiw-creative-direction-checkpoint-f27a19c4.md) — public-safe owner-stated Neon/hub direction; “Ideas Developed Into Worlds” and “I Did It, Weird!” liked but not adopted; private project state must be reloaded separately.
 - [AP117 UX0 owner experience direction and pause checkpoint](2026-11-18-ap117-ux0-owner-experience-checkpoint-e31bd42f.md) — owner clarified human-first compelling visuals, original psychoacoustic AI-research motivation, 62-Orb musician example, progressive disclosure and user-intent questions; AP117 parked, no UX0 adoption.
 - [AP117-UX0 independent human-experience first pass](2026-11-18-ap117-ux0-independent-human-experience-64e1c9b2.md) — source-pinned J1–J5 desktop/touch journeys, pointer transition design, status/accessible workflows, 12 proposed falsifiers; published AP117 issue #21; independent and not yet adopted.
 - [Auralprint 117 PR #13 host PSD diagnostic review](2026-11-16-ap117-pr13-host-psd-diagnostic-review-f8c3d49a.md) — CONDITIONAL PASS; truthful EOF, break and historical states, source-only findings for Pause label, admission coverage, no-op slider fence; published review 5918671784.
