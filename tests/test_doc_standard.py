@@ -7,6 +7,8 @@ import io
 import importlib.util
 import json
 from pathlib import Path
+import re
+import shutil
 import subprocess
 import tempfile
 import unittest
@@ -66,8 +68,8 @@ class Workspace(unittest.TestCase):
             path = self.root / name
             path.write_text("\n".join(l for l in path.read_text().splitlines() if docstd.TEMPLATE_MARKER not in l) + "\n")
 
-    def findings(self, level=None, check=None, ref="HEAD"):
-        report = docstd.run_check(self.root, ref)
+    def findings(self, level=None, check=None, ref=None, remote=None):
+        report = docstd.run_check(self.root, ref, remote)
         return [i for i in report.items if (level is None or i["level"] == level)
                 and (check is None or i["check"] == check)], report
 
@@ -121,12 +123,14 @@ class BootstrapTests(Workspace):
 
 
 class CheckTests(Workspace):
-    def test_clean_bootstrap_passes(self):
+    def test_clean_bootstrap_leaves_only_the_release_question(self):
         self.init_git()
         self.bootstrap()
         self.commit("init")
         found, report = self.findings()
-        self.assertEqual(report.overall(), "PASS", found)
+        self.assertEqual(report.overall(), "REVIEW", found)
+        open_items = [(i["level"], i["check"]) for i in found if i["level"] != "PASS"]
+        self.assertEqual(open_items, [("REVIEW", "changelog")])   # absence of tags is not proof of no release
 
     def test_template_marker_requires_review(self):
         self.init_git()
@@ -234,12 +238,14 @@ class CheckTests(Workspace):
         self.assertEqual(len(fails), 1)
         self.assertIn("PR #2", fails[0]["message"])
 
-    def test_release_entry_without_tag_requires_review(self):
+    def test_release_entry_without_local_tag_is_unverified_offline(self):
         self.init_git()
         self.bootstrap()
         self.write("Changelog.md", "# Changelog\n\n## 2.0.0\n\n- Something.\n")
         self.commit("changelog")
-        self.assertEqual(len(self.findings("REVIEW", "changelog")[0]), 1)
+        found, report = self.findings(check="changelog")
+        self.assertEqual([i["level"] for i in found], ["UNVERIFIED"])
+        self.assertEqual(report.overall(), "INDETERMINATE")
 
     def test_devlog_out_of_order_fails(self):
         self.bootstrap()
@@ -268,6 +274,142 @@ class CheckTests(Workspace):
         self.bootstrap()
         self.write(".docstd.json", "{not json")
         self.assertEqual(len(self.findings("FAIL", "config")[0]), 1)
+
+
+class CommittedContentTests(Workspace):
+    """Correction B: the working tree is not the committed deliverable."""
+
+    def ignored_target_repo(self):
+        self.init_git()
+        self.bootstrap()
+        self.write(".gitignore", "build/\n")
+        self.write("guide.md", "See [the report](build/report.md).\n")
+        self.commit("guide links to an ignored file")
+        self.write("build/report.md", "# Report\n")       # exists locally, never committed
+
+    def test_link_to_ignored_local_file_fails_in_working_tree(self):
+        self.ignored_target_repo()
+        links, report = self.findings(check="links")
+        self.assertEqual([(i["level"], i["path"]) for i in links if i["level"] != "PASS"], [("FAIL", "guide.md")])
+        self.assertIn("ignored", links[0]["message"])
+        self.assertIn("working tree", report.source["documents"])
+
+    def test_link_to_ignored_local_file_fails_at_revision(self):
+        self.ignored_target_repo()
+        self.assertEqual(git(self.root, "ls-tree", "-r", "--name-only", "HEAD", "build"), "")
+        links, report = self.findings(check="links", ref="HEAD")
+        self.assertEqual([i["level"] for i in links], ["FAIL"])
+        self.assertIn("not in this revision", links[0]["message"])
+        self.assertIn("Git revision", report.source["documents"])
+
+    def test_generated_policy_turns_ignored_target_into_review(self):
+        self.ignored_target_repo()
+        self.write(".docstd.json", json.dumps({"schema": 1, "generated": ["build/**"]}))
+        self.commit("declare generated output")
+        levels = [i["level"] for i in self.findings(check="links")[0] if i["level"] != "PASS"]
+        self.assertEqual(levels, ["REVIEW"])
+
+    def test_revision_mode_reads_committed_text_not_working_tree(self):
+        self.init_git()
+        self.bootstrap()
+        self.write("guide.md", "See [missing](missing.md).\n")
+        self.commit("broken link committed")
+        self.write("guide.md", "See [readme](README.md).\n")   # fixed only in the working tree
+        self.assertEqual(self.findings("FAIL", "links")[0], [])
+        committed = self.findings("FAIL", "links", ref="HEAD")[0]
+        self.assertEqual([i["message"] for i in committed], ["Broken relative link: missing.md"])
+
+    def test_untracked_target_of_tracked_document_requires_review(self):
+        self.init_git()
+        self.bootstrap()
+        self.write("guide.md", "See [notes](notes.md).\n")
+        self.commit("guide")
+        self.write("notes.md", "# Notes\n")                   # not yet committed
+        reviews = self.findings("REVIEW", "links")[0]
+        self.assertEqual(len(reviews), 1)
+        self.assertIn("untracked", reviews[0]["message"])
+
+    def test_unknown_revision_checks_nothing_and_passes_nothing(self):
+        self.init_git()
+        self.bootstrap()
+        self.commit("init")
+        found, report = self.findings(ref="no-such-ref")
+        self.assertEqual([i["level"] for i in found], ["UNVERIFIED"])
+        self.assertEqual(report.overall(), "INDETERMINATE")
+
+    def test_cli_reports_document_source(self):
+        self.init_git()
+        self.bootstrap()
+        self.commit("init")
+        with contextlib.redirect_stdout(io.StringIO()) as output:
+            docstd.main(["check", str(self.root), "--ref", "HEAD"])
+        self.assertIn("Documents: Git revision", output.getvalue())
+        with contextlib.redirect_stdout(io.StringIO()) as output:
+            docstd.main(["check", str(self.root), "--json"])
+        self.assertIn("working tree", json.loads(output.getvalue())["source"]["documents"])
+
+
+class ReleaseEvidenceTests(Workspace):
+    """Correction C: missing local tags never establish that no public release exists."""
+
+    def release_repo(self, changelog: str, tag: str | None = None):
+        self.init_git()
+        self.bootstrap()
+        self.write("Changelog.md", changelog)
+        self.commit("init")
+        if tag:
+            git(self.root, "tag", tag)
+
+    def bare_remote(self, push_tags: bool):
+        remote = self.root / ".." / (self.root.name + "-remote.git")
+        git(self.root.parent, "init", "-q", "--bare", str(remote))
+        self.addCleanup(subprocess.run, ["rm", "-rf", str(remote)])
+        git(self.root, "remote", "add", "origin", str(remote))
+        git(self.root, "push", "-q", "origin", "main", *(["--tags"] if push_tags else []))
+        return remote
+
+    def levels(self, **kwargs):
+        return [i["level"] for i in self.findings(check="changelog", **kwargs)[0]]
+
+    def test_no_tags_in_full_clone_requires_owner_review(self):
+        self.release_repo("# Changelog\n\nNo public release has been published.\n")
+        found = self.findings(check="changelog")[0]
+        self.assertEqual([i["level"] for i in found], ["REVIEW"])
+        self.assertIn("does not prove", found[0]["message"])
+
+    def test_shallow_clone_is_unverified(self):
+        self.release_repo("# Changelog\n\nNo public release has been published.\n")
+        clone = Path(tempfile.mkdtemp())
+        self.addCleanup(subprocess.run, ["rm", "-rf", str(clone)])
+        subprocess.run(["git", "clone", "-q", "--depth", "1", f"file://{self.root}", str(clone / "c")], check=True)
+        report = docstd.run_check(clone / "c")
+        self.assertEqual([i["level"] for i in report.items if i["check"] == "changelog"], ["UNVERIFIED"])
+
+    def test_unreachable_remote_is_unverified(self):
+        self.release_repo("# Changelog\n\nNo public release has been published.\n")
+        git(self.root, "remote", "add", "origin", str(self.root / "no-such-remote.git"))
+        self.assertEqual(self.levels(remote="origin"), ["UNVERIFIED"])
+
+    def test_version_missing_locally_and_on_remote_requires_review(self):
+        self.release_repo("# Changelog\n\n## 1.0.0\n\n- First release.\n")
+        self.bare_remote(push_tags=False)
+        self.assertEqual(self.levels(remote="origin"), ["REVIEW"])
+
+    def test_remote_only_tag_requires_fetch_not_pass(self):
+        self.release_repo("# Changelog\n\n## 1.0.0\n\n- First release.\n", tag="v1.0.0")
+        self.bare_remote(push_tags=True)
+        git(self.root, "tag", "-d", "v1.0.0")                 # local checkout without tags
+        found = self.findings(check="changelog", remote="origin")[0]
+        self.assertEqual([i["level"] for i in found], ["REVIEW"])
+        self.assertIn("exists on the remote but not locally", found[0]["message"])
+
+    def test_remote_tags_do_not_hide_an_unlisted_release(self):
+        self.release_repo("# Changelog\n\nNo public release has been published.\n", tag="v0.1.0")
+        self.assertEqual(self.levels(), ["REVIEW"])
+
+    def test_local_tag_with_contained_work_passes(self):
+        self.release_repo("# Changelog\n\n## 1.0.0\n\n- First release.\n", tag="v1.0.0")
+        self.assertEqual(self.levels(), ["PASS"])
 
 
 class SteGuardTests(unittest.TestCase):
@@ -299,18 +441,67 @@ class SteGuardTests(unittest.TestCase):
         self.assertNotIn("compliant", output.stdout.replace("not proof of ASD-STE100 compliance", ""))
 
 
+NEW_SKILLS = ("kestrel-documentation-maintenance", "kestrel-technical-writing-ste100")
+
+
+def frontmatter(text: str) -> dict:
+    head = text.split("---", 2)[1]
+    return dict(line.split(": ", 1) for line in head.strip().splitlines())
+
+
 class SkillPackagingTests(unittest.TestCase):
-    def test_new_skills_are_self_contained(self):
-        for name in ("kestrel-documentation-maintenance", "kestrel-technical-writing-ste100"):
-            skill = ROOT / "skills" / name
+    """Correction A: each new skill works when its folder is installed alone."""
+
+    def install_alone(self, name: str) -> Path:
+        home = Path(tempfile.mkdtemp())           # a host skills folder holding only this skill
+        self.addCleanup(subprocess.run, ["rm", "-rf", str(home)])
+        target = home / "skills" / name
+        shutil.copytree(ROOT / "skills" / name, target)
+        return target
+
+    def test_isolated_install_has_no_unresolved_references(self):
+        for name in NEW_SKILLS:
+            skill = self.install_alone(name)
             for md in skill.rglob("*.md"):
-                for target in docstd.link_targets(md.read_text(encoding="utf-8")):
-                    raw = target[1].split("#", 1)[0]
-                    if not raw or docstd.SCHEME.match(raw):
+                for line, raw in docstd.link_targets(md.read_text(encoding="utf-8")):
+                    path = raw.split("#", 1)[0]
+                    if not path or docstd.SCHEME.match(path):
                         continue
-                    resolved = (md.parent / raw).resolve()
-                    sibling = resolved.is_relative_to(ROOT / "skills") and resolved.name == "SKILL.md"
-                    self.assertTrue(resolved.is_relative_to(skill) or sibling, f"{md}: {raw}")
+                    resolved = (md.parent / path).resolve()
+                    self.assertTrue(resolved.is_relative_to(skill.resolve()) and resolved.exists(),
+                                    f"{name}: {md.relative_to(skill)}:{line} -> {raw}")
+
+    def test_isolated_documentation_skill_runs_its_tool(self):
+        skill = self.install_alone("kestrel-documentation-maintenance")
+        repo = Path(tempfile.mkdtemp())
+        self.addCleanup(subprocess.run, ["rm", "-rf", str(repo)])
+        script = skill / "scripts" / "docstd.py"
+        applied = subprocess.run(["python3", str(script), "init", str(repo), "--apply"], capture_output=True, text=True)
+        self.assertEqual(applied.returncode, 0, applied.stdout + applied.stderr)
+        self.assertEqual(sorted(p.name for p in repo.iterdir()), sorted(docstd.CORE_NAMES))
+        checked = subprocess.run(["python3", str(script), "check", str(repo)], capture_output=True, text=True)
+        self.assertIn("Overall:", checked.stdout)
+
+    def test_isolated_writing_skill_runs_its_tool(self):
+        skill = self.install_alone("kestrel-technical-writing-ste100")
+        work = Path(tempfile.mkdtemp())
+        self.addCleanup(subprocess.run, ["rm", "-rf", str(work)])
+        (work / "a.md").write_text("Run `make test`.\n")
+        (work / "b.md").write_text("Run `make check`.\n")
+        result = subprocess.run(["python3", str(skill / "scripts" / "ste_check.py"), "protect",
+                                 str(work / "a.md"), str(work / "b.md")], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 1)
+
+    def test_descriptions_declare_every_other_skill_they_use(self):
+        all_skills = {p.parent.name for p in (ROOT / "skills").glob("*/SKILL.md")}
+        for name in NEW_SKILLS:
+            text = (ROOT / "skills" / name / "SKILL.md").read_text(encoding="utf-8")
+            description = frontmatter(text)["description"]
+            body = text.split("---", 2)[2]
+            for other in sorted(all_skills - {name}):
+                if re.search(rf"\b{re.escape(other)}\b", body):
+                    self.assertIn(other, description, f"{name} uses {other} without declaring it")
+                    self.assertRegex(description, r"(?i)optional", f"{name}: say whether {other} is optional")
 
     def test_templates_match_core_manifest(self):
         templates = ROOT / "skills/kestrel-documentation-maintenance/assets/templates"

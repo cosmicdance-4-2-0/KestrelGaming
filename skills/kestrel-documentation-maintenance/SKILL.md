@@ -1,6 +1,6 @@
 ---
 name: kestrel-documentation-maintenance
-description: Audit, maintain, or reconcile repository documentation under the Kestrel documentation standard (seven core documents with exact names, one authority per topic, user Changelog.md separate from developer devlog.md). Use when documentation may be stale or contradictory, when links or release notes need repair, when a repository needs its core documents initialized, or after a merge or release changes the current state. Not for release authorization, code audits, or rewriting approved decisions.
+description: Audit, maintain, or reconcile repository documentation under the Kestrel documentation standard (seven core documents with exact names, one authority per topic, user Changelog.md separate from developer devlog.md). Use when documentation may be stale or contradictory, when links or release notes need repair, when a repository needs its core documents initialized, or after a merge or release changes the current state. Not for release authorization, code audits, or rewriting approved decisions. Self-contained; optionally uses the kestrel-technical-writing-ste100 skill, when installed, for new technical prose.
 ---
 
 # Documentation maintenance
@@ -13,10 +13,24 @@ The standard is in [DOC_STANDARD.md](references/DOC_STANDARD.md). The tool is
 [`scripts/docstd.py`](scripts/docstd.py) (Python 3.9+, standard library only). Run it from any directory:
 
 ```sh
-python3 <this-skill>/scripts/docstd.py check <repo> [--ref origin/main]
-python3 <this-skill>/scripts/docstd.py init <repo>            # plan only
-python3 <this-skill>/scripts/docstd.py init <repo> --apply    # create missing files; never overwrites
+python3 <this-skill>/scripts/docstd.py check <repo>                 # working tree; Git evidence from HEAD
+python3 <this-skill>/scripts/docstd.py check <repo> --ref <rev>     # only the documents committed at <rev>
+python3 <this-skill>/scripts/docstd.py check <repo> --remote        # also list release tags on origin (network)
+python3 <this-skill>/scripts/docstd.py init <repo>                  # plan only
+python3 <this-skill>/scripts/docstd.py init <repo> --apply          # create missing files; never overwrites
 ```
+
+Every report names its document source. Report a working-tree result as a working-tree result; use `--ref` when
+you claim that a commit, branch or pull-request head is valid.
+
+## Packaging
+
+This folder is self-contained: it holds the standard, the templates and the tool, and every link resolves inside
+the folder. It works when it is installed alone.
+
+**Optional integration:** the `kestrel-technical-writing-ste100` skill. Install it beside this skill to apply
+STE-informed rules to new technical prose (step 6). If it is not installed, step 6 still applies, and your report
+must state that STE-informed review was not applied.
 
 ## Modes
 
@@ -51,10 +65,11 @@ Select one mode before you start, and report which mode you used.
    decisions, immutable artifacts or timestamped handoffs. Mark historical text as historical. Link a
    superseding decision; do not change what was originally observed. Relocate unique chronology only inside
    the authorized scope.
-6. **Edit concise, factual documentation.** For new technical prose, apply
-   [kestrel-technical-writing-ste100](../kestrel-technical-writing-ste100/SKILL.md). Do not copy its rules here.
-   Do not rewrite approved marketing copy, quotations or immutable records. Keep compatibility and ownership
-   qualifications; do not simplify them into false claims.
+6. **Edit concise, factual documentation.** For new technical prose, invoke the `kestrel-technical-writing-ste100`
+   skill by name when it is installed; do not copy its rules here. Without it, write short, direct, factual
+   sentences, never change identifiers, commands, numbers or units, and say that STE-informed review was not
+   applied. Do not rewrite approved marketing copy, quotations or immutable records. Keep compatibility and
+   ownership qualifications; do not simplify them into false claims.
 7. **Maintain release notes against actual public releases.** Compare `Changelog.md` with the last public
    release. A defect introduced and fixed only during unreleased development is not a public fix. Put
    development chronology in `devlog.md` or PR evidence. A merged PR is not a release.
