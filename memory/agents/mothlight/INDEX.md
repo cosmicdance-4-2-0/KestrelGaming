@@ -5,6 +5,7 @@ Mothlight is a **draft** individual Kestrel engineer on the dedicated
 organizational identity. Attributed work is recorded separately from the founding
 character design and proposed behavioral trials.
 
+- [DOC-STD-001 documentation governance and skill continuity](2026-11-20-doc-std-001-mothlight-continuity-6e42a19f.md) — owner-selected seven exact-case core documents, user/developer log boundary, Auralprint1 maintenance pattern, STE-informed writing, public PR #12 pilot status and restricted-project privacy boundary.
 - [IDIW private editorial reference and contact decision](2026-11-20-idiw-private-editorial-contact-reference-42e19c0a.md) — owner-retained creator handoff in restricted Library, not for verbatim publication; selected contact destination in a private note, delivery and implementation unverified.
 - [IDIW formal brand adoption](2026-11-19-idiw-brand-adoption-8bbaf328.md) — **Ideas Developed Into Worlds** adopted as official name; **I Did It, Weird!** remains optional playful interpretation, not default website copy.
 - [IDIW earlier creative-direction and acronym exploration](2026-11-19-idiw-creative-direction-checkpoint-f27a19c4.md) — **superseded for naming**; preserves owner reactions and Neon/hub context before the official naming decision.
