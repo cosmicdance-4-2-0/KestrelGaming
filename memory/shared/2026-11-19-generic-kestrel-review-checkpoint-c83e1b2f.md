@@ -1,13 +1,13 @@
 ---
 schema: 1
 id: 2026-11-19-generic-kestrel-review-checkpoint-c83e1b2f
-kind: handoff
+kind: decision
 scope: shared
 status: active
 evidence: user-stated
 author: generic-kestrel-session-2026-11-19
 created: 2026-11-19
-updated: 2026-11-19
+updated: 2026-11-20
 sources: "Owner's 2026-11-19 request to save generic Kestrel continuity after preparing independent Kestrel engineering reviews for the private IDIW project. Public-safe content only; private PR details intentionally omitted."
 ---
 

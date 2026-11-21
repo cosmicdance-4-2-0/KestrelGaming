@@ -9,6 +9,8 @@ are not standalone installed host plugins.
 | [kestrel-recall](kestrel-recall/SKILL.md) | Begin or resume a project task; retrieve relevant shared context |
 | [kestrel-remember](kestrel-remember/SKILL.md) | Save a useful lesson, decision, project profile, or resumable handoff |
 | [kestrel-html-conformance](kestrel-html-conformance/SKILL.md) | Lesson 1: create, edit, generate, or ship HTML; validate final artifacts with the official Nu Html Checker and require a verified zero-error gate |
+| [kestrel-documentation-maintenance](kestrel-documentation-maintenance/SKILL.md) | Audit, maintain, or reconcile repository documentation under DOC-STD-001 (seven exact-case core documents, Changelog vs devlog); includes a stdlib bootstrap/validator |
+| [kestrel-technical-writing-ste100](kestrel-technical-writing-ste100/SKILL.md) | Write or revise technical prose with ASD-STE100-informed rules while preserving identifiers and meaning; no compliance claims |
 
 ## Core mathematics (independent curriculum)
 
