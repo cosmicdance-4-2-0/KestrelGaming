@@ -12,7 +12,7 @@
 | [Audio engineering curriculum progress and audit checkpoint (2026-11-05)](handoffs/2026-11-05-audio-curriculum-mainline-checkpoint-r01.md) | Active | PR #2 pinned 19/73 status, no-early-merge gate, 451-test CI provenance, numerical audit findings, PPM limitation, next-agent directions |
 | [Skills cross-host portability audit (2026-11-20)](2026-11-20-skills-portability-audit-4203ec3b.md) | Active | Agent Skills spec conformance, out-of-folder links, missing host discovery, validator gaps, unverified host claims |
 | [Skills portability work order](handoffs/2026-11-20-skills-portability-work-order-4203ec3b.md) | Active | Tiered portability targets, acceptance criteria, owner decisions D1–D6, staged plan; D1 applied |
-| [DOC-STD-001 documentation standard prototype](handoffs/2026-11-20-doc-std-001-prototype-c5b2de0f.md) | Active | Documentation standard, docstd tool, two skills, private pilot outcome (public-safe), Definition of Done status, open decisions |
+| [DOC-STD-001 documentation standard prototype](handoffs/2026-11-20-doc-std-001-prototype-c5b2de0f.md) | Active | Documentation standard, docstd tool, two skills, private pilot outcome (public-safe), review corrections A–C, Claude Code discovery evidence, open decisions |
 
 Task handoffs belong under handoffs/ with a unique task filename.
 Historical GitHub checks cover structure and small mathematical examples, not Kestrel agent behavior or production host activation.

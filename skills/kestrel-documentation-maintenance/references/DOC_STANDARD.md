@@ -116,7 +116,8 @@ follow-up. Do not create a competing root copy.
     "ROADMAP.md": {"path": "docs/ROADMAP.md", "reason": "Relocation deferred; see the migration review."}
   },
   "living": ["docs/reviews/RELEASE_READINESS.md"],
-  "historical": ["docs/history/**"]
+  "historical": ["docs/history/**"],
+  "generated": ["build/**"]
 }
 ```
 
@@ -124,6 +125,8 @@ follow-up. Do not create a competing root copy.
 - `living`: extra documents that make current-state claims and must be checked for stale baselines.
 - `historical`: glob patterns for archived documents that keep old names. They are excluded from
   duplicate-authority warnings.
+- `generated`: glob patterns for build output that is never committed. A link to such a target is REVIEW, not
+  FAIL. Without this policy, a link to an ignored or uncommitted target is a FAIL.
 
 ## 9. Tools
 
@@ -135,6 +138,22 @@ follow-up. Do not create a competing root copy.
   case-fold collisions, relative links and fragments with case-sensitive resolution, duplicate authorities,
   stale current-state baselines, unevidenced verification claims, changelog entries against release tags,
   development-log order and README chronology.
+
+**Document source.** Every report names where its documents came from.
+
+- Without `--ref`, the source is the **working tree**: tracked files and untracked files that Git does not ignore.
+  Git evidence comes from `HEAD`. A link whose target exists only as an ignored file is a FAIL (or REVIEW under a
+  `generated` policy). A link from a tracked document to an untracked target is REVIEW. A working-tree result is
+  not a result for any commit.
+- With `--ref REV`, documents, the file inventory and Git evidence all come from that revision. The working tree is
+  not read. Use this mode to state that a commit, branch or pull-request head is valid.
+
+**Release evidence.** Release checks use local tags by default, so the tool works offline. `--remote` also lists
+the remote's tags; a failure to list them is UNVERIFIED. A missing tag never establishes that no public release
+exists: a `Changelog.md` without release entries and without tags is REVIEW (the owner confirms). A shallow clone,
+or a version entry without a local tag that was not checked against a remote, is UNVERIFIED. A tag found only on
+the remote is REVIEW (fetch tags to verify what the release contains). A local tag is accepted as the release
+record; publication itself is not verified.
 
 The checks are structural and heuristic. A PASS does not prove that documentation is accurate. Unavailable
 evidence is reported as UNVERIFIED, never as PASS.

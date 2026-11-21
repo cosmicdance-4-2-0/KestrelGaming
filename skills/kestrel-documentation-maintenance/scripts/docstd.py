@@ -7,12 +7,24 @@ Python 3.9+, standard library only. Run from any directory.
         Plan the seven core documents. The default prints a plan and writes nothing.
         --apply creates only documents that are missing, have no case variant, and
         have no equivalent at another path. It never overwrites a file.
-  check [ROOT] [--ref REF] [--json] [--strict]
+  check [ROOT] [--ref REV] [--remote [NAME]] [--json] [--strict]
         Report findings at four levels:
           PASS        verified automatically
           FAIL        a definite discrepancy
           REVIEW      a person must decide; the tool cannot verify it
           UNVERIFIED  the evidence needed for the check is not available
+
+Document source:
+  Without --ref, documents come from the working tree: tracked files plus untracked
+  files that Git does not ignore. Git evidence (baselines, merges) comes from HEAD.
+  A link whose target exists only as an ignored or untracked local file is reported,
+  because that target is not part of the committed deliverable.
+  With --ref REV, documents, the file inventory and Git evidence all come from that
+  revision. The working tree is not read.
+Release evidence:
+  Local tags are used by default (offline). --remote also lists the remote's tags
+  with `git ls-remote`; a failure is UNVERIFIED. A missing tag never proves that no
+  public release exists.
 
 Exit status for check: 0 = no FAIL and no UNVERIFIED (REVIEW items may remain),
 1 = at least one FAIL (with --strict, REVIEW also counts as failure),
@@ -58,10 +70,12 @@ ALIASES = {
 # Living documents that make current-state claims. Changelog, devlog and DECISIONS
 # are dated records, so they are not checked for stale "current" claims.
 CURRENT_STATE_DOCS = ("README.md", "AGENTS.md", "ROADMAP.md", "VERSIONING.md")
+CONFIG_KEYS = {"schema", "locations", "living", "historical", "generated"}
 TEMPLATE_MARKER = "<!-- docstd:template"
 TEMPLATES = Path(__file__).resolve().parent.parent / "assets" / "templates"
 SKIP_DIRS = {".git", "node_modules"}
 LEVELS = ("FAIL", "UNVERIFIED", "REVIEW", "PASS")
+REMOTE_TIMEOUT = 30
 
 SHA = r"[0-9a-f]{7,40}"
 BRANCH_SHA = re.compile(r"(?<![\w/])[A-Za-z][\w.-]*@(" + SHA + r")\b")
@@ -78,6 +92,7 @@ EVIDENCE_MARK = re.compile(
 DATE = re.compile(r"\b(\d{4}-\d{2}-\d{2})\b")
 VERSION_HEADING = re.compile(r"^#{2,3}\s+\[?v?(\d+(?:\.\d+)+(?:[-+][0-9A-Za-z.-]+)?)\]?")
 UNRELEASED_HEADING = re.compile(r"^#{2,3}\s+\[?(unreleased|upcoming)\]?\b", re.I)
+NO_RELEASE_STATEMENT = re.compile(r"no public release|not (yet )?been released|no releases? (yet|have been)", re.I)
 INLINE_LINK = re.compile(
     r"!?\[(?:[^\[\]\n]|\[[^\[\]\n]*\])*\]\(\s*(<[^>\n]*>|[^)\s]+)"
     r"(?:\s+(?:\"[^\"\n]*\"|'[^'\n]*'|\([^)\n]*\)))?\s*\)")
@@ -89,53 +104,96 @@ SCHEME = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]*:")
 
 # ---------------------------------------------------------------- repository facts
 class Repo:
-    """Read-only view of a documentation root, with optional Git evidence."""
+    """Read-only view of documentation from the working tree or from one Git revision."""
 
-    def __init__(self, root: Path, ref: str = "HEAD"):
+    def __init__(self, root: Path, ref: str | None = None, remote: str | None = None):
         self.root = root.resolve()
         self.ref = ref
+        self.remote = remote
         self.git = self._git("rev-parse", "--is-inside-work-tree").stdout.strip() == "true"
         self.shallow = self.git and self._git("rev-parse", "--is-shallow-repository").stdout.strip() == "true"
-        self.ref_ok = self.git and self._git("rev-parse", "--verify", "--quiet", ref + "^{commit}").returncode == 0
+        wanted = ref or "HEAD"
+        sha = self._git("rev-parse", "--verify", "--quiet", wanted + "^{commit}").stdout.strip() if self.git else ""
+        self.rev = sha or None                     # Git evidence revision
+        self.mode = "git" if ref else "worktree"   # where documents are read from
+        self.available = not ref or bool(self.rev)
         self.identity = self._identity() if self.git else None
-        self.files = self._files()
+        self.tracked: set[str] = set()
+        self.names: list[str] = []                 # every path the deliverable would name
+        self.files = self._files() if self.available else []
+        self.dirs = self._dirs(self.files)
         self.config, self.config_errors = self._config()
+        self._remote_tags = ...                    # not fetched yet
 
-    def _git(self, *args: str) -> subprocess.CompletedProcess:
+    # -- process helpers
+    def _git(self, *args: str, timeout: float | None = None) -> subprocess.CompletedProcess:
         try:
             return subprocess.run(["git", "-C", str(self.root), *args], capture_output=True, text=True,
-                                  encoding="utf-8", errors="replace", check=False)
-        except OSError:
-            return subprocess.CompletedProcess(args, 127, "", "git unavailable")
+                                  encoding="utf-8", errors="replace", check=False, timeout=timeout)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return subprocess.CompletedProcess(args, 124, "", str(exc))
 
     def _identity(self):
         url = self._git("remote", "get-url", "origin").stdout.strip()
         match = re.search(r"github\.com[:/]([\w.-]+)/([\w.-]+?)(?:\.git)?/?$", url, re.I)
         return (match[1].casefold(), match[2].casefold()) if match else None
 
+    # -- inventory
     def _files(self) -> list[str]:
+        if self.mode == "git":
+            out = self._git("ls-tree", "-r", "-z", "--name-only", self.rev).stdout
+            self.names = sorted(p for p in out.split("\0") if p)
+            return list(self.names)
         if self.git:
+            self.tracked = {p for p in self._git("ls-files", "-z", "--cached").stdout.split("\0") if p}
             out = self._git("ls-files", "-z", "--cached", "--others", "--exclude-standard").stdout
-            return sorted({path for path in out.split("\0") if path})
+            # Index entries count for name collisions even when no file is on disk.
+            self.names = sorted(p for p in set(out.split("\0")) if p)
+            return [p for p in self.names if (self.root / p).exists()]
         found = []
         for current, dirs, names in os.walk(self.root):
             dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
             for name in names:
                 found.append((Path(current) / name).relative_to(self.root).as_posix())
-        return sorted(found)
+        self.names = sorted(found)
+        return list(self.names)
+
+    @staticmethod
+    def _dirs(files: list[str]) -> dict[str, set[str]]:
+        tree: dict[str, set[str]] = {"": set()}
+        for path in files:
+            parts = path.split("/")
+            for depth in range(len(parts)):
+                parent = "/".join(parts[:depth])
+                tree.setdefault(parent, set()).add(parts[depth])
+            for depth in range(1, len(parts)):
+                tree.setdefault("/".join(parts[:depth]), set())
+        return tree
+
+    def describe(self) -> dict:
+        if self.mode == "git":
+            source = f"Git revision {self.rev[:12]} ({self.ref})" if self.rev else f"Git revision {self.ref} (unavailable)"
+            evidence = source
+        elif self.git:
+            source = "working tree (tracked and unignored untracked files; uncommitted changes included)"
+            evidence = f"HEAD {self.rev[:12]}" if self.rev else "none (no commits)"
+        else:
+            source = "directory (not a Git work tree)"
+            evidence = "none"
+        return {"documents": source, "git_evidence": evidence,
+                "release_evidence": "local tags" + (f" and remote {self.remote!r}" if self.remote else " only")}
 
     def _config(self):
-        path = self.root / ".docstd.json"
-        if not path.is_file():
+        if ".docstd.json" not in self.files:
             return {}, []
         try:
-            data = json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, ValueError) as exc:
+            data = json.loads(self.read(".docstd.json"))
+        except ValueError as exc:
             return {}, [f".docstd.json is not valid JSON: {exc}"]
         errors = []
         if not isinstance(data, dict) or data.get("schema") != 1:
             return {}, [".docstd.json must be an object with \"schema\": 1"]
-        unknown = set(data) - {"schema", "locations", "living", "historical"}
+        unknown = set(data) - CONFIG_KEYS
         if unknown:
             errors.append(f".docstd.json has unknown keys: {', '.join(sorted(unknown))}")
         locations = data.get("locations", {})
@@ -143,14 +201,13 @@ class Repo:
             if name not in CORE_NAMES or not isinstance(entry, dict) or not entry.get("path") or not entry.get("reason"):
                 errors.append(f".docstd.json location for {name!r} needs a core name, \"path\" and \"reason\"")
                 locations.pop(name)
-        return {"locations": locations if isinstance(locations, dict) else {},
-                "living": [p for p in data.get("living", []) if isinstance(p, str)],
-                "historical": [p for p in data.get("historical", []) if isinstance(p, str)]}, errors
+        lists = {key: [p for p in data.get(key, []) if isinstance(p, str)] for key in ("living", "historical", "generated")}
+        return {"locations": locations if isinstance(locations, dict) else {}, **lists}, errors
 
-    # Exact-case path resolution, independent of the host file system's case rules.
+    # -- exact-case resolution against the inventory, never the host file system
     def resolve(self, rel: str) -> tuple[str, str]:
         """Return ("ok"|"case"|"missing"|"outside", actual relative path or '')."""
-        current, actual = self.root, []
+        actual: list[str] = []
         for part in PurePosixPath(rel).parts:
             if part in ("", "."):
                 continue
@@ -158,8 +215,21 @@ class Repo:
                 if not actual:
                     return "outside", ""
                 actual.pop()
-                current = current.parent
                 continue
+            entries = self.dirs.get("/".join(actual), set())
+            if part in entries:
+                actual.append(part)
+                continue
+            folded = [e for e in entries if e.casefold() == part.casefold()]
+            if folded:
+                return "case", "/".join(actual + [folded[0]])
+            return "missing", ""
+        return "ok", "/".join(actual)
+
+    def resolve_disk(self, rel: str) -> tuple[str, str]:
+        """Exact-case resolution against the working tree (used before writing files)."""
+        current, actual = self.root, []
+        for part in PurePosixPath(rel).parts:
             try:
                 entries = os.listdir(current)
             except OSError:
@@ -169,25 +239,37 @@ class Repo:
                 current = current / part
                 continue
             folded = [e for e in entries if e.casefold() == part.casefold()]
-            if folded:
-                return "case", "/".join(actual + [folded[0]])
-            return "missing", ""
+            return ("case", "/".join(actual + [folded[0]])) if folded else ("missing", "")
         return "ok", "/".join(actual)
 
+    def is_dir(self, rel: str) -> bool:
+        return rel in self.dirs and rel not in self.files
+
     def read(self, rel: str) -> str:
+        if self.mode == "git":
+            return self._git("show", f"{self.rev}:{rel}").stdout
         try:
             return (self.root / rel).read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError):
             return ""
 
-    def is_historical(self, rel: str) -> bool:
-        return any(fnmatch.fnmatchcase(rel, pattern) for pattern in self.config.get("historical", []))
+    def local_only(self, rel: str) -> str:
+        """Why a path absent from the inventory exists on disk: 'ignored', 'untracked', or ''."""
+        if not (self.root / rel).exists():
+            return ""
+        if self.git and self._git("check-ignore", "-q", "--", rel).returncode == 0:
+            return "ignored"
+        return "untracked" if self.git else ""
+
+    def matches(self, rel: str, key: str) -> bool:
+        return any(fnmatch.fnmatchcase(rel, pattern) for pattern in self.config.get(key, []))
 
     def core_location(self, name: str) -> tuple[str, bool]:
         """Path that holds a core responsibility, and whether it is a declared exception."""
         entry = self.config.get("locations", {}).get(name)
         return (entry["path"], True) if entry else (name, False)
 
+    # -- Git evidence
     def commit(self, sha: str) -> bool:
         return self._git("cat-file", "-e", sha + "^{commit}").returncode == 0
 
@@ -196,14 +278,25 @@ class Repo:
         return True if code == 0 else False if code == 1 else None
 
     def later_merges(self, sha: str) -> list[str]:
-        out = self._git("log", "--first-parent", "--merges", "--format=%h %s", f"{sha}..{self.ref}").stdout
+        out = self._git("log", "--first-parent", "--merges", "--format=%h %s", f"{sha}..{self.rev}").stdout
         return [line for line in out.splitlines() if line]
 
-    def tags(self) -> list[str]:
-        return [t for t in self._git("tag", "-l").stdout.splitlines() if t]
+    def local_tags(self) -> list[str]:
+        return [t for t in self._git("tag", "-l").stdout.splitlines() if t] if self.git else []
+
+    def remote_tags(self):
+        """Tag names on the remote, or None when the remote cannot be listed. Opt-in (network)."""
+        if self._remote_tags is ...:
+            if not (self.git and self.remote):
+                self._remote_tags = None
+            else:
+                out = self._git("ls-remote", "--tags", "--refs", self.remote, timeout=REMOTE_TIMEOUT)
+                self._remote_tags = None if out.returncode else \
+                    [line.split("refs/tags/", 1)[1] for line in out.stdout.splitlines() if "refs/tags/" in line]
+        return self._remote_tags
 
     def pr_commit(self, number: str):
-        out = self._git("log", "--first-parent", "--format=%H%x00%s", self.ref).stdout
+        out = self._git("log", "--first-parent", "--format=%H%x00%s", self.rev).stdout
         pattern = re.compile(rf"(?:Merge pull request #{number}\b|Merge PR #{number}\b|\(#{number}\)\s*$)")
         for line in out.splitlines():
             sha, _, subject = line.partition("\0")
@@ -284,8 +377,9 @@ def link_targets(text: str):
 
 # ---------------------------------------------------------------- findings
 class Report:
-    def __init__(self):
+    def __init__(self, source: dict | None = None):
         self.items: list[dict] = []
+        self.source = source or {}
 
     def add(self, level: str, check: str, message: str, path: str = "", line: int = 0):
         self.items.append({"level": level, "check": check, "path": path, "line": line, "message": message})
@@ -308,8 +402,7 @@ def check_core(repo: Repo, report: Report):
         if declared and status == "ok":
             report.add("REVIEW", "core", f"{name} responsibility is held at {path} by a declared exception: "
                        f"{repo.config['locations'][name]['reason']}", path)
-            root_status, _ = repo.resolve(name)
-            if root_status == "ok":
+            if repo.resolve(name)[0] == "ok":
                 report.add("FAIL", "authority", f"Both {name} and declared location {path} exist: two documents "
                            f"claim the same responsibility.", name)
         elif status == "ok":
@@ -320,24 +413,27 @@ def check_core(repo: Repo, report: Report):
             equivalents = [f for f in repo.files if PurePosixPath(f).name.casefold() in
                            ALIASES.get(name, set()) | {name.casefold()} and f != path]
             where = f"; candidate equivalent: {', '.join(equivalents)} (migration review)" if equivalents else ""
-            report.add("FAIL", "core", f"Missing core document {path}{where}.", path)
+            local = repo.local_only(path) if repo.mode == "worktree" else ""
+            note = f"; a local {local} copy exists but is not part of the deliverable" if local else ""
+            report.add("FAIL", "core", f"Missing core document {path}{where}{note}.", path)
 
 
 def check_collisions(repo: Repo, report: Report):
     groups: dict[str, list[str]] = {}
-    for path in repo.files:
+    for path in repo.names:
         groups.setdefault(path.casefold(), []).append(path)
     collisions = [paths for paths in groups.values() if len(paths) > 1]
     for paths in collisions:
         report.add("FAIL", "case-collision", "Paths differ only by case: " + ", ".join(paths), paths[0])
     if not collisions:
-        report.add("PASS", "case-collision", f"No case-fold collisions among {len(repo.files)} files.")
+        report.add("PASS", "case-collision", f"No case-fold collisions among {len(repo.names)} paths.")
 
 
 def check_links(repo: Repo, report: Report):
     markdown = [f for f in repo.files if f.casefold().endswith((".md", ".markdown"))]
     anchor_cache: dict[str, set[str]] = {}
     checked = 0
+    before = len(report.items)
     for source in markdown:
         text = repo.read(source)
         for number, line in enumerate(without_fences(text), 1):
@@ -351,10 +447,10 @@ def check_links(repo: Repo, report: Report):
             path_part = unquote(path_part.split("?", 1)[0])
             if path_part:
                 base = PurePosixPath("") if path_part.startswith("/") else PurePosixPath(source).parent
-                joined = (base / path_part.lstrip("/")).as_posix()
+                joined = os.path.normpath((base / path_part.lstrip("/")).as_posix()).replace(os.sep, "/")
                 status, actual = repo.resolve(joined)
                 checked += 1
-                if status == "outside":
+                if status == "outside" or joined.startswith(".."):
                     report.add("REVIEW", "links", f"Link leaves the repository: {target}", source, number)
                     continue
                 if status == "case":
@@ -362,14 +458,30 @@ def check_links(repo: Repo, report: Report):
                                f"(actual {actual}).", source, number)
                     continue
                 if status == "missing":
-                    report.add("FAIL", "links", f"Broken relative link: {target}", source, number)
+                    where = "this revision" if repo.mode == "git" else "the committed deliverable"
+                    if repo.matches(joined, "generated"):
+                        report.add("REVIEW", "links", f"Target {target} is declared generated in .docstd.json and "
+                                   f"absent from {where}; verify that the build creates it.", source, number)
+                    elif repo.mode == "git":
+                        # Revision mode must not inspect local files, even to explain a failure.
+                        report.add("FAIL", "links", f"Broken relative link: {target} (not in this revision).",
+                                   source, number)
+                    else:
+                        local = repo.local_only(joined)
+                        if local:
+                            report.add("FAIL", "links", f"Target {target} exists only as a local {local} file; it is "
+                                       f"not in {where}.", source, number)
+                        else:
+                            report.add("FAIL", "links", f"Broken relative link: {target}", source, number)
                     continue
+                if repo.mode == "worktree" and repo.git and source in repo.tracked and \
+                        not repo.is_dir(actual) and actual not in repo.tracked:
+                    report.add("REVIEW", "links", f"Target {target} is untracked: commit it, or the committed "
+                               "document's link breaks.", source, number)
                 destination = actual
             else:
                 destination = source
-            if not fragment or not destination.casefold().endswith((".md", ".markdown")):
-                continue
-            if (repo.root / destination).is_dir():
+            if not fragment or not destination.casefold().endswith((".md", ".markdown")) or repo.is_dir(destination):
                 continue
             if destination not in anchor_cache:
                 anchor_cache[destination] = anchors(repo.read(destination))
@@ -382,9 +494,9 @@ def check_links(repo: Repo, report: Report):
                            source, number)
             else:
                 report.add("FAIL", "links", f"Broken fragment #{wanted} in {destination}.", source, number)
-    if not any(i["check"] == "links" and i["level"] == "FAIL" for i in report.items):
+    if not any(i["check"] == "links" and i["level"] != "PASS" for i in report.items[before:]):
         report.add("PASS", "links", f"{checked} relative links across {len(markdown)} Markdown files resolve "
-                   "with exact casing (fragments use a GitHub-style approximation).")
+                   f"with exact casing in {repo.describe()['documents']} (fragments use a GitHub-style approximation).")
 
 
 def check_duplicates(repo: Repo, report: Report):
@@ -392,7 +504,7 @@ def check_duplicates(repo: Repo, report: Report):
         aliases = ALIASES.get(name)
         if not aliases:
             continue
-        holders = [f for f in repo.files if PurePosixPath(f).name.casefold() in aliases and not repo.is_historical(f)]
+        holders = [f for f in repo.files if PurePosixPath(f).name.casefold() in aliases and not repo.matches(f, "historical")]
         if len(holders) > 1:
             report.add("REVIEW", "authority", f"Several documents may hold the {name} responsibility: "
                        f"{', '.join(holders)}. Keep one authority; mark others historical in .docstd.json.", holders[0])
@@ -407,9 +519,10 @@ def check_git_claims(repo: Repo, report: Report):
     if not repo.git:
         report.add("UNVERIFIED", "git", "Not a Git work tree: commit, baseline and release claims were not checked.")
         return
-    if not repo.ref_ok:
-        report.add("UNVERIFIED", "git", f"Reference {repo.ref!r} is not available locally: claims were not checked.")
+    if not repo.rev:
+        report.add("UNVERIFIED", "git", "No commit is available for Git evidence: claims were not checked.")
         return
+    label = repo.rev[:12]
     stale = 0
     for doc in living_documents(repo):
         for number, line in enumerate(without_fences(repo.read(doc)), 1):
@@ -426,23 +539,22 @@ def check_git_claims(repo: Repo, report: Report):
                                doc, number)
                 elif current:
                     known.append(sha)
-            states = {sha: (repo.ancestor(sha, repo.ref), repo.later_merges(sha)) for sha in known}
+            states = {sha: (repo.ancestor(sha, repo.rev), repo.later_merges(sha)) for sha in known}
             # A line that also cites a commit with no later merges distinguishes an older
             # checkpoint from the current head, so its older references are not stale.
             reconciled = any(ancestry and not merges for ancestry, merges in states.values())
             for sha, (ancestry, merges) in states.items():
                 if ancestry is False:
                     report.add("REVIEW", "baseline", f"Current-state claim cites {sha}, which is not an ancestor of "
-                               f"{repo.ref}.", doc, number)
+                               f"{label}.", doc, number)
                 elif merges and not reconciled:
                     stale += 1
                     report.add("REVIEW", "baseline", f"Current-state claim cites {sha}, but {len(merges)} later "
-                               f"merge(s) exist on {repo.ref}; latest: {merges[0]}. Confirm or update the claim.",
+                               f"merge(s) exist up to {label}; latest: {merges[0]}. Confirm or update the claim.",
                                doc, number)
             if current and not refs:
                 numbers = [m[1] for m in PR_REF.finditer(line)]
-                merged = [(n, repo.pr_commit(n)) for n in numbers]
-                merged = [(n, c) for n, c in merged if c]
+                merged = [(n, c) for n, c in ((n, repo.pr_commit(n)) for n in numbers) if c]
                 if merged:
                     newest = max(merged, key=lambda item: int(item[0]))
                     later = repo.later_merges(newest[1])
@@ -454,7 +566,7 @@ def check_git_claims(repo: Repo, report: Report):
                 report.add("REVIEW", "verification", "Verification claim without a revision, run or date: confirm it "
                            "is current evidence, not a historical result.", doc, number)
     if not stale:
-        report.add("PASS", "baseline", f"No stale current-state baseline claims detected against {repo.ref}.")
+        report.add("PASS", "baseline", f"No stale current-state baseline claims detected against {label}.")
 
 
 def sections(lines: list[str], pattern) -> list[tuple[str, int, list[tuple[int, str]]]]:
@@ -470,6 +582,17 @@ def sections(lines: list[str], pattern) -> list[tuple[str, int, list[tuple[int, 
     return [s for s in found if s[0]]
 
 
+def release_evidence_gap(repo: Repo) -> str:
+    """Why local tags cannot be complete release evidence, or '' when no specific gap is known."""
+    if not repo.git:
+        return "no Git repository"
+    if repo.shallow:
+        return "shallow clone (tags may be missing)"
+    if repo.remote and repo.remote_tags() is None:
+        return f"remote {repo.remote!r} could not be listed"
+    return ""
+
+
 def check_changelog(repo: Repo, report: Report):
     path, _ = repo.core_location("Changelog.md")
     if repo.resolve(path)[0] != "ok":
@@ -480,27 +603,38 @@ def check_changelog(repo: Repo, report: Report):
         if UNRELEASED_HEADING.match(line):
             report.add("REVIEW", "changelog", "Unreleased section: each item must be a user-visible change relative "
                        "to the last public release, not development churn.", path, number)
-    tags = repo.tags() if repo.git else []
+    local = repo.local_tags()
+    remote = repo.remote_tags() if repo.remote else None
+    gap = release_evidence_gap(repo)
     if not versions:
-        text = "\n".join(lines).casefold()
-        if not re.search(r"no public release|not (yet )?been released|no releases? (yet|have been)", text):
+        if not NO_RELEASE_STATEMENT.search("\n".join(lines)):
             report.add("REVIEW", "changelog", "No release entries: state explicitly that no public release exists.", path)
-        if not repo.git:
-            report.add("UNVERIFIED", "changelog", "No Git evidence: absence of public releases is not confirmed.", path)
-        elif tags:
+        tags = sorted(set(local) | set(remote or []))
+        if tags:
             report.add("REVIEW", "changelog", f"Tags exist ({', '.join(tags[:5])}) but no release is listed. "
                        "Confirm whether any tag is a public release.", path)
-        elif repo.shallow:
-            report.add("UNVERIFIED", "changelog", "Shallow clone: absence of release tags is not confirmed.", path)
+        elif gap:
+            report.add("UNVERIFIED", "changelog", f"No release entries; release evidence is incomplete: {gap}.", path)
         else:
-            report.add("PASS", "changelog", "No release entries and no release tags: consistent.", path)
+            checked = "local tags and the remote's tags" if repo.remote else "local tags (remote not checked)"
+            report.add("REVIEW", "changelog", f"No release entries and no tags in {checked}. Absence of a tag does "
+                       "not prove that no public release exists: the owner confirms.", path)
         return
     for version, number, body in versions:
-        tag = next((t for t in tags if t in (version, "v" + version)), None)
+        names = (version, "v" + version)
+        tag = next((t for t in local if t in names), None)
         if not tag:
-            level = "UNVERIFIED" if (not repo.git or repo.shallow) else "REVIEW"
-            report.add(level, "changelog", f"Version {version} has no matching tag; a merged PR is not evidence of "
-                       "a public release.", path, number)
+            on_remote = next((t for t in remote or [] if t in names), None)
+            if on_remote:
+                report.add("REVIEW", "changelog", f"Version {version}: tag {on_remote} exists on the remote but not "
+                           "locally. Fetch tags to verify what the release contains.", path, number)
+            elif gap or not repo.remote:
+                why = gap or "only local tags were checked (use --remote, or fetch tags)"
+                report.add("UNVERIFIED", "changelog", f"Version {version} has no local tag; {why}. A merged PR is not "
+                           "evidence of a public release.", path, number)
+            else:
+                report.add("REVIEW", "changelog", f"Version {version} has no tag locally or on {repo.remote!r}: no "
+                           "verifiable publication evidence. Confirm the release or remove the entry.", path, number)
             continue
         problems = 0
         for line_number, text in body:
@@ -515,8 +649,8 @@ def check_changelog(repo: Repo, report: Report):
                     report.add("FAIL", "changelog", f"Entry under {version} cites {label}, which is not contained "
                                f"in release tag {tag}: merged-but-unreleased work.", path, line_number)
         if not problems:
-            report.add("PASS", "changelog", f"Version {version} matches tag {tag}; cited work is contained in it.",
-                       path, number)
+            report.add("PASS", "changelog", f"Version {version} matches local tag {tag}; cited work is contained in "
+                       "it. (The tag is the release record; publication itself is not verified.)", path, number)
 
 
 def check_devlog(repo: Repo, report: Report):
@@ -526,20 +660,20 @@ def check_devlog(repo: Repo, report: Report):
     lines = without_fences(repo.read(path))
     entries = [(m[1], n) for n, line in enumerate(lines, 1) for m in [re.match(r"^##\s+(\d{4}-\d{2}-\d{2})\b", line)] if m]
     dates = [d for d, _ in entries]
-    if dates and dates != sorted(dates) and dates != sorted(dates, reverse=True):
+    failed = bool(dates) and dates != sorted(dates) and dates != sorted(dates, reverse=True)
+    if failed:
         report.add("FAIL", "devlog", "Entries are not in one chronological order.", path, entries[0][1])
     for index, (date, number) in enumerate(entries):
         end = entries[index + 1][1] if index + 1 < len(entries) else len(lines) + 1
         body = "\n".join(lines[number:end - 1])
         if not re.search(SHA + r"|#\d+|\]\(", body):
             report.add("REVIEW", "devlog", f"Entry {date} has no commit, PR or evidence reference.", path, number)
-    if entries and not any(i["check"] == "devlog" and i["level"] == "FAIL" for i in report.items):
+    if entries and not failed:
         report.add("PASS", "devlog", f"{len(entries)} dated entries in chronological order.", path)
 
 
 def check_readme(repo: Repo, report: Report):
-    status, _ = repo.resolve("README.md")
-    if status != "ok":
+    if repo.resolve("README.md")[0] != "ok":
         return
     lines = without_fences(repo.read("README.md"))
     dated = [n for n, line in enumerate(lines, 1) if DATE.search(line)]
@@ -560,8 +694,12 @@ def check_templates(repo: Repo, report: Report):
                        "marker after review).", path)
 
 
-def run_check(root: Path, ref: str = "HEAD") -> Report:
-    repo, report = Repo(root, ref), Report()
+def run_check(root: Path, ref: str | None = None, remote: str | None = None) -> Report:
+    repo = Repo(root, ref, remote)
+    report = Report(repo.describe())
+    if not repo.available:
+        report.add("UNVERIFIED", "git", f"Revision {ref!r} is not available locally: no document was checked.")
+        return report
     for error in repo.config_errors:
         report.add("FAIL", "config", error, ".docstd.json")
     for name, entry in repo.config.get("locations", {}).items():
@@ -579,7 +717,7 @@ def plan_init(root: Path) -> list[dict]:
     plan = []
     for name, responsibility in CORE:
         path, declared = repo.core_location(name)
-        status, actual = repo.resolve(path)
+        status, actual = repo.resolve_disk(path)     # the file system decides what may be written
         if status == "ok":
             reason = "declared exception location" if declared else "exists; never overwritten"
             plan.append({"action": "keep", "path": path, "reason": reason})
@@ -589,7 +727,7 @@ def plan_init(root: Path) -> list[dict]:
                          "would collide on case-insensitive file systems"})
             continue
         equivalents = [f for f in repo.files if PurePosixPath(f).name.casefold() in ALIASES.get(name, set())
-                       and not repo.is_historical(f)]
+                       and not repo.matches(f, "historical")]
         if equivalents:
             plan.append({"action": "review", "path": path, "reason": "equivalent exists at "
                          + ", ".join(equivalents) + "; plan a migration or declare it in .docstd.json"})
@@ -626,7 +764,8 @@ def main(argv=None) -> int:
     init.add_argument("--json", action="store_true")
     check = sub.add_parser("check", help="validate documentation structure and claims")
     check.add_argument("root", nargs="?", default=".", type=Path)
-    check.add_argument("--ref", default="HEAD", help="Git revision for baseline and release checks")
+    check.add_argument("--ref", help="validate the documents committed at this Git revision (default: working tree)")
+    check.add_argument("--remote", nargs="?", const="origin", help="also list release tags on this remote (network)")
     check.add_argument("--json", action="store_true")
     check.add_argument("--strict", action="store_true", help="treat REVIEW as failure")
     args = parser.parse_args(argv)
@@ -646,11 +785,13 @@ def main(argv=None) -> int:
                 print(f"  {item['action'].upper():8} {item['path']}: {item['reason']}")
         return 1 if any(item["action"] == "review" for item in plan) else 0
 
-    report = run_check(args.root, args.ref)
+    report = run_check(args.root, args.ref, args.remote)
     if args.json:
-        print(json.dumps({"overall": report.overall(), "findings": report.items}, indent=2))
+        print(json.dumps({"overall": report.overall(), "source": report.source, "findings": report.items}, indent=2))
     else:
-        print(f"docstd check — {args.root.resolve()} (ref {args.ref})")
+        print(f"docstd check — {args.root.resolve()}")
+        for key, value in report.source.items():
+            print(f"  {key.replace('_', ' ').capitalize()}: {value}")
         for level in LEVELS:
             for item in (i for i in report.items if i["level"] == level):
                 where = f"{item['path']}:{item['line']}" if item["line"] else item["path"]
