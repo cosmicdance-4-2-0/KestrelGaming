@@ -7,7 +7,7 @@ status: active
 evidence: user-stated
 author: generic-kestrel-session-2026-11-20
 created: 2026-11-20
-updated: 2026-11-20
+updated: 2026-11-21
 sources: "Owner's 2026-11-20 requests: skills must work in any agent environment (Claude Code, Codex, Grok and others), then prepare a Kestrel project from the audit. Findings: the 2026-11-20 portability audit at cosmicdance-4-2-0/KestrelGaming 3aef6e5ba9a6c79b28d302f88f2be2fdb12bcb5a."
 ---
 
@@ -56,7 +56,7 @@ Target: **all skills at T1 and T2** for every supported host. **T3 is a per-skil
 - [ ] AC4. Every link leaving a skill's own folder is classified as required or optional. Required repository dependencies are declared in `compatibility`.
 - [ ] AC5. No skill description names a specific repository owner.
 - [ ] AC6. Install routes for each host are documented. Each route is labeled **verified** (with a trial reference) or **unverified**.
-- [ ] AC7. At least Claude Code and Codex are trial-verified. The trial covers listing, invocation by description match, invocation by name, and resolving one link outside the skill folder. Results are recorded as observed.
+- [ ] AC7. At least Claude Code and Codex are trial-verified. The trial covers listing, invocation by description match, invocation by name, and resolving one link outside the skill folder. Results are recorded as observed. **Partial evidence, 2026-11-21 (observed):** Claude Code 2.1.330 in a cloud container listed the two DOC-STD-001 skills about one minute after a copy install into `~/.claude/skills/`, loaded each by name, and resolved their supporting files. Not yet tested: description-based selection, symlink install (H1), other skills, Codex.
 - [ ] AC8. The audit's listing-budget hypothesis (finding 8) is either tested or explicitly carried forward as unverified.
 
 ### In scope
