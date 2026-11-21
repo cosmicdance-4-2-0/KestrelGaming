@@ -309,6 +309,35 @@ class CommittedContentTests(Workspace):
         levels = [i["level"] for i in self.findings(check="links")[0] if i["level"] != "PASS"]
         self.assertEqual(levels, ["REVIEW"])
 
+    def test_generated_target_is_review_without_a_local_output(self):
+        self.ignored_target_repo()
+        self.write(".docstd.json", json.dumps({"schema": 1, "generated": ["build/**"]}))
+        self.commit("declare generated output")
+        (self.root / "build/report.md").unlink()
+        for ref in (None, "HEAD"):
+            links = self.findings(check="links", ref=ref)[0]
+            self.assertEqual([item["level"] for item in links], ["REVIEW"])
+            self.assertIn("declared generated", links[0]["message"])
+
+    def test_generated_revision_findings_ignore_local_output_presence(self):
+        self.ignored_target_repo()
+        self.write(".docstd.json", json.dumps({"schema": 1, "generated": ["build/**"]}))
+        self.commit("declare generated output")
+        with_output = self.findings(check="links", ref="HEAD")[0]
+        (self.root / "build/report.md").unlink()
+        without_output = self.findings(check="links", ref="HEAD")[0]
+        self.assertEqual(with_output, without_output)
+        self.assertEqual([item["level"] for item in without_output], ["REVIEW"])
+
+    def test_missing_revision_link_does_not_depend_on_ignored_local_file(self):
+        self.ignored_target_repo()
+        with_output = self.findings(check="links", ref="HEAD")[0]
+        (self.root / "build/report.md").unlink()
+        without_output = self.findings(check="links", ref="HEAD")[0]
+        self.assertEqual(with_output, without_output)
+        self.assertEqual([item["level"] for item in without_output], ["FAIL"])
+        self.assertIn("not in this revision", without_output[0]["message"])
+
     def test_revision_mode_reads_committed_text_not_working_tree(self):
         self.init_git()
         self.bootstrap()

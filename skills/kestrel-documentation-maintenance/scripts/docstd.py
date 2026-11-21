@@ -458,16 +458,21 @@ def check_links(repo: Repo, report: Report):
                                f"(actual {actual}).", source, number)
                     continue
                 if status == "missing":
-                    local = repo.local_only(joined)
                     where = "this revision" if repo.mode == "git" else "the committed deliverable"
-                    if local and repo.matches(joined, "generated"):
-                        report.add("REVIEW", "links", f"Target {target} is a generated {local} file, absent from "
-                                   f"{where}; permitted by .docstd.json \"generated\".", source, number)
-                    elif local:
-                        report.add("FAIL", "links", f"Target {target} exists only as a local {local} file; it is not "
-                                   f"in {where}.", source, number)
+                    if repo.matches(joined, "generated"):
+                        report.add("REVIEW", "links", f"Target {target} is declared generated in .docstd.json and "
+                                   f"absent from {where}; verify that the build creates it.", source, number)
+                    elif repo.mode == "git":
+                        # Revision mode must not inspect local files, even to explain a failure.
+                        report.add("FAIL", "links", f"Broken relative link: {target} (not in this revision).",
+                                   source, number)
                     else:
-                        report.add("FAIL", "links", f"Broken relative link: {target}", source, number)
+                        local = repo.local_only(joined)
+                        if local:
+                            report.add("FAIL", "links", f"Target {target} exists only as a local {local} file; it is "
+                                       f"not in {where}.", source, number)
+                        else:
+                            report.add("FAIL", "links", f"Broken relative link: {target}", source, number)
                     continue
                 if repo.mode == "worktree" and repo.git and source in repo.tracked and \
                         not repo.is_dir(actual) and actual not in repo.tracked:
@@ -489,7 +494,7 @@ def check_links(repo: Repo, report: Report):
                            source, number)
             else:
                 report.add("FAIL", "links", f"Broken fragment #{wanted} in {destination}.", source, number)
-    if not any(i["check"] == "links" and i["level"] == "FAIL" for i in report.items[before:]):
+    if not any(i["check"] == "links" and i["level"] != "PASS" for i in report.items[before:]):
         report.add("PASS", "links", f"{checked} relative links across {len(markdown)} Markdown files resolve "
                    f"with exact casing in {repo.describe()['documents']} (fragments use a GitHub-style approximation).")
 
