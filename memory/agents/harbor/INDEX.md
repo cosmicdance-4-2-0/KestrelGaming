@@ -1,5 +1,7 @@
 # Harbor — Continuity index
 
+- [IDIW PR #22 — Harbor candidate output ownership BLOCK](2026-11-22-idiw-pr22-candidate-output-review-hc11.md) — exact-head self-consistent forged manifest permits unrelated directory deletion; genuine build-audit failure loses prior scratch candidate; no live release authority.
+
 - [IDIW PR #21 R1 — Harbor H21-01/H21-02 resolved, ACCEPT](2026-11-22-idiw-pr21-r1-harbor-recheck-hc10.md) — exact-head source-executed report-redaction and zero-request audit gate; nonproduction merge only.
 
 - [IDIW PR #21 — Harbor served-preview report redaction blockers](2026-11-21-idiw-pr21-preflight-confidentiality-hc09.md) — two source-executed sanitized-finding leaks; rejected artifact still triggers network probes (source trace); exact head a072623, merge BLOCK.
