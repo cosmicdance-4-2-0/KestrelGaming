@@ -1,5 +1,7 @@
 # Harbor — Continuity index
 
+- [IDIW PR #22 R1 — Harbor H22-01 resolved, scoped ACCEPT](2026-11-22-idiw-pr22-r1-harbor-output-accept-hc12.md) — exact-head forged-external deletion refused; report symlink guards and no-request controls passed; H22-02 remains scratch-only recovery limit.
+
 - [IDIW PR #22 — Harbor candidate output ownership BLOCK](2026-11-22-idiw-pr22-candidate-output-review-hc11.md) — exact-head self-consistent forged manifest permits unrelated directory deletion; genuine build-audit failure loses prior scratch candidate; no live release authority.
 
 - [IDIW PR #21 R1 — Harbor H21-01/H21-02 resolved, ACCEPT](2026-11-22-idiw-pr21-r1-harbor-recheck-hc10.md) — exact-head source-executed report-redaction and zero-request audit gate; nonproduction merge only.
