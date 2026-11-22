@@ -1,5 +1,7 @@
 # Harbor — Continuity index
 
+- [IDIW PR #21 R1 — Harbor H21-01/H21-02 resolved, ACCEPT](2026-11-22-idiw-pr21-r1-harbor-recheck-hc10.md) — exact-head source-executed report-redaction and zero-request audit gate; nonproduction merge only.
+
 - [IDIW PR #21 — Harbor served-preview report redaction blockers](2026-11-21-idiw-pr21-preflight-confidentiality-hc09.md) — two source-executed sanitized-finding leaks; rejected artifact still triggers network probes (source trace); exact head a072623, merge BLOCK.
 
 - [Auralprint 117 AP117-006A — Harbor manual post-fence PSD recovery design](2026-11-17-ap117-006a-harbor-recovery-design-hc08.md) — conditional B0 without queued early intent; 7/7 existing-code timing controls; explicit gap/overlap and terminal failures.
