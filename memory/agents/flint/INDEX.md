@@ -34,3 +34,4 @@ This is a public memory scope and a draft character; no authenticated running id
 
 - [Flint AP117-004 PR #13 R1 no-op compatibility re-review (2026-11-17)](2026-11-17-ap117-004-pr13-r1-flint-noop-compatibility-e7c4.md) — exact-head PASS at bce4442, independent original-vs-R1 source-executed slider/PCM/PSD controls, unchanged genuine-edit fencing and 131-test CI evidence.
 - [Flint IDIW S1-04R PR #22 re-review at 73978a0 (2026-11-22)](2026-11-22-idiw-s104r-pr22-rereview-hardlink-f2-a72d.md) — F1 404 backslash correction independently accepted, F2 external report hard-link overwrites verified site file; conditional acceptance, exact-head 411/356 CI and narrow exclusive-create correction.
+- [Flint IDIW-S1-03B-P PR #24 decision-packet review (2026-11-22)](2026-11-22-idiw-s103bp-pr24-source-drift-e18d.md) — conditional accept at 3a247129: source-grounded doc-only owner gate packet; canonical approved-copy contact instructions need dated IDIW-032 supersession.
