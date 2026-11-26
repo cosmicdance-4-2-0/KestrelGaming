@@ -18,4 +18,6 @@
 
 - [Stage Fright Gate 1 — Gauge independent authoritative-transition review](2026-11-11-stage-fright-gate1-gauge-authority-r11.md) — SF-0004 source-pinned tick, command, collision, one-debit, RNG, causal ledger and replay counterexamples; no peer Gate 1 results read.
 
+- [DSP research reviews and Opus reproducibility checkpoint R12](2026-11-26-gauge-dsp-research-reviews-r12.md) — PR #55/#56 exact-head reviews, Skill #51 reproducibility evidence, unresolved encoder hypothesis and next discriminating experiment.
+
 This is public scoped memory for a draft agent character. An onboarding record or scoped review does not establish a certified runtime identity or instrument-class measurement.
